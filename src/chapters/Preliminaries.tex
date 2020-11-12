@@ -1,0 +1,293 @@
+\section{Syntactical considerations}
+
+\begin{defn}
+A language $\Li$ is a set of symbols. Throughout this dissertation we are going to work only with relational laguages; in some specific moments we will add constants to the language, but we will be explicit when we are doing so. We use $P, Q, P\p, Q\p, \dots$ to denote relation symbols. It is assumed that each relation symbol $P$ of $\Li$ is an $n$-ary relation symbol for $n \in \omega$. We call a $0$-ary relation symbol a \textit{propositional letter}, and we use $p,q,p\p,q\p, \dots$ to denote propositional letters (also called \textit{propositional variables}). 
+
+\qquad We use $\Li, \Li^{\prime}, \Li^{\prime \prime}, \dots$ as variables for languages. If $\Li \subseteq \Li^{\prime}$, we say that $\Li^{\prime}$ is an \textit{expansion} of $\Li$, and that $\Li$ is a \textit{reduction} of $\Li^{\prime}$.
+\end{defn}
+
+\begin{defn}
+Together with $\Li$ we define the following \textit{logical symbols}:
+
+\begin{itemize} 
+\item $x_{0}, x_{1}, x_{2}, \dots$ (\textit{variables});
+\item $\nao, \ou$ (\textit{not, or});
+\item $\ex$ (\textit{there exists});
+\item $\Diamond$ (\textit{possibility symbol});
+\item $=$ (\textit{equality symbol});
+\item $),($ (\textit{parentheses}).
+\end{itemize}
+\qquad We use $x, y, z, \dots$ as syntactical variables for variables.
+\end{defn}
+
+\begin{defn}
+The set $\FLi$ of formulas of $\Li$ is defined by the following rules:  
+\begin{itemize} 
+\item If $x, y$ are variables, then $x =y$ is a formula of $\Li$.
+\item If $x_1, \dots, x_n$ $(n \geq 0)$  are variables and $P$ is an $n$-ary relation symbol of $\Li$, then $Px_1 \dots x_n$ is a formula of $\Li$.
+\item If $\varphi$ is a formula of $\Li$, then $\nao \varphi$ is a formula of $\Li$.
+\item If $\varphi$ and $\psi$ are formulas of $\Li$, then $(\varphi \ou \psi)$ is a formula of $\Li$.
+\item If $\varphi$ is a formula of $\Li$, then $\Diamond \varphi$ is a formula of $\Li$.
+\item If $\varphi$ is a formula of $\Li$ and $x$ a variable, then $\ex x \varphi$ is a formula of $\Li$.
+\end{itemize}
+\qquad We assume the standard syntactical notions of \textit{atomic formula}, \textit{free variable}, \textit{bound variable}, \textit{sentence}, \textit{formula complexity} and \textit{proof (definition) by induction on formulas}. We are going to employ the usual abbreviations: 
+
+\begin{center}	
+$(\varphi \e \psi) := \nao (\nao \varphi \ou \nao \psi)$\\
+$(\varphi \impli \psi) := (\nao \varphi \ou \psi)$\\
+$(\varphi \see \psi) := (\varphi \impli \psi)\e (\psi \impli \varphi)$\\
+$\todo x \varphi := \nao\ex x \nao \varphi$\\
+$\Box \varphi := \nao\Diamond \nao \varphi$\\
+\end{center}
+
+\qquad We write $\varphi(x_{1}, \dots, x_{n})$ to denote that the free variables of $\varphi$ are among $\{x_{1}, \dots, x_{n}\}$. Where $y_{1}, \dots, y_{n}$ are variables, we write $\varphi(y_{1}/x_{1}, \dots, y_{n}/x_{n})$ to denote the formula obtained by substitution of $y_{1}, \dots, y_{n}$ for all the free occurrences of $x_{1}, \dots, x_{n}$ in $\varphi$,  respectively. When it is clear from the context which variables are free in $\varphi$ we simply write $\varphi(y_{1}, \dots, y_{n})$ instead of $\varphi(y_{1}/x_{1}, \dots, y_{n}/x_{n})$. We use $\vec{x},\vec{y}, \dots$ for sequence of variables; and we write $\todo \vec{x} \varphi(\vec{x})$ in the place of $\todo x_1 \dots \todo x_n\varphi(x_1, \dots ,x_n)$. 
+\end{defn}
+
+
+\section{Models: basic notions}
+
+\begin{defn}
+A \textit{frame} is a tuple $\bl\W,\R\br$ in which:
+
+\begin{itemize}
+\item $\W \neq \vazio$.
+\item $\R \subseteq \W\times \W$.
+\end{itemize}
+\end{defn}
+
+
+\begin{defn}
+A \textit{skeleton}\footnote{Sometimes called \textit{augmented frame}.} is a quadruple $\Frame$ in which $\bl\W,\R\br$ is a frame and: 
+\begin{itemize} 
+\item $\D \neq \vazio$.
+\item $\barD: \W \impli \Pa(\D)$, and for every $w$ of $\W$, $\barD(w) \neq \vazio$. 
+\item $\D = \bigcup_{w \in \W} \barD_{w}$.
+\end{itemize}
+
+\qquad The intuition behind the notion of skeleton is the same as in \cite{Kripke63}: $\W$ is the set of all `possible worlds'; $\R$ is the accessibility relation between worlds; $\barD$ is a function which gives to each world a domain of individuals, and $\D$ is the set of all possibles individuals.
+
+\qquad We use $w, v, u, w^{\prime}, w_0, w_1, \dots$ as variables for worlds. From now on we write $\barD_{w}$ instead of $\barD(w)$. In the cases where $\barD$ is a constant function we write $\bl\W,\R, \D\br$ instead of $\Frame$.
+\end{defn}
+
+\begin{defn}
+A \textit{(modal) model} for $\Li$ is a quintuple $\M = \strucA$ in which $\Frame$ is a skeleton and $\I$ is an \textit{interpretation function}, i.e., a function assigning to each $n$-ary relational symbol $P$ of $\Li$ and each possible world $w$ an $n$-ary relation $\I(P,w)$ on $\D$. 
+
+\qquad We use $\M, \N, \M\p, \dots$ as variables for models. 
+\end{defn}
+
+\begin{defn}
+Let $\Li$ and $\Li^{\prime}$ be languages such that $\Li^{\prime} \subseteq \Li$, $\M = \strucA$ be a model for $\Li$ and $\M^{\prime} = \bl\W\p,\R\p, \D\p, \barD\p,\I\p\br$ be a model for $\Li^{\prime}$. We call $\M^{\prime}$ a \textit{reduct} of $\M$ (and $\M$ an \textit{expansion} for $\M^{\prime}$) iff $\W =\W^{\prime}$, $\R =\R^{\prime}$, $\D =\D^{\prime}$, $\barD =\barD^{\prime}$, and $\I$ and $\I^{\prime}$ agree on the symbols of $\Li^{\prime}$. We write $\M^{\prime} = \M|_{\Li^{\prime}}$.
+\end{defn}
+
+\begin{defn}
+A \textit{valuation} in a model $\M = \strucA$ is a function $h$ from the set of variables to $\D$.\footnote{Although is more natural to use $v$ to denote a valuation, it is easy to get lost in the proofs when we use $v$ for valuations and $w$ and $u$ for worlds.} We say that $h\p$ is an $x$\textit{-variant} of $h$ if the two valuations agree on all variables except possibly $x$. Similarly, we say that a valuation $h\p$ is an $x$\textit{-variant of $h$ at $w$} if $h\p$ is an $x$-variant of $h$ and $h\p(x) \in \barD_w$.
+\end{defn}
+
+\begin{defn}
+Let $\M = \strucA$ be a model for $\Li$, $\varphi$ a formula of $\Li$, $h$ a valuation in $\M$ and $w \in \W$. The notion \textit{$\varphi$ is true at world $w$ of $\M$ with respect to valuation $h$}, in symbols $\M,w \vSs \varphi$, is defined recursively as follows: 
+
+\begin{itemize} 
+\item[] $\M,w \vSs x = y$ iff $h(x) = h(y)$. 
+\item[] $\M,w \vSs Px_{1} \dots x_{n}$ iff $\bl h(x_{1}), \dots, h(x_{n})\br \in \I(P,w)$. 
+\item[] $\M,w \vSs \nao \psi$ iff $\M,w \nvSs \psi$.
+\item[] $\M,w \vSs \psi \ou \theta$ iff $\M,w \vSs \psi$ or $\M,w \vSs \theta$.
+\item[] $\M,w \vSs \Diamond \psi$ iff there is a $w\p \in \W$ such that $w\R w\p$ and $\M,w\p \vSs \psi$.
+\item[] $\M,w \vSs \ex x \psi$ iff there is an $x$-variant $h\p$ of $h$ at $w$ such that $\M,w \vSp \psi$.
+\end{itemize}
+
+\qquad This definition enables us to speak of the truth of a formula at a world in a model without mentioning the valuation. We write $\M,w \models \varphi$ if for every valuation $h$, $\M,w \vSs \varphi$; and when that is the case we say that \textit{$\varphi$ is true in $\M$ at $w$}. We write $\M \models \varphi$ if for every world $w$ of $\M$, $\M,w \models \varphi$. And we say that a formula $\varphi$ is\textit{ valid in a class of models}, if for every model $\M$ of this class, $\M \models \varphi$.
+
+\qquad Let $\Gamma$ be a set of formulas of $\Li$ (we also call $\Gamma$ a \textit{theory}); then $\M,w \models \Gamma$ if for every $\varphi \in \Gamma$, $\M,w \models \varphi$. In this case, we say that the pair  $\M,w$ is \textit{a model for} $\Gamma$. Two formulas $\varphi$ and $\psi$ are \textit{equivalent} if for every model $\M$, $\M \models \varphi$ iff $\M \models \psi$.
+
+% Similarly, $\M \models \Gamma$ if for every $\varphi \in \Gamma$, $\M \models \varphi$.
+
+%, or that \textit{$\M, w$ is a model for $\varphi$}. Similarly, if $\M,w \models T$, we say that \textit{$\M,w$ is a model for $T$}.
+\end{defn}
+
+\qquad There are some basic propositions about the relation $\models$. Since their proofs are straightforward and they can be found in many different textbooks, we are going to state these propositions without proof.
+
+\begin{pro}
+Suppose that $\M$ and $\M\p$ are models for $\Li$ and $\Li^{\prime}$, respectively; that $\Li\subseteq\Li\p$; and that $\M$ is the reduct of $\M\p$ to $\Li$. Then for every world $w$ of $\M$, for every valuation $h$ in $\M$, if $\varphi$ is a formula of $\Li$ then:
+
+\begin{center}
+ $\M,w \vSs \varphi$ iff  $\M\p,w \vSs \varphi$.
+\end{center} 
+\end{pro}
+
+\begin{pro}
+Let $\M$ be a model for $\Li$, $w$ a world of $\M$, $h_{1}$ and $h_{2}$ valuations in $\M$ and $\varphi$ a formula of $\Li$. If $h_{1}$ and $h_{2}$ agree on all the free variables of $\varphi$, then
+
+\begin{center}
+ $\M,w \models_{h_{1}} \varphi$ iff  $\M,w \models_{h_{2}} \varphi$.
+\end{center} 
+\end{pro}
+
+
+
+
+
+
+\begin{defn}
+Let $\M = \strucA$ be a model for $\Li$:
+
+\begin{itemize} 
+\item $\M$ is an \textit{S5-model} iff $\R$ is an equivalence relation.
+\item $\M$ is an \textit{universal model} iff $\R = \W\times \W$.
+
+\item $\M$ is a \textit{constant domain model} iff for every $w,v \in \W$, $\barD_{w} = \barD_{v}$.
+\item $\M$ is a \textit{monotonic model} iff for every $w,v \in \W$, if $w\R v$, then $\barD_{w} \subseteq \barD_{v}$.  
+\item $\M$ is an \textit{anti-monotonic model} iff for every $w,v \in \W$, if $w\R v$, then $\barD_{v} \subseteq \barD_{w}$.   
+\item $\M$ is a \textit{locally constant domain model} iff for every $w,v \in \W$, if $w\R v$, then $\barD_{w} = \barD_{v}$. 
+\end{itemize}
+\end{defn}
+
+\qquad Very often, in different books and papers on first-order modal logic, there is the mentioning of the `Barcan Formula'. The following explains the connection between locally constant domain models and this formula.  
+
+\begin{defn}
+Let $\M = \strucA$ be a model for $\Li$:
+
+\begin{itemize} 
+\item We say that \textit{$\M$ satisfies the Barcan Formula} iff for every $\varphi \in Fml(\Li)$ of the form $\todo x \Box \psi \impli \Box \todo x\psi$, we have that $\M \models \varphi$.
+\item We say that \textit{$\M$ satisfies the Converse Barcan Formula} iff for every $\varphi \in Fml(\Li)$ of the form $\Box \todo x\psi \impli \todo x \Box \psi$, we have that $\M \models \varphi$.
+\end{itemize}
+\end{defn}
+
+\qquad By well-know equivalences of first-order modal logic, we have: 
+
+\begin{itemize} 
+\item[] $\M$ satisfies the Barcan Formula iff for every $\varphi \in Fml(\Li)$ of the form $\Diamond \ex x\psi \impli \ex x \Diamond \psi$, we have that $\M \models \varphi$.
+\item[] $\M$ satisfies the Converse Barcan Formula iff for every $\varphi \in Fml(\Li)$ of the form $\ex x \Diamond \psi \impli \Diamond \ex x\psi$, we have that $\M \models \varphi$.
+\end{itemize}
+
+\begin{pro}
+Let $\M = \strucA$ be a model for $\Li$:
+\begin{enumerate}[(a)]
+\item $\M$ is an anti-monotonic model iff $\M$ satisfies the Barcan Formula.
+\item $\M$ is a monotonic model iff $\M$ satisfies the Converse Barcan Formula.
+\item $\M$ is a locally constant domain model iff $\M$  satisfies the Barcan Formula and its converse.
+\end{enumerate}
+\end{pro}
+
+\begin{proof}
+(a) ($\Rightarrow$) Let $\varphi \in Fml(\Li)$ be a formula of the form $\todo x \Box \psi \impli \Box \todo x\psi$, $w \in \W$ and $h$ a valuation. If $\M,w \vSs \todo x \Box \psi$, then for every $x$-variant $h\p$ of $h$ at $w$ $\M,w \vSp \Box \psi$. Let $v$ be a member of $\W$ such that $w\R v$. By hypothesis, $\barD_{v} \subseteq \barD_{w}$, so every $x$-variant $h\p$ of $h$ at $v$ is an $x$-variant $h\p$ of $h$ at $w$, thus $\M,v \vSs \todo x\psi$. Since $v$ was arbitrarily chosen, $\M,w \vSs \Box \todo x \psi$, and hence $\M,w \vSs \varphi$.
+
+\qquad ($\Leftarrow$) Suppose that $\M$ satisfies the Barcan Formula and 
+$\M$ is not an anti-monotonic model; then there are $w,v \in \W$ such that $w\R v$ and $\barD_{v} \nsubseteq \barD_{w}$. Hence, there is an $a \in \D$ such that $a \in \barD_{v}$ and $a \notin \barD_{w}$. Then for a valuation $h$ such that $h(y) = a$, $\M,v \vSs \ex x (x =y)$; and, since $w\R v$, $\M,w \vSs \Diamond \ex x (x =y)$.  By hypothesis, $\M,w \models \Diamond \ex x (x=y) \impli \ex x \Diamond (x =y)$. So, in particular, $\M,w \vSs \Diamond \ex x (x=y) \impli \ex x \Diamond (x =y)$; hence, $\M,w \vSs \ex x \Diamond (x =y)$. Then, there is an $x$-variant $h\p$ of $h$ at $w$ such that $\M,w \vSp \Diamond (x =y)$; so there is a $w\p \in \W$ such that $w\R w\p$ and $\M,w\p \vSp (x=y)$, hence $h\p(x) =h\p(y)$. Since $h\p(x) \in \barD_{w}$, $a \in \barD_{w}$; a contradiction. Therefore, if $\M$ satisfies the Barcan Formula, then $\M$ is an anti-monotonic model.       
+
+\qquad (b) ($\Rightarrow$) Let $\varphi \in Fml(\Li)$ be a formula of the form $\Box \todo x\psi \impli \todo x \Box \psi$, $w \in \W$ and $h$ a valuation. If $\M,w \vSs \Box \todo x\psi$, then let $v$ be a member of $\W$ such that $w\R v$; so $\M,v \vSs \todo x\psi$. Then, for every  $x$-variant $h\p$ of $h$ at $v$, $\M,v \vSp \psi$. By hypothesis, $\barD_{w} \subseteq \barD_{v}$; therefore every $x$-variant $h\p$ of $h$ at $w$ is an $x$-variant $h\p$ of $h$ at $v$, thus $\M,v \vSp \psi$ for every $x$-variant $h\p$ of $h$ at $w$. Since $v$ was arbitrarily chosen, $\M,w \vSs \Box \psi$ for every $x$-variant $h\p$ of $h$ at $w$. So $\M,w \vSs \todo x \Box \psi$ and hence $\M,w \vSs \varphi$.   
+
+\qquad ($\Leftarrow$) Suppose that $\M$ satisfies the Converse Barcan Formula and $\M$ is not a monotonic model; then there are $w,v \in \W$ such that $w\R v$ and $\barD_{w} \nsubseteq \barD_{v}$. Hence, there is an $a \in \D$ such that $a \in \barD_{w}$ and $a \notin \barD_{v}$. So for a valuation $h$ such that $h(x)=a$, $\M,v \vSs \todo y (y \neq x)$, and since $w\R v$, $\M,w \vSs \Diamond \todo y (y\neq x)$ and so $\M,w \models \ex x \Diamond \todo y (y\neq x)$. By hypothesis, $\M,w\models \ex x \Diamond \todo y (y\neq x) \impli \Diamond \ex x \todo y (y\neq x)$. So,  $\M,w\models \Diamond \ex x \todo y (y\neq x)$. Thus there is a $w\p \in \W$ such that $w\R w\p$ and $\M,w\p \models \ex x \todo y (y\neq x)$; this clearly implies a contradiction. Therefore, if $\M$ satisfies the Converse Barcan Formula, then $\M$ is a monotonic model.   
+
+\qquad (c) The result follows directly from (a) and (b). 
+\end{proof}
+
+\qquad Strictly speaking, both the Barcan Formula and the Converse Barcan Formula are not formulas, they are formula schemes. So it is natural to ask if there is a formula which has the same `expressive power' as the Barcan Formula and the Converse Barcan Formula. In fact, dealing with S5-models we can find this formula.
+
+\begin{pro}
+Let $\M = \strucA$ be an S5-model for $\Li$, then:
+\begin{center}
+$\M \models \Box \todo x \Box \ex y (y=x)$ iff $\M$ satisfies the Barcan Formula and its converse.
+\end{center}
+\end{pro}
+
+
+\begin{proof}
+($\Rightarrow$) Let $w$ and $v$ be members of $\W$ such that $w \R v$. If $a \in \barD_{w}$, then since $\M,w \models \Box\todo x \Box \ex y (y=x)$ and $w\R w$, we have that $\M,w \models \todo x \Box \ex y (y=x)$. In particular, for a valuation $h$ such that $h(x) = a$, $\M,w \vSs \Box \ex y (y=x)$. Then, $\M,v \vSs \ex y (y=x)$. So there is an $x$-variant $h\p$ of $h$ at $v$ such that $\M,v \vSp y=x$, thus $h\p (y) = h\p (x)$ and so $a \in \barD_{v}$. Hence, $\barD_{w} \subseteq \barD_{v}$. We can prove that $\barD_{v} \subseteq \barD_{w}$ in a similar way. Therefore, $\M$  is a locally constant domain model; by Proposition 3, $\M$ satisfies the Barcan Formula and its converse.   
+
+\qquad ($\Leftarrow$) Suppose that $\M$ satisfies the Barcan Formula and its converse and there is a $w \in \W$ such that $\M,w \not\models \Box \todo x \Box \ex y (y=x)$. So, for some valuation $h$, $\M,w \nvSs \Box \todo x \Box \ex y (y=x)$. By Proposition 3, $\M$  is a locally constant domain model; and by equivalences of first-order modal logic, $\M,w \vSs \Diamond \ex x \Diamond \todo y (y \neq x)$. Hence there is a $v \in \W$ such that $w\R v$ and $\M,v \vSs \ex x \Diamond \todo y (y \neq x)$. So there is an $x$-variant $h\p$ of $h$ at $v$ such that $\M,v \vSp \Diamond \todo y (y \neq x)$. Then there is a $w\p \in \W$ such that $v\R w\p$ and $\M,w\p \vSp \todo y (y \neq x)$. Therefore, $h\p(x) \in \barD_{v}\backslash\barD_{w\p}$;  contradicting the assumption that $\M$  is a locally constant domain model.  
+\end{proof}
+
+\section{First-order S5: two versions}
+
+\qquad Before we advance, we need to address some technical details concerning S5-models. In order to save time we are going to skip the proofs of the propositions in this section.  
+
+\qquad First, since $\R$ is an equivalence relation in an S5-model, all the different notions of monotonic, anti-monotonic and locally constant domain model become equivalent when we work with an S5-model. Therefore, we shall only distinguish between locally constant domain models and \textit{varying domain models} (models with no restriction on the domains). 
+
+\qquad Second, the distinction between constant domain models and locally constant domain models can be dropped. Of course, as mathematical structures constant domain models and locally constant domain models are very different objects. But from the point of view of modal formulas they are the same. The following proposition states this fact more clearly:
+
+\begin{pro}
+Let $\varphi$ be a formula of $\Li$. $\varphi$ is valid in the class of constant domain models for $\Li$ iff $\varphi$ is valid in the class of locally constant domain models for $\Li$.
+\end{pro}
+
+
+\qquad Third, sometimes both for technical and theoretical reasons it is more useful to deal with universal models instead of S5-models. And as before, although they are different mathematical structures, from the point of view of the valid formulas we can take them as the same:
+
+\begin{pro}
+Let $\varphi$ be a formula of $\Li$. $\varphi$ is valid in the class of universal models for $\Li$ iff $\varphi$ is valid in the class of S5-models for $\Li$. 
+\end{pro}
+
+
+\qquad We can now define the two main kinds of models that we are going to work with. Propositions 5 and 6 serve to show the non-arbitrariness of the following definition and to connect it with the results of the previous section. 
+
+\begin{defn}
+For a fixed language $\Li$ we say that:
+\begin{itemize}
+
+\item a \textit{model for first-order S5 with constant domains}, denoted FOS5-model, is a universal and constant domain model.
+
+\item a \textit{model for first-order S5 with varying domains}, denoted FOS5V-model, is a universal and varying domain model.
+	
+\end{itemize}
+	
+	
+\end{defn}
+
+\qquad The following definitions apply both to FOS5 and FOS5V models; to avoid duplication of definitions we use L as a variable for FOS5 and FOS5V.  From now on, when dealing with FOS5V-models we omit the accessibility relation, and when working with FOS5-models we omit the $\barD$ function too.  
+
+\pagebreak
+\begin{defn}
+Let $\Li$ be a language and let $\{\varphi\}, \{\psi\}$ and $\Gamma$ be sets of sentences of $\Li$:
+
+\begin{itemize} 
+\item $\varphi$ is \textit{L-valid}, in symbols $\vSL \varphi$, iff $\varphi$ is valid in the class of L-models. We say that $\varphi$ is \textit{L-satisfiable} iff there is an L-model $\M$ and a world $w$ of $\M$ such that $\M,w \models \varphi$. And we say that $\varphi$ is \textit{L-unsatisfiable} iff $\nao \varphi$ is L-valid.   
+\item $\varphi$ is a \textit{consequence of $\Gamma$ in L}, in symbols $\Gamma \vSL \varphi$, iff for every pair $\M,w$, if $\M,w$ is an L-model for $\Gamma$, then $\M,w \models \varphi$. Instead of $\{\psi\} \vSL \varphi$ we write $\psi \vSL \varphi$.
+\end{itemize}
+\end{defn}
+
+\qquad For example, from propositional modal logic it is well-known that:
+
+\begin{center}
+$\vSL \Box (\varphi \impli \psi) \impli (\Box \varphi \impli \Box \psi)$\\
+$\vSL \Box \varphi \impli \varphi$\\
+$\vSL \Box \varphi \impli \Box \Box \varphi$\\
+$\vSL \nao \Box \varphi \impli \Box \nao \Box \varphi$\\
+\end{center}
+
+
+\qquad And using what we have seen so far, we have: 
+
+\begin{center}
+$ \vS \Box \todo x \Box \ex y (y=x) \impli (\Box \todo x Px \see  \todo x \Box Px)$\\
+$\vSB  \Box \todo x Px \see  \todo x \Box Px$\\
+\end{center}
+
+\qquad These last two examples are just instances of a more general fact that is an immediate consequence of Propositions 3 and 4.
+
+\begin{pro}
+A sentence $\varphi$ of $\Li$ is FOS5-valid iff $\Box \todo x \Box \ex y (y=x) \impli \varphi$ is FOS5V-valid. 
+\end{pro}
+
+Now we have all the ingredients to present a notion of logic.
+
+\begin{defn}
+The logic L is a tuple $\bl Lan, \vSL\br$ where $Lan$ is a function which associates to every language $\Li$ a set $sen(\Li)$, the set of sentences of $\Li$; and $\vSL$ is the relation as defined above.
+\end{defn}
+
+\qquad A last basic topic worth noticing is that we can define an unary relation symbol $E$ such that $Ex$ expresses that the individual denoted by $x$ exists in the world in question. The definition of this relation, often called \textit{existence predicate},  is:
+
+\begin{center}
+$Ex:= \ex y (y=x) $
+\end{center}
+
+\qquad Obviously, $\M,w \vSs Ex$ iff $h(x) \in \barD_{w}$. The following proposition states some useful facts about the relation $\models$ and $Ex$. 
+
+\begin{pro}
+For a formula $\varphi$ of $\Li$ such that $fv(\varphi) = \{x_1, \dots, x_n\}$, let $E\vec{x}$ be an abbreviation of $Ex_{1} \e \dots \e Ex_{n}$, then:
+\begin{itemize}
+\item $\vS \todo \vec{x}\varphi$ iff $\vS (E\vec{x} \impli \varphi)$.
+\item $\vSB \todo \vec{x}\varphi$ iff $\vSB \varphi$.
+\item If $\vS\varphi$, then $\vS \todo \vec{x}\varphi$.
+\end{itemize}
+\end{pro}
+
+

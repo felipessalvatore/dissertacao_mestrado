@@ -1,0 +1,69 @@
+\section{A Version of the Interpolation Theorem for S5B$\pi^{-}$}
+
+\quad The addition of propositional quantification to first-order modal logic creates a more expressive and complex environment. If we restrict our scope to \textbf{S5B}, we can consider different versions of propositional quantification.
+
+\quad To present a syntax and a semantics for this extension of \textbf{S5B} we just expand our previous definitions in an expected way. For a fixed language $\Li$ (without equality), it is assume that among the logical symbols there is an infinite list of propositional variables denoted by $p,q,r, \dots$; and we allow that the quantifiers $\todo$ and $\ex$ bind both individual and propositional variables. 
+
+\quad We define an \textit{S5B$\pi^{-}$-structure} as a quadruple $\A = \bl \W, \D, \Pa, \I \br$ where $\W$, $\D$ and $\I$ were as before and $\Pa$ is a non-empty subset of $P(\W)$. In this context, a valuation $s$ is a function that assigns to each individual variable a member of $\D$ and assigns to each propositional variable a member of $\Pa$. The satisfaction relation $\A,w \vSs \varphi$ is defined as before, the only new clauses are:
+
+\begin{itemize} 
+\item[] $\A,w \vSs p$ iff $w \in s(p)$. 
+\item[] $\A,w \vSs \ex p \psi$ iff there is a $p$-variant of $s$ such that $\A,w \vSp \psi$.
+\end{itemize}
+
+
+\qquad We can classify this new notion of modal structure according to some properties of the set $\Pa$. An \textit{atom} is a non-empty member of $\Pa$ with no non- empty proper subset in $\Pa$. Let $\A = \bl \W, \D, \Pa, \I \br$, we say that $\A$ is an \textit{S5B$\pi$ -structure} if for every valuation $s$ and every $\varphi \in Fml(\Li)$, $\{w \in \W: \A,w \vSs \varphi \}\in \Pa$. And we say that $\A$ is an \textit{S5B$\pi^{+}$-structure} if every possible world belong to an atom. 
+
+
+\qquad This classification enables us to speak about different notions of validity. So for a sentence $\varphi$, we say that $\varphi$ is S5B$\pi$ (S5B$\pi^{-}$, S5B$\pi^{+}$) \textit{valid}, in symbols $\models_{\textbf{S5B}\pi}\varphi$ ($\models_{\textbf{S5B}\pi^{-}}\varphi$, $\models_{\textbf{S5B}\pi^{+}}\varphi$) if for every S5B$\pi$ (S5B$\pi^{-}$, S5B$\pi^{+}$) structure $\A$, every world $w$ of $\A$ and every valuation $s$, $\A,w \vSs \varphi$. 
+
+\qquad When we extend \textbf{S5B} in this way, we increase the expressive power of this logic. So it is reasonable to inquire if we can restore some properties that are not present in \textbf{S5B}, like the Interpolation theorem. This path is follow by Melvin Fitting in the paper \cite{Fitting02}. He proves a version of the Interpolation theorem that has a "mixed logic flavor':
+
+
+\qquad \textbf{Theorem 4.5:} \textit{Let $\varphi, \psi \in sen(\Li)$, if $\models_{\textbf{S5B}\pi^{-}}\varphi \impli \psi$, then there is a sentence $\theta$ such that all relation symbols of $\theta$ are common to $\varphi$ and $\psi$,  $\models_{\textbf{S5B}\pi^{+}}\varphi \impli \theta$ and  $\models_{\textbf{S5B}\pi^{+}}\theta \impli \psi$.}
+
+\vspace{10mm}
+
+\qquad In the next stage of the research we want to study this result.
+
+\section{Finite Model Property}
+
+\quad In propositional modal logic we can speak of the \textit{finite model property}. It is possible to formulate an adequate version of this property for first-order modal logic. We say that the logic \textbf{L} has the finite model property. if for every formula $\varphi$, if $\varphi$ has an \textbf{L}-model, then $\varphi$ has an \textbf{L}-model $\A,w$ such that $\A = \strucAS$ and $\W$ is a finite set.
+
+\quad Now, let $\varphi_{ord}$ be the following sentence:
+
+
+
+$$
+\varphi_{ord} := \left\{
+\begin{array}{lr}
+\todo x \nao Fxx & \e\\
+\todo x \todo y \todo z (Fxy \e Fyz \impli Fxz) & \e\\
+\todo x \ex y Fxy
+\end{array}
+\right.
+$$
+
+
+\quad As in the classical case, we can prove that $\varphi_{ord}$ is satisfiable and if an structure satisfies this sentence, then the structure in question has an infinite domain. Now, consider the sentences:
+
+\begin{center}
+$\varphi_{S5} :=  \varphi_{ord} \e \todo x \Diamond \todo y (y=x)$\\
+$\varphi_{S5B} :=  \varphi_{ord} \e \todo x \Diamond \todo y (Gy \see y=x)$ 
+\end{center}
+
+\quad First, if $\A = \strucAS$ and $\A,w \models \varphi_{S5}$, then $\barD_{w}$ is an infinite set and for every element $a$ of $\barD_{w}$ there is member $w\p \in \W$ such that $\barD_{w\p}= \{a\}$. Clearly, $\W$ is an infinite set.
+
+\quad Second, if $\A = \strucASB$ and $\A,w \models \varphi_{S5B}$, then $\D$ is an infinite set and for every element $a$ of $\D$ there is member $w\p \in \W$ such that $\I(G,w\p) = \{a\}$. So, $\W$ is an infinite set.
+
+\quad Therefore, both \textbf{S5} and \textbf{S5B} do not have the finite model property. But we can ask if this property holds for relevant fragments of theses logics. \textit{It holds for the monadic version of both logics? It holds when we work with \textbf{S5} and \textbf{S5B} without equality?} These are some questions that we wish to answer in the second part of the research. 
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,654 @@
+\qquad This chapter is completely based on the paper \cite{Fine79} by Kit Fine. Only the last section is based on other material, the already mentioned review by Saul Kripke \cite{Kripke83}.
+
+
+
+\section{Models: isomorphism}
+
+
+\begin{defn}
+Let $\M = \strucAS$ be a model for $\Li$ and $w \in \W$.
+
+\begin{itemize} 
+\item \textit{The external model} of $\M$ at $w$ is the triple $ \M_{w} = \bl\D, \barD_{w}, \I_{w}\br$ where $\I_{w}$ is a function on $\Li$ such that $\I_{w}(P) = \{\bl a_{1}, \dots,a_{n} \br \in \D^{n}$ $|$ $ \bl a_{1}, \dots,a_{n} \br \in \I(P,w)\}$, for every $n$-ary relation symbol $P\in \Li$.  
+\item \textit{The internal model} of $\M$ at $w$ is the tuple $ \bar{\M}_{w} = \bl\barD_{w}, \bar{\I}_{w}\br$ where $\bar{\I}_{w}$ is a function on $\Li$ such that $\bar{\I}_{w}(P) = \{ \bl \textbf{}a_{1}, \dots,a_{n} \br \in \barD_{w}^{n}$ $|$ $ \bl a_{1}, \dots,a_{n} \br \in \I(P,w)\}$, for every $n$-ary relation symbol $P \in \Li$.
+\end{itemize}
+\end{defn}
+
+\begin{defn}
+Let $\M$, $\M_{w}$ and $\bar{\M}_{w}$ be as in the previous definition. We can easily define a notion of isomorphism for models of the form $\bar{\M}_{w}$ and $\M_{w}$. For the former, the notion is the same as in the classical case. For the latter, let $\N = \strucBS$ be a model for $\Li$, $v \in \V$ and $\N_{v} = (\B, \barB_{v}, \J_{v})$. Let $\sigma$ be an one-one function from $\D$ onto $\B$; we say that $\sigma$ is an isomorphism between $\M_{w}$ and $\N_{v}$, in symbols $\sigma: \M_{w} \iso \N_{v}$,  iff:   
+
+
+\begin{itemize} 
+\item for every $a_{1}, \dots, a_{n} \in \D$, for every $n$-ary relation symbol $P \in \Li$, $ \bl a_{1}, \dots, a_{n} \br \in \I_{w}(P)$ iff $ \bl \sigma(a_{1}), \dots, \sigma(a_{n}) \br \in \J_{v}(P)$.
+\item $\sigma[\barD_{w}] = \barB_{v}$.
+\end{itemize}
+\end{defn}
+
+
+\begin{defn}
+Let $\M = \strucAS$ and $\N = \strucBS$ be models for $\Li$. We say that $\sigma$ is an isomorphism from $\M$ onto $\N$, in symbols $\sigma: \M \iso \N$, iff $\sigma$ is an one-one function from $\D$ onto $\B$ such that:
+\begin{enumerate}[(i)]
+\item For every $w \in \W$ there is a $v \in \V$ such that $\sigma: \M_{w} \iso \N_{v}$.
+\item For every $v \in \V$ there is a $w \in \W$ such that $\sigma: \M_{w} \iso \N_{v}$.
+\end{enumerate}
+\end{defn}
+
+\qquad Let $\M$ and $\N$ be models for $\Li$, and let $\sigma$ be a function from $\D$ to $\B$. If $h$ is a valuation in $\M$ we write $h^{\sigma}$ to denote the valuation $\sigma \circ h$ in $\N$.
+
+\begin{lema}
+Let $\M = \strucAS$ and $\N = \strucBS$ be models for $\Li$, $w \in \W$, $v \in \V$ and $\sigma: \D \impli \B$ such that $\sigma: \M \iso \N$ and $\sigma: \M_{w} \iso \N_{v}$ . Then for every valuation $h$ and every formula $\varphi$ of $\Li$:
+
+\begin{center}
+$\M,w \vSs \varphi$ iff $\N,v \models_{h^{\sigma}} \varphi$ 
+\end{center}
+  
+\end{lema}
+
+
+\begin{proof}
+Induction on $\varphi$. \\
+
+
+
+
+($\varphi$ is $x=y$)\\
+
+$\M,w \vSs x = y$ \\
+iff $h(x) = h(y)$\\
+iff, since $\sigma$ is injective, $\sigma(h(x)) = \sigma(h(y))$\\
+iff $h^{\sigma}(x) = h^{\sigma}(y)$\\
+iff  $\N,v \models_{h^{\sigma}} x = y$.\\
+
+
+
+($\varphi$ is $Px_{1}\dots x_{n}$)\\
+
+$\M,w \vSs Px_{1}\dots x_{n}$\\
+iff $\bl h(x_{1}), \dots, h(x_{n})\br \in \I(P,w)$\\
+iff $\bl h(x_{1}), \dots, h(x_{n}) \br \in \I_{w}(P)$\\
+iff, by hypothesis,  $\bl \sigma(h(x_{1})), \dots, \sigma(h(x_{n})) \br \in \J_{v}(P)$\\
+iff $\bl \sigma(h(x_{1})), \dots, \sigma(h(x_{n})) \br \in \J(P,v)$\\
+iff $\bl h^{\sigma}(x_{1}), \dots, h^{\sigma}(x_{n}) \br \in \J(P,v)$\\
+iff  $\N,v \models_{h^{\sigma}} Px_{1}\dots x_{n}$.\\
+
+\qquad If $\varphi$ is $\nao \psi$ or $\psi \ou \theta$, then the result follows from the induction hypothesis.\\
+
+
+
+($\varphi$ is $\Diamond \psi$)\\
+
+\qquad If $\M,w \vSs \Diamond \psi$, then there is a $w\p \in \W$ such that $\M,w\p \vSs \psi$. Since $\sigma: \M \iso \N$, then, by condition (i) of Definition 17, there is a $v\p \in \V$ such that $\sigma: \M_{w^{\prime}} \iso \N_{v^{\prime}}$. By induction hypothesis,
+
+\begin{center}
+$\M,w^{\prime} \vSs \psi$ iff $\N,v^{\prime} \models_{h^{\sigma}} \psi$ 
+\end{center}
+
+\qquad So, $\N,v^{\prime} \models_{h^{\sigma}} \psi$, and hence $\N,v \models_{h^{\sigma}} \Diamond\psi$. The converse implication follows from the condition (ii) of Definition 17 and the induction hypothesis.\\
+
+
+($\varphi$ is $\ex x \psi$)\\
+
+\qquad On the one hand, if $\M,w \vSs \ex x \psi$, then for an $x$-variant $h\p$ of $h$ at $w$, $\M,w \models_{h\p} \psi$. By induction hypothesis, $\N,v \models_{{h\p}^{\sigma}}  \psi$. Since $h\p(x) \in \barD_{w}$ and $\sigma[\barD_{w}] = \barB_{v}$, then ${h\p}^{\sigma}(x)\in \barB_{v}$. So, ${h\p}^{\sigma}$ is an $x$-variant of $h^{\sigma}$ at $v$. Therefore  $\N,v \models_{h^{\sigma}} \ex x\psi$.
+
+\qquad On the other hand, if $\N,v \models_{h^{\sigma}} \ex x \psi$, then for some $x$-variant $h\p$ of $h^{\sigma}$ at $v$,  $\N,v \vSp \psi$. Since $h\p(x) \in \barB_{v}$ and $\sigma[\barD_{w}] = \barB_{v}$, there is an $a \in \barD_{w}$ such that $\sigma(a)=h\p(x)$. Let $h^{*}$ be a valuation in $\M$ such that for every variable $y$
+
+
+
+$$
+h^{*}(y) = \left\{
+\begin{array}{rcl}
+h(y) & \mbox{if} & y \neq x\\
+a & \mbox{if} & y = x\\
+\end{array}
+\right.
+$$
+
+
+\qquad Clearly, ${h^{*}}^{\sigma} = h\p$ and $h^{*}$ is an $x$-variant of $h$ at $w$ . Since $\N,v \models_{{h^{*}}^{\sigma}} \psi$, then, by induction hypothesis, $\M,w \models_{h^{*}} \psi$, and so $\M,w \vSs \ex x \psi$. 
+\end{proof}
+
+\begin{lema}
+Let $\M = \strucAS$ and $\N = \strucBS$ be models for $\Li$, $w \in \W$, $v \in \V$ and $\rho: \barD_{w} \impli \barB_{v}$ such that $\rho: \bar{\M}_{w} \iso \bar{\N}_{v}$ and for every $\rho^{\prime} \subseteq_{fin} \rho$ there is a $\sigma$ such that $\rho^{\prime} \subseteq \sigma$ and  $\sigma: \M \iso \N$. In these conditions, for every formula $\varphi$ of $\Li$ and for every valuation $h$ such that $h[fv(\varphi)] \subseteq \barD_{w}$:
+
+\begin{center}
+$\M,w \vSs \varphi$ iff $\N,v \models_{h^{\rho}} \varphi$ 
+\end{center}
+  
+\end{lema}
+
+\begin{proof}
+Induction on $\varphi$.\\
+
+
+($\varphi$ is $x=y$)\\
+
+$\M,w \vSs x = y$ \\
+iff $h(x) = h(y)$\\
+iff, since $\rho$ is injective, $\rho(h(x)) = \rho(h(y))$\\
+iff $h^{\rho}(x) = h^{\rho}(y)$\\
+iff  $\N,v \models_{h^{\rho}} x = y$.\\
+
+($\varphi$ is $Px_{1}\dots x_{n}$)\\
+
+$\M,w \vSs Px_{1}\dots x_{n}$\\
+iff $\bl h(x_{1}), \dots, h(x_{n})\br \in \I(P,w)$\\
+iff $\bl h(x_{1}), \dots, h(x_{n}) \br \in \bar{\I_{w}}(P)$\\
+iff, by hypothesis,  $\bl \rho(h(x_{1})), \dots, \rho(h(x_{n})) \br \in \bar{\J_{v}}(P)$\\
+iff $\bl \rho(h(x_{1}), \dots, \rho(h(x_{n})) \br \in \J(P,v)$\\
+iff $\bl h^{\rho}(x_{1}), \dots, h^{\rho}(x_{n}) \br \in \J(P,v)$\\
+iff  $\N,v \models_{h^{\rho}} Px_{1}\dots x_{n}$.\\
+
+\qquad If $\varphi$ is $\nao \psi$ or $\psi \ou \theta$, then the result follows from the induction hypothesis.\\
+
+
+($\varphi$ is $\Diamond \psi$)\\
+
+\qquad If $\M,w \vSs \Diamond \psi$, then there is a $w\p \in \W$ such that $\M,w\p \vSs \psi$. Since there is only a finite number of free variables occurring in $\psi$, if $\rho^{\prime} = \rho\upharpoonleft$ $h[fv(\varphi)]$, then $\rho^{\prime} \subseteq_{fin} \rho$. By hypothesis, there is a $\sigma$ such that $\rho^{\prime} \subseteq \sigma$ and $\sigma: \M \iso \N$. By condition (i) of Definition 17, there is a $v^{\prime} \in \V$ such that $\sigma: \M_{w^{\prime}} \iso \N_{v^{\prime}}$. So all the conditions of Lemma 1 are fulfilled; then for every valuation $h\p$ and every formula $\theta$ of $\Li$:
+
+\begin{center}
+$\M,w^{\prime} \vSp \theta$ iff $\N,v^{\prime} \models_{{h\p}^{\sigma}} \theta$.
+\end{center}
+
+In particular we have,
+
+\begin{center}
+$\M,w^{\prime} \vSs \psi$ iff $\N,v^{\prime} \models_{{h}^{\sigma}} \psi$.
+\end{center}
+
+And since $\M,w^{\prime} \vSs \psi$, we have $\N,v^{\prime} \models_{{h}^{\sigma}} \psi$. 
+
+\qquad Now, by the definition of $\sigma$, $\sigma$ and $\rho\p$ agree on all the elements of $h[fv(\varphi)]$.\\
+So, if $y \in fv(\varphi)$, then:
+\begin{eqnarray*}
+h^{\sigma}(y) & = & \sigma (h(y))\\
+& = & \rho\p (h(y))\\
+& = & \rho (h(y))\\
+& = & h^{\rho}(y)\\
+\end{eqnarray*}
+
+\qquad Therefore, $h^{\sigma}$ and $h^{\rho}$ agree on all the free variables of $\psi$; then, by Proposition 2, $\N,v^{\prime} \models_{{h}^{\rho}} \psi$. And so, $\N,v \models_{{h}^{\rho}} \Diamond \psi$. The converse implication follows from the condition (ii) of Definition 17 and Lemma 1.\\
+
+\qquad If $\varphi$ is $\ex x \psi$, then the result follows from the induction hypothesis and the fact that $\rho[\barD_{w}] = \barB_{v}$.
+\end{proof}
+
+
+\section{Interpolation and definability as properties}
+
+\qquad In this section we will assume that some countable language $\Li$ is fixed.
+
+\begin{defn}
+Let L be a logic and let $\Gamma$ be a set of sentences of $\Li$. Then:
+\begin{itemize}   
+\item L has the \textit{Interpolation property} (or \textit{the Interpolation Theorem holds for L}) iff for any sentences $\varphi$ and $\psi$ of $\Li$,  if $\vSL \varphi \impli\psi$, then there is a formula $\theta$ such that $\vSL \varphi \impli \theta$, $\vSL \theta \impli \psi$ and the non-logical symbols that occur in $\theta$ occur both in $\varphi$ and $\psi$.    
+\item Let $\Li$ be a language such that the $n$-ary relation symbol $P$ belongs to $\Li$. Let $P\p$ be a new $n$-ary relation symbol not occurring on $\Li$, $\Li^{\prime} = (\Li \backslash \{P\}) \cup \{P^{\prime}\}$ and $\Gamma^{\prime}$ be the result of replacing each occurrence of $P$ in the sentences of $\Gamma$ with $P^{\prime}$. \textit{$\Gamma$ implicitly defines $P$ in L} if $\Gamma \cup \Gamma^{\prime} \vSL \todo \vec{x}(P\vec{x} \see P\p\vec{x})$. \textit{$\Gamma$ explicitly defines $P$ in L} if $\Gamma \vSL \todo \vec{x}(P\vec{x} \see \theta)$ for some formula $\theta \in Fml(\Li \backslash \{P\})$. We say that the logic L has the \textit{Definability property} (or \textit{Beth's Definability Theorem holds for L}) iff whenever $\Gamma$ defines $P$ implicitly in L, also $\Gamma$ defines $P$ explicitly in L.
+\end{itemize}
+\end{defn}
+
+
+ 
+\begin{pro}
+If L has the Interpolation property then L has the Definability property.
+\end{pro}
+
+\begin{proof}
+Here we shall present the proof only for FOS5V. We do that because the proof for FOS5 is very close to the proof for the classical case.
+
+
+
+\qquad Suppose that $\Gamma$ implicitly defines $P$ in FOS5V, i.e.
+
+\begin{center}
+$\Gamma \cup \Gamma^{\prime} \vS \todo \vec{x}(P\vec{x} \see P\p\vec{x})$
+\end{center}
+
+\qquad Hence, by Proposition 8,
+
+\begin{center}
+$\Gamma \cup \Gamma\p \vS E\vec{x} \impli (P\vec{x} \see P\p\vec{x})$
+\end{center}
+
+
+\qquad And by propositional logic, 
+
+
+
+\begin{center}
+$\Gamma \cup \Gamma\p \vS E\vec{x} \impli (P\vec{x} \impli P\p\vec{x})$.
+\end{center}
+
+
+
+
+\qquad By Compactness\footnote{A proof of the Compactness Theorem for first-order modal logic can be found in \cite{Fine78}.} there is $\Gamma_0 \subseteq_{fin} \Gamma \cup \Gamma^{\prime}$ such that $\Gamma_{0} \vS E\vec{x} \impli (P\vec{x} \impli P\p\vec{x})$. Let $\varphi$ be the conjunction of all sentences of $\Gamma\cap \Gamma_0$ and $\psi$ be the conjunction of all sentences of $\Gamma^{\prime}\cap \Gamma_0$. So, 
+
+
+
+\begin{center}
+$\varphi\e \psi \vS E\vec{x} \impli (P\vec{x} \impli P\p\vec{x})$
+\end{center}
+
+
+\qquad It is easy to check that for every sentence $\varphi$ and $\psi$, $\varphi \vS \psi$ iff $\vS \varphi \impli\psi$. Thus, using this fact we have 
+
+\begin{center}
+$\vS \varphi\e \psi\impli (E\vec{x} \impli (P\vec{x} \impli P\p\vec{x}))$
+\end{center}
+
+
+\qquad By propositional logic,
+
+\begin{center}
+$\vS (E\vec{x} \e \varphi\e P\vec{x}) \impli (\psi \impli P\p\vec{x})$
+\end{center}
+
+\qquad By hypothesis, FOS5V has the Interpolation property; so there is a $\theta$ such that $\theta \in Fml(\Li\cap\Li^{\prime})$, $\vS (E\vec{x} \e \varphi\e P\vec{x}) \impli \theta$ and $\vS \theta \impli (\psi \impli P\p\vec{x})$.
+
+\pagebreak
+
+\qquad By propositional logic,
+
+\begin{center}
+$\vS E\vec{x} \impli (\varphi\impli (P\vec{x} \impli \theta))$\\
+$\vS \psi \impli (\theta \impli P\p\vec{x})$
+\end{center}
+
+\qquad Let $\psi^{*} \in Fml(\Li)$ be the sentence obtained from $\psi$ by replacing every occurrence of $P^{\prime}$ by $P$. It can be easily seen that $\vS \psi^{*} \impli (\theta \impli P\vec{x})$.
+
+\qquad So, by Proposition 8 and by the fact that both $\varphi$ and $\psi^{*}$ are  sentences, we have 
+
+\begin{center}
+$\vS \varphi\impli \todo \vec{x} (P\vec{x} \impli \theta)$ \\
+$\vS \psi^{*} \impli \todo \vec{x} (\theta \impli P\vec{x})$
+\end{center}
+
+
+
+
+
+
+\qquad Now, from the choice of $\Gamma^{\prime}$, both $\varphi$ and $\psi^{*}$ are conjunctions of sentences of $\Gamma$, so we have $\Gamma \vS \varphi$ and $\Gamma \vS \psi^{*}$. Hence, 
+
+\begin{center}
+$\Gamma \vS \todo \vec{x} (P\vec{x} \impli \theta)$\\
+$\Gamma \vS \todo \vec{x} (\theta \impli P\vec{x})$
+\end{center}
+
+
+
+
+And so,
+
+\begin{center}
+$\Gamma \vS \todo \vec{x} (P\vec{x} \see \theta)$
+\end{center} 
+
+\qquad Directly from the construction of $\Li^{\prime}$ it follows that $\theta\in Fml(\Li\backslash\{P\})$. Therefore, $\Gamma$ explicitly defines $P$ in FOS5V.
+\end{proof}
+
+
+\qquad We are going to focus our attention on some aspects regarding propositional letters, because in the next section both counterexamples to the Definability property for FOS5V and FOS5 use propositional letters. So it is useful to point out some details.
+
+\qquad First, if $P$ is a propositional letter $p$, we have $\Gamma \vS \todo \vec{x} (p \see \theta)$. And this implies $\Gamma \vS p \see \todo \vec{x} \theta$. So, when working with propositional letters, we say that $\Gamma$ explicitly defines $p$ in L if $\Gamma \vSL p \see \theta$ for some \textit{sentence} $\theta \in Fml(\Li \backslash \{p\})$.
+
+\qquad Second, let  $\M = \strucAS$ and $w \in \W$. Clearly, $\M,w \models p$ iff $\I(p,w)= \I_{w}(p) = \bar{\I}_{w}(p) = \{\bl \br \}$ and $\M,w \not\models p$ iff $\I(p,w)= \I_{w}(p) = \bar{\I}_{w}(p) = \vazio$.
+
+\begin{defn}
+Let $\Li$ be a language such that $p \in \Li$. We say that \textit{$\Gamma$ preserves $p$ in L} iff for all L-models for $\Gamma$ $\M,w$ and $\N,w$ with the same set of worlds and possible individuals and with respective interpretation functions $\I$ and $\J$, if for every $j \in (\Li \backslash \{p\})$ and every $v \in \W$ $\I(j,v) = \J(j,v)$, then $\I_{v}(p) = \J_{v}(p)$. 
+
+\end{defn}
+
+\begin{pro}
+Let $\Li$ be a language such that $p \in \Li$ and $\Gamma \subseteq sen(\Li)$. $\Gamma$ preserves $p$ in L iff $\Gamma$ implicitly defines $p$ in L.  
+\end{pro}
+
+\begin{proof}
+($\Rightarrow$) Let $\M = \strucAS$ be an L-model for $\Li \cup \Li^{\prime}$, $w \in \W$ and $\M,w \models \Gamma\cup \Gamma^{\prime}$. Let $\M|_{\Li} = \bl \W,\D,\barD,\I^{\prime}\br$ and $\M|_{\Li^{\prime}} = \bl \W,\D,\barD,\I^{\prime\prime}\br$. Hence, by Proposition 1,  $\M|_{\Li},w \models \Gamma$ and $\M|_{\Li^{\prime}},w \models \Gamma^{\prime}$. Let $\N = \bl\W,\D,\barD,\I^{*}\br$ be an L-model for $\Li$ such that for every $j \in (\Li \backslash \{p\})$ and every $v \in \W$, $\I^{*}(j,v) = \I^{\prime}(j,v)$ and $\I^{*}(p,v) = \I^{\prime\prime}(p,v)$. It is evident that $\N,w \models \Gamma$.
+
+\qquad Now, suppose that $\M,w \not\models p\see p^{\prime}$. Then, either $\M,w \models p$ and $\M,w \not\models p^{\prime}$ or $\M,w \not\models p$ and $\M,w \models p^{\prime}$. In the first case, by Proposition 1, $\M|_{\Li},w \models p$ and $\M|_{\Li^{\prime}},w \not\models p^{\prime}$. Then, by the definition of $\I^{*}$, $\I_{w}^{\prime}(p)= \{\bl \br\}$ and $\I_{w}^{*}(p)=\vazio$. Since both $\M|_{\Li},w$ and $\N,w$ are L-models for $\Gamma$ and for every $j \in (\Li \backslash \{p\})$ and every $v \in \W$, $\I^{*}(j,v) = \I^{\prime}(j,v)$; then, by hypothesis,  $\I_{v}^{\prime}(p)= \I_{v}^{*}(p)$, in particular, $\I_{w}^{\prime}(p)= \I_{w}^{*}(p)$; a contradiction. In the second case we can deduce a contradiction in a similar way. Therefore, $\M,w \models p\see p^{\prime}$, and so $\Gamma\cup \Gamma^{\prime} \vSL p\see p^{\prime}$.    
+
+\qquad ($\Leftarrow$) Let $\M,w$ and $\N,w$ be L-models for $\Gamma$ such that $\M = \strucAS$, $\N = \bl \W,\D,\barD,\J \br$ and for every $j \in (\Li \backslash \{p\})$ and every $v \in \W$, $\I(j,v) = \J(j,v)$. Let $\N^{\prime}$ be an $L$-model for $\Li^{\prime}$ such that $\N^{\prime} = (\W,\D,\barD,\J^{\prime})$, $\N^{\prime}|_{(\Li\backslash\{p\})} =\N|_{(\Li\backslash\{p\})}$ and for every $v \in \W$, $\J^{\prime}(p^{\prime},v) = \J(p,v)$. It is evident that $\N^{\prime},w \models \Gamma^{\prime}$.  
+
+\qquad Let $\M\p$ be an L-model for $\Li \cup \Li^{\prime}$ such that $\M\p|_{\Li} = \M$ and $\M\p|_{\Li^{\prime}} = \N^{\prime}$. Hence, by Proposition 1,  $\M\p,w \models \Gamma$ and $\M\p,w \models \Gamma^{\prime}$, thus $\M\p,w \models \Gamma \cup \Gamma^{\prime}$, By hypothesis, $\M\p,w \models p \see p^{\prime}$, i.e.    
+
+
+\begin{center}
+$\M\p,w \models p$ iff $\M\p,w \models p^{\prime}$ \\
+\end{center} 
+
+
+\qquad By Proposition 1,
+ 
+\begin{center}
+$\M\p|_{\Li},w \models p$ iff $\M\p|_{\Li^{\prime}},w \models p^{\prime}$ 
+\end{center}
+
+
+\qquad By definition,
+
+\begin{center}
+$\M,w \models p$ iff $\N^{\prime},w \models p^{\prime}$ 
+\end{center}
+
+
+\qquad By the construction of $\N\p$,
+
+\begin{center}
+$\M,w \models p$ iff $\N,w \models p$ 
+\end{center}
+
+\qquad Hence, 
+
+\begin{center}
+$\I_{w}(p) = \J_{w}(p)$ 
+\end{center}
+
+Therefore, $\Gamma$ preserves $p$ in L.
+\end{proof}
+
+\section{Failure of Interpolation and Beth's Definability  Theorems in FOS5V}
+
+\begin{pro}
+Let $\Li =\{P,p\}$ and $\Gamma =\{\Box \todo x \Box (Px \impli p), \Diamond \ex x \Box (p \impli Px)\}$; then:
+\begin{enumerate}[(a)]
+\item $\Gamma$ implicitly defines $p$ in FOS5V.
+\item $\Gamma$ does not explicitly define $p$ in FOS5V.
+\end{enumerate}
+\end{pro}
+
+\begin{proof}
+(a) In view of Proposition 10, we have to show only that $\Gamma$ preserves $p$ in FOS5V. Let $\M,w$ and $\N,w$ be FOS5V-models for $\Gamma$ such that $\M = \bl \W,\D,\barD,\I \br$, $\N = \bl \W,\D,\barD,\J \br$ and for every $w\p \in \W$, $\I(P,w\p) = \J(P,w\p)$. 
+
+\qquad Suppose that $\bl \br \in \I_{w}(p)$; then $\M,w \models p$. Since $\M,w$ is a model for $\Gamma$, $\M,w \models \Diamond \ex x \Box (p \impli Px)$, so there is a $w^{\prime} \in \W$ such that $\M,w^{\prime} \models \ex x \Box (p \impli Px)$. Then, for some valuation $h$ such that $h(x) \in \barD_{w^{\prime}}$, we have that $\M,w^{\prime} \vSs \Box (p \impli Px)$. So, for every $w^{\prime\prime} \in \W$, $\M,w^{\prime\prime} \vSs p \impli Px$. In particular, $\M,w \vSs p \impli Px$. Since $\M,w \vSs p$, then $\M,w \vSs Px$, i.e. $\bl h(x) \br \in \I(P,w)$. So, by hypothesis, $\bl h(x) \br \in \J(P,w)$.
+
+\qquad Now, since $\N,w$ is a model for $\Gamma$, $\N,w \vSs \Box \todo x \Box (Px \impli p)$.  So, for every $w^{\prime\prime} \in W$, $\N,w^{\prime\prime} \vSs \todo x \Box (Px \impli p)$. In particular, $\N,w^{\prime} \vSs \todo x \Box (Px \impli p)$. So for every $x$-variant $h\p$ of $h$, $\N,w^{\prime} \vSp \Box (Px \impli p)$. In particular, $\N,w^{\prime} \vSs \Box (Px \impli p)$. Hence, we have $\N,w \vSs Px \impli p$. Since $\bl h(x) \br \in \J(P,w)$; $\N,w \vSs Px$, and so $\N,w \vSs p$, i.e. $\bl \br \in \J_{w}(p)$. 
+
+\qquad Therefore, $\I_{w}(p) \subseteq \J_{w}(p)$. We can show with a similar argument, that $\J_{w}(p) \subseteq \I_{w}(p)$. Hence, $\I_{w}(p) = \J_{w}(p)$.   
+
+\qquad (b) Let $\M = \strucAS$ be an FOS5V-model for $\{P\}$ where:
+\begin{itemize}
+\item $\W = \{w,v,u\}$;
+\item $\D = \{a,b\}$;
+\item $\barD_{w} = \barD_{v} = \{a\}$, $\barD_{u} =\{a,b\}$;
+\item $\I(P,w) =\{\bl b \br \}$, $\I(p,w)=\{\bl \br\}$ and\\
+$\I(P,v) = \I(P,u) = \I(p,v) = \I(p,u) = \vazio$.
+\end{itemize}
+
+\qquad It can be easily seen that for a valuation $h$ such that $h(x) =b$, we have:
+\begin{center}
+$\M,w \vSs p \impli Px$\\
+$\M,v \vSs p \impli Px$\\
+$\M,u \vSs p \impli Px$.
+\end{center}
+
+\qquad So, $\M,u \models \ex x \Box (p \impli Px)$. Hence, $\M,w \models \Diamond \ex x\Box (p \impli Px)$ and $\M,v \models \Diamond \ex x \Box (p \impli Px)$.  
+
+\qquad In a similar way, we have for every valuation $h$:
+
+\begin{center}
+$\M,w \vSs Px \impli p$\\
+$\M,v \vSs Px \impli p$\\
+$\M,u \vSs Px \impli p$.
+\end{center}
+\qquad Hence,
+
+\begin{center}
+$\M,w \vSs \Box (Px \impli p)$\\
+$\M,v \vSs \Box (Px \impli p)$\\
+$\M,u \vSs \Box (Px \impli p)$.
+\end{center}
+\qquad Then,
+
+\begin{center}
+$\M,w \models \todo x\Box (Px \impli p)$\\
+$\M,v \models \todo x\Box (Px \impli p)$\\
+$\M,u \models \todo x\Box (Px \impli p)$.
+\end{center}
+
+\qquad So, $\M,w \models \Box \todo x\Box (Px \impli p)$ and $\M,v \models \Box \todo x\Box (Px \impli p)$. Therefore, both $\M,w$ and $\M,v$ are FOS5V-models for $\Gamma$.
+
+\qquad Now, let $\M^{\prime} = \bl \W,\D,\barD,\I^{\prime}\br$ be a model for $\{P\}$ such that $\M^{\prime} = \M|_{\{P\}}$; then,
+
+\begin{center}
+$\bar{\M}_{w}^{\prime} = \bl \{a\}, {\bar{\I\p}}_{w}\br$\\
+$\bar{\M}_{v}^{\prime} = \bl \{a\}, {\bar{\I\p}}_{v} \br$.
+\end{center}
+
+\qquad It is evident that ${\bar{\I\p}}_{w}(P) = {\bar{\I\p}}_{v}(P) = \vazio$. Let $\rho$ be the identity function on $\{a\}$ and $\sigma$ the identity function on $\{a,b\}$; then clearly $\rho: \bar{\M}_{w}^{\prime} \iso \bar{\M}_{v}^{\prime}$ and for every $\rho^{\prime} \subseteq_{fin} \rho$, $\sigma$ is a function such that $\rho^{\prime} \subseteq \sigma$ and  $\sigma: \M^{\prime} \iso \M^{\prime}$. Since all the conditions of Lemma 2 have been established, it follows that for every $\varphi \in sen(\{P\})$
+
+\begin{center}
+$\M^{\prime},w \models \varphi$ iff $\M^{\prime},v \models \varphi$.
+\end{center}
+
+\qquad So, by this fact and by Proposition 1, we have
+
+\begin{center}
+(+) $\M,w \models \varphi$ iff $\M,v \models \varphi$, for every $\varphi \in sen(\{P\})$.
+\end{center}
+
+\qquad Now, suppose that $\Gamma$ explicitly defines $p$ in FOS5V. So there is a $\theta \in sen(\{P\})$ such that $\Gamma \vS p \see \theta$. Since both $\M,w$ and $\M,v$ are FOS5V-models for $\Gamma$, $\M,w \models p \see \theta$ and $\M,v \models p \see \theta$. By the definition of $\M$, $\M,w \models p$, so $\M,w \models \theta$. By (+), $\M,v \models \theta$, hence $\M,v \models p$; a contradiction. Therefore, $\Gamma$ does not explicitly define $p$ in FOS5V.  
+\end{proof}
+
+
+\begin{teor}
+Beth's Definability Theorem and the Interpolation Theorem fail for FOS5V. 
+\end{teor}
+
+\begin{proof}
+By Proposition 11, FOS5V does not have the Definability property, hence, by Proposition 9, FOS5V does not have the Interpolation property.    
+\end{proof}
+
+\section{Failure of Interpolation and Beth's Definability  Theorems in FOS5}
+\qquad Before continuing, we are going to state some basic facts about permutations without proof.
+
+\begin{defn}
+Let $\tau$ be a permutation on $A$. We say that $\tau$ is an \textit{essentially finite permutation} on $A$ iff $D_{\tau}= \{a \in A$ $|$ $ \tau(a)\neq a\}$ is a finite set.
+\end{defn}
+
+\begin{pro}
+If $\tau$ and $\sigma$ are essentially finite permutations on $A$, then $\sigma\circ\tau$ is an essentially finite permutation on $A$.
+\end{pro}
+
+\begin{pro}
+If $\sigma$ is an essentially finite permutation on $A$, then $\sigma^{-1}$ is an essentially finite permutation on $A$.
+\end{pro}
+
+\begin{pro}
+Let $\tau$ be a permutation on $A$. If $\tau^{\prime} \subseteq_{fin} \tau$, then there is a $\sigma$ such that $\tau^{\prime} \subseteq \sigma$ and $\sigma$ is an essentially finite permutation on $A$.
+\end{pro}
+
+\begin{pro}
+Let $\Li =\{P,p\}$ and $\Gamma =\{p \impli \Diamond\todo x (Px \impli \Box (p \impli \nao Px)), \nao p \impli \Box \ex x (Px \e \Box (\nao p \impli Px))\}$; then:
+\begin{enumerate}[(a)]
+\item $\Gamma$ implicitly defines $p$ in FOS5.
+\item $\Gamma$ does not explicitly define $p$ in FOS5.
+\end{enumerate}
+\end{pro}
+
+\begin{proof}
+(a) We proceed exactly like in Proposition 11. Let $\M,w$ and $\N,w$ be FOS5-models for $\Gamma$ such that $\M = \bl \W,\D,\I\br$, $\N = \bl \W,\D,\J\br$ and for every $v \in \W$, $\I(P,v) = \J(P,v)$. 
+
+\qquad Suppose that $\I_{w}(p) \neq \J_{w}(p)$; then either $\I_{w}(p) = \{ \bl \br\}$ and $\J_{w}(p) = \vazio$ or 
+$\I_{w}(p) = \vazio$ and $\J_{w}(p) =  \{\bl \br\}$. In the first case, since $\M, w$ is a model for $\Gamma$, $\M, w \models \Diamond\todo x (Px \impli \Box (p \impli \nao Px))$. Then, there is a $w\p \in \W$ such that $\M, w\p \models \todo x (Px \impli \Box (p \impli \nao Px))$. And since $\N, w$ is a model for $\Gamma$, then $\N, w \models  \Box \ex x (Px \e \Box (\nao p \impli Px))$. In particular, $\N, w\p \models \ex x (Px \e \Box (\nao p \impli Px))$. So, there is a valuation $h$ such that $\N, w\p \vSs  Px \e \Box (\nao p \impli Px)$. So $\bl h(x) \br \in \J(P,w\p)$ and $\N, w\p \vSs \Box (\nao p \impli Px)$. Thus, $\N, w \vSs \nao p \impli Px$. And since $\J_{w}(p) = \vazio$, $\N, w \vSs Px$, i.e. $\bl h(x) \br \in \J(P,w)$.   
+
+\qquad  Since $\M, w\p \models \todo x (Px \impli \Box (p \impli \nao Px))$, we have that $\M, w\p \vSs Px \impli \Box (p \impli \nao Px)$. By hypothesis, $\bl h(x) \br \in \I(P,w\p)$ and $\bl h(x) \br \in \I(P,w)$. So $\M, w\p \vSs \Box (p \impli \nao Px)$. In particular, $\M, w \vSs p \impli \nao Px$. Hence, $\M, w \vSs \nao Px$, i.e. $\bl h(x) \br \notin \I(P,w)$; a contradiction. In the second case, we can deduce a contradiction in a similar manner. Therefore, $\I_{w}(p) = \J_{w}(p)$.
+
+\qquad (b) Let $\M = \strucASB$ be an FOS5-model for $\{P\}$ where:
+\begin{itemize}
+\item $\W = \{ \bl k, \tau \br$ $|$ $k \in \{0,1,2\}$ and $\tau$ is an essentially finite permutation on $\Z\}$;
+\item $\D = \Z$;
+\item Let $N, O$ and $E$ be the sets of the natural numbers, odd natural numbers and even natural numbers, respectively. If $a \in \Z$, then:
+
+\begin{center}
+$\bl a \br \in \I(P,\bl 0,\tau \br)$ iff $a \in \tau[N]$\\
+$\bl a \br \in \I(P,\bl 1,\tau \br)$ iff $a \in \tau[0]$\\
+$\bl a \br \in \I(P,\bl 2,\tau \br)$ iff $a \in \tau[E]$\\
+\end{center}
+\end{itemize}
+
+\qquad Let $i$ be the identity function on $\Z$; $w_0 = \bl 0,i \br$, $w_1 = \bl1,i\br$ and $w_2 = \bl2,i\br$. Let $\M_{w_0} = \bl \Z, \Z, \I_{w_0} \br$, $\M_{w_1} = \bl \Z, \Z, \I_{w_1} \br$ and $\rho$ be any permutation on $\Z$ such that $\rho[N]=O$. Then, for every $a \in \Z$:
+
+\begin{center}
+$\bl a\br  \in  \I_{w_0}(P)$ iff $\bl a \br \in \I(P, w_{0})$ iff $a \in i[N]$ iff $a \in N$ iff $\rho(a) \in O$ iff $\rho(a) \in i[O]$ iff $ \bl \rho(a) \br \in \I(P,w_{1})$ iff $\bl \rho(a) \br \in  \I_{w_1}(P)$.
+\end{center}
+
+\qquad Thus, $\rho: \M_{w_0} \iso \M_{w_1}$. Now, consider the following:
+
+\begin{center}
+(+) For every $\rho\p \subseteq_{fin}\rho$, there is a $\sigma$ such that $\rho\p \subseteq \sigma$ and $\sigma: \M \iso \M$.
+\end{center}
+
+\qquad (\textit{Proof} of (+)) If $\rho\p \subseteq_{fin}\rho$, then, by Proposition 14, there is a $\sigma$ such that $\rho\p \subseteq \sigma$ and $\sigma$ is an essentially finite permutation on $\Z$. Let $w =\bl k,\tau \br$ be a member of $\W$; by Proposition 12, $\bl k,\sigma \circ \tau \br$ is a member of $\W$. Let $M \in \{N,O,E\}$; then:
+
+\qquad On the one hand, if $\bl a \br \in \I_{\bl k,\tau \br}(P)$, then $a \in \tau[M]$, so there is a $b \in M$ such that $a = \tau(b)$. Thus, $\sigma(a) = \sigma(\tau(b)) = \sigma \circ\tau(b)$, then $\sigma(a) \in \sigma \circ\tau[M]$, and so $\bl \sigma(a) \br \in \I_{\bl k,\sigma \circ\tau \br}(P)$.
+
+\qquad On the other hand, if $\bl \sigma(a) \br \in \I_{\bl k,\sigma \circ\tau \br}(P)$, then $\sigma(a) \in \sigma \circ\tau[M]$, so there is a $b \in M$ such that $\sigma(a) = \sigma \circ\tau(b)$, i.e. $\sigma(a) = \sigma(\tau(b))$. Since $\sigma$ is injective, $a = \tau(b)$, thus $a \in \tau[M]$, and so $\bl a \br \in \I_{\bl k,\tau \br}(P)$.
+
+\qquad Hence $\sigma: \M_{\bl k,\tau \br} \iso \M_{\bl k,\sigma \circ \tau)}$, i.e. the condition (i) of Definition 17 is satisfied.
+
+\qquad Let $w =\bl k,\tau \br$ be a member of $\W$; by Propositions 12 and 13, $\bl k,\sigma^{-1} \circ \tau \br$ is a member of $\W$. Let $M \in \{N,O,E\}$, then:
+
+
+\qquad On the one hand, if $\bl a \br \in \I_{\bl k,\sigma^{-1} \circ \tau \br}(P)$, then $a \in \sigma^{-1} \circ \tau[M]$, so there is a $b \in M$ such that $\sigma^{-1} \circ \tau(b) =a$, i.e. $\sigma^{-1}(\tau(b)) =a$ . Thus,  $\sigma(\sigma^{-1}(\tau(b))) =\sigma(a)$, and so $\tau(b) =\sigma(a)$, then $\sigma(a) \in \tau[M]$ and so $\bl \sigma(a) \br \in \I_{\bl k,\tau\br}(P)$. 
+
+\qquad On the other hand, if $\bl \sigma(a) \br \in \I_{\bl k,\tau \br}(P)$, then $\sigma(a) \in \tau[M]$, so there is a $b \in M$ such that $\tau(b) = \sigma(a)$. Thus, $\sigma^{-1}(\tau(b)) = \sigma^{-1}(\sigma(a))$, i.e. $\sigma^{-1} \circ \tau(b) =a$, then $a \in \sigma^{-1} \circ \tau[M]$, and so  $\bl a \br \in \I_{\bl k,\sigma^{-1} \circ \tau \br}(P)$.
+
+\qquad Hence $\sigma: \M_{\bl k,\sigma^{-1} \circ \tau \br} \iso \M_{\bl k,\tau \br}$, i.e. the condition (ii) of Definition 17 is satisfied.  Therefore, $\sigma: \M \iso \M$. $\Box$
+
+\qquad Now, since $\rho: \M_{w_0} \iso \M_{w_1}$, it is evident that $\rho: \bar{\M}_{w_0} \iso \bar{\M}_{w_1}$. By this fact and by (+), all the conditions of Lemma 2 have been established, it follows that:
+
+\begin{center}
+(++) $\M,w_{0} \models \theta$ iff $\M,w_{1} \models \theta$, for every $\theta \in sen(\{P\})$.
+\end{center}
+
+\qquad Let $\M\p = \bl \W,\D,\I\p \br$ be the expansion for $\M$ to $\Li$ where $\bl \br \in \I\p(p,w)$ iff $w \neq w_{0}$. And let $\M\pp = \bl \W,\D,\I\pp)$ be the expansion for $\M$ to $\Li$ where $ \bl \br \in \I\pp(p,w)$ iff $w = w_{1}$. 
+
+\begin{center}
+(+++) $\M\p,w_{0}$ and $\M\pp,w_{1}$ are FOS5-models for $\Gamma$.
+\end{center}
+
+
+\qquad (\textit{Proof} of (+++)) First, it is clear that $\M\p,w_{0} \models p \impli \Diamond\todo x (Px \impli \Box (p \impli \nao Px))$. Now, let $w = \bl k,\tau \br$ be a member of $\W$, and $M \in \{N,O,E\}$. Clearly, $M$ is an infinite set and $M \subseteq N$. Suppose that $\tau[M] \subseteq \Z\backslash N$, then $M \subseteq D_{\tau}$; contradicting the assumption that $\tau$ is an essentially finite permutation on $\Z$. Therefore, there is an $a \in \Z$ such that $a \in \tau[M]$ and $a \in N$. Let $h$ be valuation such that $h(x)=a$.  Since for every $w\p \in \W \backslash \{w_0\}$, $\M\p,w\p\vSs p$ and $\M\p,w_{0}\vSs Px$, then:
+
+\begin{center}
+$\M\p,w \vSs \Box(\nao p \impli Px)$.
+\end{center}
+
+\qquad Since $h(x) \in \tau[M]$, 
+\begin{center}
+$\M\p,w\vSs Px \e \Box(\nao p \impli Px)$
+\end{center}
+and so
+
+\begin{center}
+$\M\p,w\models \ex x (Px \e \Box(\nao p \impli Px))$.
+\end{center}
+
+\qquad Since $w$ was arbitrarily chosen, $\M\p,w_{0}\models \Box \ex x (Px \e \Box(\nao p \impli Px))$, and so, $\M\p,w_{0}\models \nao p \impli \Box \ex x (Px \e \Box(\nao p \impli Px))$. Therefore, $\M\p,w_{0} \models \Gamma$.  
+
+\qquad Second, it is clear that $\M\pp,w_{1} \models \nao p \impli \Box \ex x (Px \e \Box (\nao p \impli Px))$. Now, let $h$ be a valuation. If $h(x) \in E$, then for every $w \in \W \backslash \{w_1\}$, $\M\pp,w \not\vSs p$ and $\M\pp,w_{1} \vSs \nao Px$, then: 
+
+\begin{center}
+$\M\pp,w_{2}\vSs \Box(p \impli \nao Px)$.
+\end{center}
+
+\qquad Hence, 
+
+\begin{center}
+$\M\pp,w_{2}\models \todo x (Px \impli \Box(p \impli \nao Px))$.
+\end{center}
+
+\qquad Thus $\M\pp,w_{1}\models \Diamond \todo x (Px \impli \Box(p \impli \nao Px))$, and so $\M\pp,w_{1}\models p \impli \Diamond \todo x (Px \impli \Box(p \impli \nao Px))$. Therefore, $\M\pp,w_{1} \models \Gamma$. $\Box$ 
+
+
+\qquad Now, suppose that $\Gamma$ explicitly defines $p$ in FOS5. So there is a $\theta \in sen(\{P\})$ such that $\Gamma \vSB p \see \theta$. So, by (+++), $\M\p,w_{0} \models p \see \theta$ and $\M\pp,w_{1} \models p \see \theta$. Since $\M\pp,w_{1} \models p$, then $\M\pp,w_{1} \models \theta$. Hence, by Proposition 1, $\M,w_{1} \models \theta$. By (++), $\M,w_{0} \models \theta$. So, again by Proposition 1, $\M\p,w_{0} \models \theta$. Thus $\M\p,w_{0} \models p$, a contradiction. Therefore, $\Gamma$ does not explicitly define $p$ in FOS5.
+\end{proof}
+
+\begin{teor}
+Beth's Definability Theorem and the Interpolation Theorem fail for FOS5. 
+\end{teor}
+
+\begin{proof}
+Direct from Propositions 9 and 15.  
+\end{proof}
+
+\section{Inner and outer quantifiers}
+
+\qquad Fix a language $\Li$. We are going to add the new logical symbols $\Sigma$ and $\Pi$. Together with these symbols, we will define new kinds of modal formulas. For the sake of brevity, from now on we are only going to indicate the structure of the formulas, we are going to skip the full recursive definition.  
+
+
+\begin{defn} (Extended formulas)
+	\begin{center}
+		$ \varphi :: = x =y$ $|$ $Px_1 \dots x_n$ $|$ $\nao \varphi$ $|$ $\varphi \ou \varphi$ $|$ $\ex x \varphi$ $|$  $\Box \varphi$ $|$ $\Sigma x \varphi$ $|$ $\Pi x \varphi$
+	\end{center}
+\end{defn}
+
+\qquad $\ex$ and $\todo$ are called \textit{inner quantifiers}; $\Sigma$ and $\Pi$ are called \textit{outer quantifiers}. We write $\FLi^{+}$ to denote the set of all extended formulas.
+
+
+\begin{defn}
+	Let $\M = \strucAS$ be an FOS5V-model for $\Li$, $\varphi \in \FLi^{+}$, $h$ a valuation in $\M$ and $w \in \W$. The notion $\M,w \vSs \varphi$ is defined as before; the new clauses are:
+	
+	\begin{itemize} 
+
+		\item[] $\M,w \vSs \Sigma x \psi$ iff there is an $x$-variant $h\p$ of $h$ such that $\M,w \vSp \psi$.
+		
+		\item[] $\M,w \vSs \Pi x \psi$ iff for every $x$-variant $h\p$ of $h$  $\M,w \vSp \psi$.
+		
+	\end{itemize}
+
+\end{defn}
+
+
+\qquad It can be easily seem that for every $\varphi(x) \in \FLi^{+}$:
+
+
+\begin{center}
+	$ \vS \Sigma x \varphi(x) \see \nao \Pi x \nao \varphi(x)$\\
+	$ \vS \Pi x \varphi(x) \see \nao \Sigma x \nao \varphi(x)$
+\end{center}
+
+\begin{defn}
+We say that the outer quantifiers $\Sigma$ and $\Pi$ are \textit{definable in FOS5V} iff for every $\varphi (x) \in \FLi^{+}$ there are sentences $\psi,\theta\in \FLi$ such that $\psi$ and $\theta$ have exactly the same non-logical symbols occurring in $\varphi (x)$ and 
+
+
+\begin{center}
+	$ \vS \Sigma x \varphi(x) \see \psi$\\
+	$ \vS \Pi x \varphi(x) \see \theta$
+\end{center}
+\end{defn}
+
+
+\begin{pro}
+The outer quantifiers $\Sigma$ and $\Pi$ are not definable in FOS5V.
+\end{pro}
+
+\begin{proof}
+By the equivalences stated above, is enough to show that $\Sigma$ is not definable in FOS5V.
+
+
+\qquad Let $\Gamma =\{\Box \todo x \Box (Px \impli p), \Diamond \ex x \Box (p \impli Px)\}$. First, we shall show that 
+
+\begin{center}
+$\Gamma \vS p \see \Sigma x Px$
+\end{center}
+
+\qquad Let $\M,w$ be a FOS5V-model for $\Gamma$. First, suppose $\M,w \models p$. Since $\M,w \models  \Diamond \ex x \Box (p \impli Px)$, then for some $w\p \in \W$, $\M,w\p \models \ex x \Box (p \impli Px)$.  So for some valuation $h$ such that $h(x) \in \barD_{w\p}$, $\M,w\p \vSs \Box (p \impli Px)$. Hence, $\M,w \vSs p \impli Px$, so $\M,w \vSs Px$. Thus, $\M,w \models \Sigma x Px$. 
+
+\qquad  Second, suppose $\M,w \models \Sigma x Px$. Then there is a valuation $h$ and a $w\p \in \W$ such that $\M,w \vSs Px$ and $h(x) \in \barD_{w\p}$. Since $\M,w \models \Box \todo x \Box (Px \impli p)$, then  $\M,w\p \models \todo x \Box (Px \impli p)$. So, $\M,w\p \vSs \Box (Px \impli p)$. Hence,  $\M,w \vSs Px \impli p$. Thus, $\M,w \vSs p$, i.e., $\M,w \models p$.     
+
+
+
+
+\qquad Now, suppose that $\Sigma$ is definable in FOS5V. Then there is a $\psi \in sen(\{P\})$ such that
+
+\begin{center}
+	$ \vS \Sigma x Px \see \psi$
+\end{center}
+
+
+\qquad Hence, $\Gamma \vS p \see \psi$. Thus, $\Gamma$ explicitly defines $p$ in FOS5V. But this contradicts Proposition 11.
+
+
+\end{proof}
+
+

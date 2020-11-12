@@ -1,0 +1,878 @@
+\documentclass{beamer}
+
+
+\mode<presentation>
+{
+	\usetheme{Darmstadt}
+	\setbeamercovered{transparent}
+}
+
+\setbeamertemplate{headline}{}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+
+\usepackage{calc}
+
+\usepackage{tikz}
+
+\usetikzlibrary{decorations.markings}
+
+\tikzstyle{vertex}=[circle, draw, inner sep=0pt, minimum size=6pt]
+
+\newcommand{\vertex}{\node[vertex]}
+
+\newcounter{Angle}
+
+\setbeamertemplate{bibliography item}[text]
+
+
+\theoremstyle{definition}
+\newtheorem{teor}{Theorem} 
+\newtheorem{pro}{Proposition} 
+\newtheorem{lema}{Lemma} 
+\newtheorem{coro}{Corollary} 
+\newtheorem{defn}{Definition}
+
+
+
+\newcommand{\Li}{\mathcal{L}}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\R}{\mathcal{R}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\J}{\mathcal{J}}
+\newcommand{\Pa}{\mathcal{P}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\up}{\upsilon} 
+\newcommand{\Kmodel}{\bl\W,\R,\D,\I,\br}
+\newcommand{\Fmodel}{\bl\W,\R,\D,\I,\E \br}
+\newcommand{\p}{^{\prime}} 
+\newcommand{\pp}{^{\prime\prime}}   
+\newcommand{\nmodels}{\not\models}
+\newcommand{\nao}{\neg}
+\newcommand{\bige}{\bigwedge}
+\newcommand{\e}{\wedge}
+\newcommand{\see}{\longleftrightarrow}
+\newcommand{\ou}{\vee}
+\newcommand{\impli}{\rightarrow}
+\newcommand{\bigou}{\bigvee}
+\newcommand{\todo}{\forall} 
+\newcommand{\ex}{\exists} 
+\newcommand{\teo}{\vdash}
+\newcommand{\vazio}{\emptyset}
+\newcommand{\bl}{\langle}
+\newcommand{\br}{\rangle}
+
+%	\begin{frame}{Make Titles Informative.}
+%		
+%		You can create overlays\dots
+%		\begin{itemize}
+%			\item using the \texttt{pause} command:
+%			\begin{itemize}
+%				\item
+%				First item.
+%				\pause
+%				\item    
+%				Second item.
+%			\end{itemize}
+%			\item
+%			using overlay specifications:
+%			\begin{itemize}
+%				\item<3->
+%				First item.
+%				\item<4->
+%				Second item.
+%			\end{itemize}
+%			\item
+%			using the general \texttt{uncover} command:
+%			\begin{itemize}
+%				\uncover<5->{\item
+%					First item.}
+%				\uncover<6->{\item
+%					Second item.}
+%			\end{itemize}
+%		\end{itemize}
+%	\end{frame}
+%	
+
+
+\setbeamertemplate{navigation symbols}{}%remove navigation symbols
+
+
+\title[First-order justification logic JT45] 
+{First-order justification logic JT45}
+
+
+\author[F.Salvatore] 
+{Felipe~Salvatore\inst{1}}
+
+\institute[Universities of Somewhere and Elsewhere] 
+{
+	\inst{1}%
+	graduate student in philosophy\\
+	University of São Paulo}
+
+
+\date[CUNY 2015] 
+{USP, April 02, 2015}
+
+\begin{document}
+	
+\begin{frame}
+\titlepage 
+\end{frame}
+
+
+\begin{frame}
+	\begin{itemize}
+	\item[] {\color{blue}Motivations}
+	\vspace{5mm}		
+	\item[]Justification logic: a brief introduction
+	\vspace{5mm}
+	\item[] First-order justification logic
+	\vspace{5mm}
+	\item[] First-order JT45
+	\vspace{5mm}
+	\item[] Discussion: Realization
+	\vspace{5mm}
+	\item[] Discussion: Interpolation
+	\end{itemize} 
+\end{frame}
+
+\begin{frame}{Motivations}
+
+	
+\begin{itemize}
+\item Introduce justification terms into epistemic first-order logic.
+\vspace{5mm}
+\item Investigate the connection between justification logic and modal logic; specifically the role of the \textit{Interpolation Theorem}. 
+\begin{itemize}
+\item The Interpolation Theorem fails for first-order S5 (FOS5) \cite{Fine79}.
+\item The Interpolation Theorem can be restored:
+
+
+\begin{enumerate} [i)]
+\item Restoration through the mechanism of hybrid logic \cite{Areces01}.
+\item Restoration through propositional quantification \cite{Fitting02}.
+\end{enumerate}
+
+\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+	\begin{itemize}
+	\item[] {Motivations}
+	\vspace{5mm}		
+	\item[]{\color{blue}Justification logic: a brief introduction}
+	\vspace{5mm}
+	\item[] First-order justification logic
+	\vspace{5mm}
+	\item[] First-order JT45
+	\vspace{5mm}
+	\item[] Discussion: Realization
+	\vspace{5mm}
+	\item[] Discussion: Interpolation
+	\end{itemize} 
+\end{frame}
+
+
+\begin{frame} {Intuiitionistic logic}
+
+\qquad In the debate around foundations of mathematics one of the philosophical positions that arose was Brouwer's intuitionism. 
+
+\vspace{5mm}
+
+\qquad Briefly, intuitionism says that the truth of a mathematical statement should be identified with the proof of that statement. Summarizing the core idea of this position in a slogan: 
+
+\begin{center}
+{\color{blue} truth means provability}
+\end{center}
+
+\end{frame}
+
+
+\begin{frame} {BHK semantics}
+
+\qquad The Brouwer–Heyting–Kolmogorov (BHK) semantics gives an informal meaning to the logical connectives $\bot, \e, \ou, \impli, \nao$ in the following way:
+
+\begin{itemize}
+	\item $\bot$ is a proposition which has no proof (a absurdity, e.g. $0=1$).
+	\item A proof of $\varphi \e \psi$ consist of a proof of $\varphi$ and a proof of $\psi$.
+	\item A proof of $\varphi \ou \psi$ is given by exhibiting either a proof of $\varphi$ or a proof of $\psi$.
+	\item A proof of $\varphi \impli \psi$ is a construction $f$ transforming any proof $t$ of $\varphi$ into a proof $f(t)$ of $\psi$.
+	\item A proof of $\nao \varphi$ is a construction which transforms any proof of $\varphi$ into a proof of a contradiction. 
+\end{itemize}
+
+\end{frame}
+
+\begin{frame} {Gödel 1933}
+\qquad In \cite{Goedel33} Gödel introduced a new unary operator $B$ to classical logic; $B\varphi$ should be read as `$\varphi$ is provable'. To describe the behavior of this operator Gödel constructed the following calculus (S4):
+
+\vspace{5mm}
+
+\begin{itemize}
+ \item[] All tautologies
+ \item[] $B\varphi \impli \varphi$
+ \item[] $B(\varphi \impli \psi) \impli$ $(B\varphi \impli B\psi)$
+ \item[] $B\varphi \impli BB\varphi$
+ \item[] (\textit{Modus Ponens}) $\teo \varphi$, $\teo \varphi\impli\psi$ $\Rightarrow$ $\teo \psi$
+ \item[] (\textit{Internalization})  $\teo \varphi$ $\Rightarrow$ $\teo B\varphi$
+\end{itemize}
+\end{frame}
+
+\begin{frame} {Gödel 1933}
+\qquad Based on the intuitionistic notion of truth as provability, Gödel defined the following translation:
+
+\begin{itemize}
+	\item $p^{B} = Bp$;
+	\item $\bot^{B} = \bot$;	
+	\item $(\varphi \e \psi)^{B} = (\varphi^{B} \e \psi^{B})$;
+	\item $(\varphi \ou \psi)^{B} = (\varphi^{B} \ou \psi^{B})$;	
+	\item $(\varphi \impli \psi)^{B} = B(\varphi^{B} \impli \psi^{B})$.
+\end{itemize}
+
+\qquad It was shown that this translation `makes sense', i.e., that the following theorem holds:
+
+\begin{center}
+	For every formula $\varphi$, Int $\teo \varphi$ iff S4 $\teo \varphi^{B}$.
+\end{center}
+\end{frame}
+
+
+
+
+\begin{frame} {Gödel 1933}
+ \qquad In \cite{Goedel33} Gödel pointed out that S4 does not correspond to the calculus of the predicate $Prov(x)$ -- $\ex y Proof (y,x)$ -- in \textbf{PA}. Simply because S4 proves the formula: 
+ 
+ \begin{center}
+ $B(B(\bot) \impli \bot)$
+ \end{center}
+ 
+ 
+\qquad If we translate this formula in the language of \textbf{PA}:
+ 
+ 
+ 
+  \begin{center}
+$Prov(\ulcorner Prov(\ulcorner\bot\urcorner) \impli \bot\urcorner)$
+  \end{center}
+ 
+\qquad Since the following sentences are equivalent in \textbf{PA}:
+
+\begin{center}
+	$Prov(\ulcorner\bot\urcorner) \impli \bot$\\
+	$\nao Prov(\ulcorner\bot\urcorner)$\\
+	$Consist(\textbf{PA})$
+\end{center}
+
+\qquad $Prov(\ulcorner Prov(\ulcorner\bot\urcorner) \impli \bot\urcorner)$ means that the consistency of \textbf{PA} is internally provable in \textbf{PA}, which contradicts Gödel's Second Incompleteness Theorem.
+\end{frame}
+
+
+\begin{frame} {Gödel 1938}
+\qquad In a lecture in 1938 \cite{Goedel38} Gödel suggested a way to remedy this problem. Instead of using the implicit representation of proofs by the existential quantifier in the formula $\ex y Proof (y,x)$ one can use explicit variables for proofs (like $t$) in the formula $Proof (t,x)$. In these lines, Gödel proposed the following ternary operator
+
+\begin{center}
+$tB(\varphi,\psi)$
+\end{center}
+
+
+\qquad which should be read as
+\begin{center}
+`$t$ is a derivation of $\psi$ from $\varphi$'
+\end{center}
+\end{frame}
+
+
+\begin{frame} {Gödel 1938}
+\qquad Using $tB(\varphi)$ as an abbreviation of $tB(\top,\varphi)$, Gödel formulate the following axiom system:
+\vspace{5mm}
+\begin{itemize}
+	\item[] All tautologies
+	\item[] $tB(\varphi)\impli \varphi$
+	\item[] $tB(\varphi,\psi) \impli (sB(\psi,\theta) \impli f(t,s)B(\varphi,\theta))$
+	\item[] $tB(\varphi) \impli t\p B(tB(\varphi))$
+	\item[] (\textit{Modus Ponens}) $\teo \varphi$, $\teo \varphi\impli\psi$ $\Rightarrow$ $\teo \psi$;
+	\item[] (\textit{Internalization})  $\teo \varphi$ $\Rightarrow$ $\teo tB(\varphi)$ (where $t$ is an derivation of $\varphi$).
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame} {Logic of Proofs (LP)}
+\qquad Independently of Gödel's system presented in \cite{Goedel38} (the lecture was published only in 1998), Artemov (in \cite{Artemov01}) propose one new logic called {\color{blue}Logic of Proofs (LP)} which is axiomatized by the following system:     
+
+\begin{itemize}
+	\item[] All tautologies
+	\item[] $t$$:$$\varphi \impli \varphi$
+	\item[] $t$$:$$(\varphi \impli \psi) \impli$ $(s$$:$$\varphi \impli$ $[t\cdot s]$$:$$\psi)$
+	\item[] $t$$:$$\varphi \impli$ $!t$$:$$t$$:$$\varphi$
+	\item[] $t$$:$$\varphi \impli$ $[t+s]$$:$$\varphi$ 
+	\item[] $s$$:$$\varphi \impli$ $[t+s]$$:$$\varphi$
+	\item[] (\textit{Modus Ponens}) $\teo \varphi$, $\teo \varphi\impli\psi$ $\Rightarrow$ $\teo \psi$;
+	\item[] (\textit{axiom necessitation})  $\teo c$$:$$\varphi$, where $\varphi$ is an axiom and $c$ is a justification constant.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame} {Logic of Proofs (LP)}
+\qquad LP can mirror derivations in S4. For example:
+
+\vspace{5mm}
+In S4:
+
+\begin{enumerate}[1.]
+
+\item $p \impli (p\ou q)$ (tautology)
+
+\item $\Box (p \impli (p\ou q))$ (necessitation)
+
+\item $\Box p \impli \Box(p\ou q)$ (distribution)
+
+\item $q \impli (p\ou q)$(tautology)
+
+\item $\Box (q \impli (p\ou q))$ (necessitation)
+
+\item $\Box q \impli \Box(p\ou q)$ (distribution)
+
+\item $(\Box p \ou \Box q ) \impli \Box(p\ou q)$ (classical reasoning)
+\end{enumerate}
+
+
+
+\end{frame}
+
+
+
+\begin{frame} {Logic of Proofs (LP)}
+
+\vspace{5mm}
+In LP:
+
+\vspace{5mm}
+
+
+\begin{enumerate}[1.]
+
+\item $p \impli (p\ou q)$ (tautology)
+
+\item $c_{1}$$:$$(p \impli (p\ou q))$ (axiom necessitation)
+
+\item $c_{1}$$:$$(p \impli (p\ou q)) \impli (x$$:$$p \impli  [c_{1}\cdot x]$$:$$  
+(p\ou q))$ 
+
+\item $x$$:$$p \impli  [c_{1}\cdot x]$$:$$  
+(p\ou q)$ (modus ponens) 
+
+
+\item $q \impli (p\ou q)$(tautology)
+
+\item $c_{2}$$:$$(q \impli (p\ou q))$ (axiom necessitation)
+
+\item $c_{2}$$:$$(q \impli (p\ou q)) \impli (y$$:$$q \impli  [c_{2}\cdot y]$$:$$  
+(p\ou q))$ 
+
+\item $y$$:$$q \impli  [c_{2}\cdot y]$$:$$  
+(p\ou q)$ (modus ponens) 
+
+
+\item $[c_{1}\cdot x]$$:$$  
+(p\ou q) \impli [[c_{1}\cdot x] + [c_{2}\cdot y]]$$:$$  
+(p\ou q)$ 
+
+\item $[c_{2}\cdot y]$$:$$  
+(p\ou q) \impli [[c_{1}\cdot x] + [c_{2}\cdot y]]$$:$$  
+(p\ou q)$ 
+
+
+\item $(x$$:$$ p \ou y$$:$$ q ) \impli [[c_{1}\cdot x] + [c_{2}\cdot y]]$$:$$  
+(p\ou q)$ (classical reasoning)
+\end{enumerate}
+\end{frame}
+
+
+
+
+\begin{frame} {Logic of Proofs (LP)}
+
+\qquad If $\varphi$ is a S4 formula, there is a mapping $r$ (called a \textit{realization}) from the occurrences of $B$'s (or boxes) into terms. The result of this mapping on $\varphi$ is denoted $\varphi^{r}$. For example:
+
+
+\begin{center}
+$((\Box p \ou \Box q ) \impli \Box(p\ou q))^{r}$\\ $=$\\ $(x$$:$$ p \ou y$$:$$ q ) \impli [[c_{1}\cdot x] + [c_{2}\cdot y]]$$:$$
+(p\ou q)$
+\end{center}
+
+
+
+
+\textbf{(Realization Theorem between S4 and LP)} For every $\varphi$ in the language of S4, there is a realization $r$ such that
+
+\begin{center}
+S4 $\teo \varphi$ iff LP $\teo \varphi^{r}$ 
+\end{center}
+
+
+
+\end{frame}
+
+
+\begin{frame}{Logic of Proofs (LP)}
+\qquad There is a way to define an interpretation $*$ of the LP formulas into the sentences of \textbf{PA} (for details see \cite{Artemov01}). And with all this machinery Artemov was able to prove the following result:
+
+\vspace{5mm}
+
+
+\textbf{(Provability Completeness of Intuitionistic Logic)} For every $\varphi$, for every interpretation $*$, there is a realization $r$ such that
+
+\begin{center}
+Int $\teo \varphi$ iff S4 $\teo \varphi^{B}$ iff LP $\teo (\varphi^{B})^{r}$ iff \textbf{PA} $\teo ((\varphi^{B})^{r})^{*}$
+\end{center}
+\end{frame}
+
+
+\begin{frame} {JT45}
+\qquad LP is just one example of \textit{Justification Logic}. Another example, that is interesting to us, is the one called {\color{blue}JT45}, it extends the language of LP with the unary justification operator $?$ and has the following additional axiom scheme:\\
+
+\begin{center}
+$\nao t$$:$$\varphi \impli$ $?t$$:$$\nao t$$:$$\varphi$
+\end{center}
+ 
+ \qquad We can prove the realization theorem for this logic too!  
+ 
+ \vspace{5mm}
+ 
+ \textbf{(Realization Theorem between S5 and JT45)} For every $\varphi$ in the language of S5, there is a realization $r$ such that
+ 
+ \begin{center}
+ 	S5 $\teo \varphi$ iff JT45 $\teo \varphi^{r}$ 
+ \end{center}
+ 
+ 
+ 
+ 
+ 
+\end{frame}
+
+
+
+
+\begin{frame}
+	\begin{itemize}
+		
+		\item[] Motivations
+		\vspace{5mm}
+		\item[] Justification logic: a brief introduction
+		\vspace{5mm}	
+		\item[] {\color{blue}First-order justification logic}
+		\vspace{5mm}
+		\item[] First-order JT45
+		\vspace{5mm}
+		\item[] Discussion: Realization
+		\vspace{5mm}
+		\item[] Discussion: Interpolation
+	\end{itemize} 
+\end{frame}
+
+
+	
+\begin{frame}{From propositional justification logic to first-order}
+
+\qquad Let $\varphi(x)$ be any tautology, and let $t$ be the following derivation:
+
+\begin{enumerate}[1.]
+\item $\varphi(x)$ 
+\item $\todo x \varphi(x)$                 (generalization)
+\item $\todo x\varphi(x) \impli (Q(x) \impli \todo x\varphi(x))$ (tautology)
+\item $Q(x) \impli \todo x\varphi(x)$ (Modus Ponens)
+\end{enumerate}
+
+\qquad Although $x$ is free in the formula $Q(x) \impli \todo x\varphi(x)$, if $c$ is a term we can not substitute $c$ for $x$ in $t$ in order to obtain a derivation $t(c)$ of $Q(c) \impli \todo x\varphi(x)$ (if we do that we ruin the derivation at 2.).
+\end{frame}
+
+
+
+\begin{frame}{From propositional justification logic to first-order}
+	
+\qquad Now, let $s$ be the following derivation:
+
+\begin{enumerate}[1.]
+\item $\varphi(x)$ 
+\item $\todo x \varphi(x)$                 (generalization)
+\item $\todo x\varphi(x) \impli (Q(y) \impli \todo x\varphi(x))$ (tautology)
+\item $Q(y) \impli \todo x\varphi(x)$ (Modus Ponens)
+\end{enumerate}
+	
+\qquad $y$ is free in the formula $Q(y) \impli \todo x\varphi(x)$ and moreover for every term $c$ the result of substituting $c$ for $y$ in $s$, $s(c/y)$, is the  derivation of $Q(c) \impli \todo x\varphi(x)$.
+\end{frame}
+
+
+
+
+\begin{frame}{From propositional justification logic to first-order}
+\qquad These examples show us that there are two different roles of variables in a derivation: a variable can be a \textit{formal symbol} that can be subjected to generalization or a \textit{place-holder} that can be substituted for.
+
+\qquad In $t$, $x$ is both a formal symbol and a place-holder. And in $s$, $x$ is a formal symbol and $y$ is a place-holder.
+
+\qquad This consideration motivates the following definition:
+
+\begin{center}
+$x$ \textit{is free in the derivation} $t$ of the formula $\varphi$ iff for every term $c$, $t(c/x)$ is the derivation of $\varphi(c/x)$.
+\end{center}
+
+\end{frame}
+
+\begin{frame}{From propositional justification logic to first-order}
+
+\qquad In propositional justification logic we write $t$$: $$\varphi$ to express that $t$ is a derivation of $\varphi$. In order to represent the distinct roles of variables in the first-order justification logic, we are going to write formulas of the form:
+\begin{center}
+\vspace{5 mm}
+$t$$:$$Q(x) \impli \todo x\varphi(x)$\\
+\vspace{5 mm}
+$s$$:_{\{y\}}$$Q(y) \impli \todo x\varphi(x)$
+\end{center}
+
+
+\qquad The role of $\{y\}$ in $s$$:_{\{y\}}$$Q(y) \impli \todo x\varphi(x)$ is to point out that $y$ is free in the derivation $s$ of $Q(y) \impli \todo x\varphi(x)$. 
+\end{frame}
+
+\begin{frame}
+	\begin{itemize}
+		\item[] Motivations
+		\vspace{5mm}
+		\item[] Justification logic: a brief introduction
+		\vspace{5mm}
+		\item[] First-order justification logic
+		\vspace{5mm}
+		\item[] {\color{blue}First-order JT45}
+		\vspace{5mm}
+		\item[] Discussion: Realization
+		\vspace{5mm}
+		\item[] Discussion: Interpolation
+	\end{itemize} 
+\end{frame}
+
+
+
+\begin{frame}{Language of first-order JT45}
+
+\qquad The basic definitions that we present here are taken from the technical report of Artemov and Yarvorskaya \cite{Artemov11}.\\
+\vspace{5mm}
+Justification Terms
+	\begin{center}
+		$ t : = p_{i}$   $|$ $c_{i}$ $|$  $(t_{1} \cdot t_{2})$ $|$ $(t_{1} + t_{2})$ $|$  $!t$ $|$ $?t$ $|$ $gen_{x}(t)$
+	\end{center}
+\vspace{5mm}	
+Formulas
+	\begin{center}
+		$ \varphi : = Q(x_1, \dots, x_n)$   $|$ $\bot$ $|$  $\varphi \impli \psi$ $|$ $\todo x \varphi$ $|$  $t$$:_{X}$$\varphi$
+	\end{center}
+
+
+\end{frame}
+	
+
+\begin{frame}{Language of first-order JT45}
+\qquad Where $X, Y, \dots$ are variables for finite set of individual variables.  We write $Xy$ instead of $X \cup \{y\}$, in this case it is assumed that $y \notin X$. We use $t$$:$$\varphi$ as an abbreviation for $t$$:_{\vazio}$$\varphi$. And we write L to denote the set of formulas.\\
+\vspace{5mm}
+\qquad We define the notion of free variables of $\varphi$, $fv(\varphi)$, by induction similarly as in the classical case, the new clause is
+\begin{itemize} 
+\item If $\varphi$ is $t$$:_{X}$$\psi$, then  $fv(\varphi)$ is $X$.
+\end{itemize}
+ 
+\end{frame}	
+		
+		
+
+	
+\begin{frame}{First-order JT45: axiom system}
+
+\qquad First-order JT45 (FOJT45) is axiomatized by the following schemes and inference rules:\\
+ \vspace{5 mm}	
+		\textbf{A1} classical axioms of first-order logic\\
+		\textbf{A2} $t$$:_{Xy}$$\varphi \impli$ $t$$:_{X}$$\varphi$, provided $y$ does not occur free in $\varphi$\\
+		
+		\textbf{A3} $t$$:_{X}$$\varphi \impli$ $t$$:_{Xy}$$\varphi$ \\
+		
+		\textbf{B1} $t$$:_{X}$$\varphi \impli \varphi$\\
+		
+		\textbf{B2} $s$$:_{X}$$(\varphi \impli \psi) \impli$ $(t$$:_{X}$$\varphi \impli$ $[t\cdot s]$$:_{X}$$\psi)$\\
+		
+		\textbf{B3} $t$$:_{X}$$\varphi \impli$ $[t+s]$$:_{X}$$\varphi$, $s$$:_{X}$$\varphi \impli$ $[t+s]$$:_{X}$$\varphi$\\ 
+		
+		\textbf{B4} $t$$:_{X}$$\varphi \impli$ $!t$$:_{X}$$t$$:_{X}$$\varphi$\\
+		
+		
+	{\color{blue} 	\textbf{B5} $\nao t$$:_{X}$$\varphi \impli$ $?t$$:_{X}$$\nao t$$:_{X}$$\varphi$}\\
+		
+		
+		\textbf{B6} $t$$:_{X}$$\varphi \impli$ $gen_{x}(t)$$:_{X}$$ \todo x \varphi$, provided $x \notin X$\\
+		
+		
+		\textbf{R1} (\textit{Modus Ponens}) $\teo \varphi$, $\teo \varphi\impli\psi$ $\Rightarrow$ $\teo \psi$ \\
+		
+		\textbf{R2} (\textit{generalization})  $\teo \varphi$ $\Rightarrow$ $\teo \todo x \varphi$ \\
+		
+		\textbf{R3} (\textit{axiom necessitation})  $\teo c$$:$$\varphi$, where $\varphi$ is an axiom and $c$ is a justification constant.\\	
+\end{frame}	
+	
+
+\begin{frame}{Basic Results}
+
+
+\begin{teor}
+	(\textit{Internalization}) Let $p_{0}, \dots, p_{k}$ be justification variables; $X_{0}, \dots, X_{k}$ be finite sets of individual variables, and $X =X_{0} \cup \dots \cup X_{k}$. In these conditions, if  $p_{0}$$:_{X_{0}}$$\varphi_{0}, \dots, p_{k}$$:_{X_{k}}$$\varphi_{k} \teo \psi$, then there is a justification term $t(p_{0}, \dots, p_{k})$ such that 
+
+	\begin{center}
+	$p_{0}$$:_{X_{0}}$$\varphi_{0}, \dots, 
+	p_{k}$$:_{X_{k}}$$\varphi_{k} \teo t$$:_{X}$$\psi$.
+	\end{center}
+
+\end{teor}
+\end{frame}
+
+
+
+
+	
+	
+	
+\begin{frame}{Basic Results}
+	
+\begin{pro}
+	(\textit{Explicit counterpart of the Barcan Formula and its converse}) For every formula $\varphi(x)$ and every justification term $t$, there are justification terms $CB(t)$ and $B(t)$ such that: 
+	\begin{center}
+		$\teo t$$:$$\todo x \varphi(x) \impli \todo x CB(t)$$:_{\{x\}}$$\varphi(x)$\\
+		\vspace{2 mm}
+		$\teo \todo x t$$:_{\{x\}}$$\varphi(x) \impli B(t)$$:$$\todo x \varphi(x)$
+	\end{center}
+\end{pro}	
+\vspace{2 mm}
+\begin{itemize}
+\item<2-> $t:\todo x \varphi (x) \impli \todo x [c \cdot t]$$:_{\{x\}} \varphi(x)$
+\vspace{2 mm}
+\item<3-> $\todo x t$$:_{\{x\}}$$\varphi(x) \impli[r \cdot ?[[c_{3} \cdot [c_{2} \cdot gen_{x}(c_{1})]]\cdot ?t]]$$:\todo x \varphi(x)$   		
+\end{itemize}
+
+
+\end{frame}	
+	
+
+	
+
+\begin{frame}{Semantics}
+\qquad A possible world semantics for first-order LP is presented in Fitting \cite{Fitting14}. We have adopted the definitions of this paper for FOJT45 and with this definitions we were able to prove a completeness theorem for this logic. 
+
+\vspace{5mm}
+
+\qquad But we leave the semantical part for a future talk...
+
+\end{frame}
+
+
+
+
+\begin{frame}
+	\begin{itemize}
+		\item[] Motivations
+		\vspace{5mm}
+		\item[] Justification logic: a brief introduction
+		\vspace{5mm}
+		\item[] First-order justification logic
+		\vspace{5mm}
+		\item[] First-order JT45
+		\vspace{5mm}
+		\item[] {\color{blue}Discussion: Realization}
+		\vspace{5mm}
+		\item[] Discussion: Interpolation
+	\end{itemize} 
+\end{frame}
+
+
+\begin{frame}{Realization}
+\qquad Let $\varphi$ be a formula of FOS5. We define the {\color{blue}realization} of $\varphi$ in the language of FOJT45, $\varphi^{r}$, as follows:
+
+
+\begin{itemize}
+\item If $\varphi$ is atomic, then $\varphi^{r} = \varphi$.
+\item If $\varphi = \psi\impli\theta$, then $\varphi^{r} = \psi^{r}\impli\theta^{r}$
+\item If $\varphi = \todo x \psi$, then $\varphi^{r} = \todo x \psi^{r}$
+\item If $\varphi = \Box \psi (x_{1}, \dots, x_{n})$, then $\varphi^{r} =t$$:_{\{x_{1}, \dots, x_{n}\}}$$ \psi^{r}$
+\end{itemize}
+
+\qquad A realization is normal if all negative occurrences of $\Box$ are assigned justification variables. It can easily be checked that
+
+\begin{center}
+For every $\varphi$, $fv(\varphi) = fv(\varphi^{r})$
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}{Realization}
+\qquad Let $\varphi$ be a formula of FOJT45. {\color{blue}The forgetful projection} of $\varphi$, $\varphi^{\circ}$, is defined as follows:
+
+
+\begin{itemize}
+\item If $\varphi$ is atomic, then $\varphi^{\circ} = \varphi$.
+\item If $\varphi = \psi\impli\theta$, then $\varphi^{\circ} = \psi^{\circ}\impli\theta^{\circ}$
+\item If $\varphi = \todo x \psi$, then $\varphi^{\circ} = \todo x \psi^{\circ}$
+\item If $\varphi = t$$:_{X}$$ \psi$, then $\varphi^{\circ} = \Box \todo \vec{y}\psi^{\circ}$\\ where $\vec{y} \in fv(\psi)\backslash X$.
+\end{itemize}
+
+\qquad As before, it can easily be checked that
+
+\begin{center}
+	For every $\varphi$, $fv(\varphi) = fv(\varphi^{\circ})$
+\end{center}	
+\end{frame}
+
+
+
+
+\begin{frame}{Realization}
+
+\begin{pro}
+For every justification formula $\varphi$,
+\begin{center}
+If FOJT45 $\teo \varphi$, then FOS5 $\teo \varphi^{\circ}$.
+\end{center}
+\end{pro}	
+
+\begin{teor}
+(Realization) If FOS5 $\teo \varphi$, then FOJT45 $\teo \varphi^{r}$ for a normal realization $r$.
+\end{teor}	
+\end{frame}
+
+
+
+\begin{frame}
+	\begin{itemize}
+		\item[] Motivations
+		\vspace{5mm}
+		\item[] Justification logic: a brief introduction
+		\vspace{5mm}
+		\item[] First-order justification logic
+		\vspace{5mm}
+		\item[] First-order JT45
+		\vspace{5mm}
+		\item[] Discussion: Realization
+		\vspace{5mm}
+		\item[] {\color{blue}Discussion: Interpolation}
+	\end{itemize} 
+\end{frame}
+
+
+
+
+\begin{frame}{Interpolation}
+
+
+\begin{itemize}
+
+\item \textit{The Interpolation Theorem} holds for FOS5 iff for every sentences $\varphi$ and $\psi$  if $\teo \varphi \impli\psi$, then there is a formula $\theta$ such that $\teo \varphi \impli \theta$, $\teo \theta \impli \psi$ and the non-logical symbols that occur in $\theta$ occur both in $\varphi$ and $\psi$.
+\vspace{5mm}
+\item \textit{The Interpolation Theorem} holds for FOJT45 iff for sentences $\varphi$ and $\psi$ if $\teo \varphi \impli\psi$, then there is a formula $\theta$ such that $\teo \varphi \impli \theta$, $\teo \theta \impli \psi$ and the non-logical symbols and the justification terms that occur in $\theta$ occur both in $\varphi$ and $\psi$.
+\end{itemize}
+	
+\end{frame}
+
+
+
+\begin{frame}{Interpolation}
+
+\begin{pro}
+If the Realization Theorem holds between FOS5 and FOJT45, then the Interpolation Theorem fails for FOJT45. 
+\end{pro}
+
+{\color{blue} Proof}\\ 
+\qquad Suppose that the Interpolation Theorem holds for FOJT45. By \cite{Fine79}, let $\varphi$ and $\psi$ be sentences such that FOS5 $\teo \varphi \impli \psi$ and there is no interpolant between them.\\
+\vspace{5mm}
+\qquad By the Realization Theorem, there is a normal realization $r$ such that\\
+\vspace{5mm}
+FOJT45 $\teo \varphi^{r} \impli \psi^{r}$\\
+\end{frame}
+
+
+
+\begin{frame}{Interpolation}
+\qquad By hypothesis, there is a formula $\theta$ such that the non-logical symbols and the justification terms that occur in $\theta$ occur both in $\varphi^{r}$ and $\psi^{r}$. \\
+\vspace{5mm}
+FOJT45 $\teo \varphi^{r} \impli \theta$\\
+FOJT45 $\teo \theta \impli \psi^{r}$\\	
+\vspace{5mm}
+\qquad By the forgetful projection: 
+
+
+
+\vspace{5mm}
+FOS5 $\teo (\varphi^{r} \impli \theta)^{\circ}$\\
+FOS5 $\teo (\theta \impli \psi^{r})^{\circ}$\\	
+\vspace{5mm}
+i.e.,
+
+\vspace{5mm}
+FOS5 $\teo \varphi \impli \theta^{\circ}$\\
+FOS5 $\teo \theta^{\circ} \impli \psi$\\	
+
+\end{frame}
+
+
+\begin{frame}{Interpolation}
+\qquad Now, since there is no interpolant between $\varphi$ and $\psi$, then there is no relation symbol occurring in $\theta^{\circ}$. Hence, $\theta^{\circ}$ is a formula such that $\bot$ is the only atomic formula that occur in $\theta^{\circ}$. Thus, either $\theta^{\circ}$ is valid or $\theta^{\circ}$ is unsatisfiable.
+\vspace{5mm}
+
+\qquad If $\theta^{\circ}$ is valid, then, since $\models \theta^{\circ}\impli \psi$, $\psi$ is valid. And so, $\varphi \impli \psi$ has an interpolant, a contradiction.
+
+\vspace{5mm}
+
+\qquad If $\theta^{\circ}$ is unsatisfiable, then, since $\models \varphi \impli \theta^{\circ}$, $\varphi$ is unsatisfiable. And so, $\varphi \impli \psi$ has an interpolant, a contradiction.
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}
+
+\begin{center}
+{\color{blue} Thank you\\ for your attention.}
+\end{center} 
+	
+	
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}[allowframebreaks]
+\frametitle{References}
+\bibliographystyle{amsplain}
+\bibliography{ref}
+\end{frame}
+
+
+\end{document}
+
+

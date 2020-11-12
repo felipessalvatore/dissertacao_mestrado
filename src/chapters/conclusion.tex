@@ -1,0 +1,314 @@
+
+\section{An axiomatic system for FOS5}
+
+\qquad To prove the results of Chapters 2 and 3 it was convenient to state things in terms of $\nao, \ou, \ex, \Diamond$ and $=$. But to stay connected with the formulations of the last chapter consider now the version of first-order modal logic defined using $\bot$, $\impli$, $\todo$ and $\Box$ (without equality). Let $\Li$ be the same language fixed in Chapter 5. To make things simple, we write $Fml$ instead of $\FLi$.   
+
+
+\qquad Since we have started working only with semantical notions, we have defined the logic FOS5 as the set of all valid sentences relative to the class of all FOS5-models. Alternatively we can study the logic FOS5 using a simple and elegant axiomatic system composed of the following axiom schemes and inference rules:\\
+
+\textbf{A$\p$1} classical axioms of first-order logic\\
+
+\textbf{A$\p$2} $\Box \varphi \impli \varphi$\\
+
+\textbf{A$\p$3} $\Box \varphi \impli \Box \Box \varphi$\\
+
+\textbf{A$\p$4} $\nao \Box \varphi \impli \Box \nao \Box \varphi$\\
+
+\textbf{A$\p$5} $\Box (\varphi \impli \psi) \impli  (\Box \varphi \impli \Box \psi)$\\
+	
+\textbf{R$\p$1} (\textit{Modus Ponens}) $\teo \varphi$, $\teo \varphi\impli\psi$ $\Rightarrow$ $\teo \psi$ \\
+
+\textbf{R$\p$2} (\textit{generalization})  $\teo \varphi$ $\Rightarrow$ $\teo \todo x \varphi$ \\
+
+\textbf{R$\p$3} (\textit{necessitation})  $\teo \varphi$ $\Rightarrow$  $\teo \Box \varphi$.\\
+
+
+\qquad As in the case for FOJT45 we make use of the standard notion of $\Gamma \teo \varphi$. Here the restriction on the generalization rule is the same as stated for FOJT45, and the necessitation rule is allowed only when $\Gamma = \vazio$. We write $FOS5\teo \varphi$ to denote that in this axiomatic system $\vazio\teo \varphi$.
+
+\qquad 
+In the seminal paper by Kripke \cite{Kripke59} the Completeness Theorem for this logic was shown, and so the semantical and the syntactical characterization of FOS5 are equivalent. To be more precise, for every sentence $\varphi \in Fml$,
+
+\begin{center}
+$FOS5\teo \varphi$ iff  $\vSB \varphi$.
+\end{center}
+
+
+
+
+
+\section{Realization}
+
+
+\begin{defn}
+Let $\varphi$ be a formula of FOS5. We define the \textit{realization} of $\varphi$ in the language of FOJT45, $\varphi^{r}$, as follows:
+
+
+\begin{itemize}
+	\item If $\varphi$ is atomic, then $\varphi^{r}$ is $\varphi$.
+	\item If $\varphi$ is $\psi\impli\theta$, then $\varphi^{r}$ is $\psi^{r}\impli\theta^{r}$
+	\item If $\varphi$ is $\todo x \psi$, then $\varphi^{r}$ is $\todo x \psi^{r}$
+	\item If $\varphi$ is $\Box \psi$ and $fv(\varphi) = \{x_{1}, \dots, x_{n}\}$, then $\varphi^{r}$ is $t$$:_{\{x_{1}, \dots, x_{n}\}}$$ \psi^{r}$
+\end{itemize}
+\end{defn}
+
+\qquad A realization is normal if all negative occurrences of $\Box$ are assigned justification variables. It can easily be checked that for every $\varphi \in Fml$, $fv(\varphi) = fv(\varphi^{r})$.
+
+
+
+\begin{defn}
+Let $\varphi$ be a formula of FOJT45. \textit{The forgetful projection} of $\varphi$, $\varphi^{\circ}$, is defined as follows:
+
+
+\begin{itemize}
+	\item If $\varphi$ is atomic, then $\varphi^{\circ}$ is $\varphi$.
+	\item If $\varphi$ is $\psi\impli\theta$, then $\varphi^{\circ}$ is $\psi^{\circ}\impli\theta^{\circ}$
+	\item If $\varphi$ is $\todo x \psi$, then $\varphi^{\circ}$ is $\todo x \psi^{\circ}$
+	\item If $\varphi$ is $t$$:_{X}$$ \psi$, then $\varphi^{\circ}$ is $\Box \todo \vec{y}\psi^{\circ}$\\ where $\vec{y} \in fv(\psi)\backslash X$.
+\end{itemize}
+\end{defn}
+
+\qquad As before, it can easily be checked that for every $\varphi \in \Fj$,  $fv(\varphi) = fv(\varphi^{\circ})$.
+
+\begin{pro}
+For every constant specification $\C$ and for every $\varphi \in \Fj$,
+\begin{center}
+If FOJT45 $\teo_{\C} \varphi$, then FOS5 $\teo \varphi^{\circ}$.
+\end{center}
+\end{pro}
+
+
+\begin{proof}
+Induction on the theorems of FOJT45 with $\C$. In this proof only we shall use $\teo$ to denote $FOS5 \teo$. And for simplicity we are going to deal only with a representative special case of each axiom. These special cases are simpler versions of each axiom; the argument can be easily generalized.\\
+
+
+
+($\varphi$ is an instance of \textbf{A2})\\
+
+\qquad Suppose $\varphi$ is
+
+\begin{center}
+$t$$:_{\{x,y\}}$$\psi(x,z) \impli t$$:_{\{x\}}$$\psi(x,z)$
+\end{center}
+Since $y \notin fv(\psi(x,z))$,
+
+\begin{center}
+$\{z\} = fv(\psi(x,z)) \backslash \{x,y\} = fv(\psi(x,z)) \backslash \{x\}$ 
+\end{center}
+Thus, $\varphi^{\circ}$ is
+
+\begin{center}
+$\Box  \todo z \psi^{\circ}(x,z) \impli \Box  \todo z \psi^{\circ}(x,z)$.
+\end{center}
+
+Clearly, $\teo \varphi^{\circ}$.\\
+\vspace{5mm}
+
+($\varphi$ is an instance of \textbf{A3})\\
+
+\qquad Suppose $\varphi$ is
+
+\begin{center}
+$t$$:_{\{x\}}$$\psi(x,y,z) \impli t$$:_{\{x,y\}}$$\psi(x,y,z)$
+\end{center}
+Then, $\varphi^{\circ}$ is
+
+\begin{center}
+$\Box  \todo y\todo z \psi^{\circ}(x,y,z) \impli \Box  \todo z \psi^{\circ}(x,y,z)$
+\end{center}
+By classical axioms,
+
+\begin{center}
+$\teo \todo y\todo z \psi^{\circ}(x,y,z) \impli \todo z \psi^{\circ}(x,y,z)$
+\end{center}
+By necessitation and the distributivity of $\Box$ over $\impli$,
+
+\begin{center}
+$\teo \Box  \todo y\todo z \psi^{\circ}(x,y,z) \impli \Box  \todo z \psi^{\circ}(x,y,z)$.
+\end{center}
+
+\vspace{5mm}
+
+($\varphi$ is an instance of \textbf{B1})\\
+
+\qquad Suppose $\varphi$ is
+
+\begin{center}
+$t$$:_{\{x\}}$$\psi(x,y) \impli \psi(x,y)$
+\end{center}
+Then, $\varphi^{\circ}$ is
+
+\begin{center}
+$\Box  \todo y\psi^{\circ}(x,y) \impli \psi^{\circ}(x,y)$
+\end{center}
+By \textbf{A$\p$2},
+
+\begin{center}
+$\teo \Box \todo y\psi^{\circ}(x,y) \impli \todo y\psi^{\circ}(x,y)$
+\end{center}
+And by classical axioms,
+
+\begin{center}
+$\teo \todo y\psi^{\circ}(x,y) \impli \psi^{\circ}(x,y)$
+\end{center}
+So, 
+
+\begin{center}
+$\teo \Box  \todo y\psi^{\circ}(x,y) \impli \psi^{\circ}(x,y)$.
+\end{center}
+\vspace{5mm}
+
+($\varphi$ is an instance of \textbf{B2})\\
+
+Suppose $\varphi$ is
+
+\begin{center}
+$t$$:_{\{x,x\p\}}$$(\psi(x,y) \impli \theta(x\p,z)) \impli$ $(s$$:_{\{x,x\p\}}$$\psi(x,y) \impli$ $[t\cdot s]$$:_{\{x,x\p\}}$$\theta(x\p,z))$
+\end{center}
+Then, $\varphi^{\circ}$ is
+
+\begin{center}
+$\Box  \todo y\todo z (\psi^{\circ}(x,y) \impli \theta^{\circ}(x\p,z)) \impli (\Box \todo y \psi^{\circ}(x,y) \impli \Box \todo z \theta^{\circ}(x\p,z))$
+\end{center}
+By classical reasoning,
+
+
+\begin{center}
+$\teo \todo y\todo z (\psi^{\circ}(x,y) \impli \theta^{\circ}(x\p,z)) \impli (\todo y\todo z  \psi^{\circ}(x,y) \impli \todo y\todo z  \theta^{\circ}(x\p,z))$
+\end{center}
+Since $z \notin fv(\psi^{\circ}(x,y))$ and $y \notin fv(\theta^{\circ}(x\p,z))$, we have that
+
+
+\begin{center}
+$\teo \todo y\todo z  \psi^{\circ}(x,y) \see \todo y \psi^{\circ}(x,y)$\\
+$\teo \todo y\todo z  \theta^{\circ}(x\p,z) \see \todo z \theta^{\circ}(x\p,z)$
+\end{center}
+Hence,
+
+\begin{center}
+$\teo \todo y\todo z (\psi^{\circ}(x,y) \impli \theta^{\circ}(x\p,z)) \impli (\todo y \psi^{\circ}(x,y) \impli \todo z \theta^{\circ}(x\p,z))$
+\end{center}
+By necessitation and the distributivity of $\Box$ over $\impli$,
+
+\begin{center}
+$\teo \Box  \todo y\todo z (\psi^{\circ}(x,y) \impli \theta^{\circ}(x\p,z)) \impli (\Box \todo y \psi^{\circ}(x,y) \impli \Box \todo z \theta^{\circ}(x\p,z))$.
+\end{center}
+\vspace{5mm}
+
+($\varphi$ is an instance of \textbf{B3})\\
+
+\qquad If $\varphi$ is $t$$:_{\{x\}}$$\psi(x,y) \impli$ $[t+s]$$:_{\{x\}}$$\psi(x,y)$, then $\varphi^{\circ}$ is $\Box  \todo y \psi^{\circ}(x,y) \impli \Box  \todo y \psi^{\circ}(x,y)$. Clearly, $\teo \varphi^{\circ}$. The same argument holds when $\varphi$ is $s$$:_{\{x\}}$$\psi(x,y) \impli$ $[t+s]$$:_{\{x\}}$$\psi(x,y)$.
+\vspace{5mm}
+
+($\varphi$ is an instance of \textbf{B4})\\
+
+\qquad If $\varphi$ is $t$$:_{\{x\}}$$\psi(x,y) \impli$ $!t$$:_{\{x\}}$$t$$:_{\{x\}}$$\psi(x,y)$, then $\varphi^{\circ}$ is $\Box\todo y \psi^{\circ}(x,y) \impli \Box \Box\todo y \psi^{\circ}(x,y)$, which is an instance of axiom \textbf{A$\p$3}; hence $\teo \varphi^{\circ}$.
+\vspace{5mm}
+
+
+
+($\varphi$ is an instance of \textbf{B5})\\
+
+
+\qquad If $\varphi$ is $\nao t$$:_{\{x\}}$$\psi(x,y) \impli$ $?t$$:_{\{x\}}$$\nao t$$:_{\{x\}}$$\psi(x,y)$, then $\varphi^{\circ}$ is $\nao \Box\todo y \psi^{\circ}(x,y) \impli \Box \nao \Box\todo y \psi^{\circ}(x,y)$, which is an instance of axiom \textbf{A$\p$4}; hence $\teo \varphi^{\circ}$.
+
+\pagebreak
+($\varphi$ is an instance of \textbf{B6})\\
+
+\qquad Suppose $\varphi$ is
+
+\begin{center}
+ $t$$:_{\{y\}}$$\psi(x,y,z) \impli gen_{x}(t)$$:_{\{y\}}$$\todo x\psi(x,y,z)$
+\end{center}
+So $\varphi^{\circ}$ is
+\begin{center}
+ $\Box \todo x \todo z\psi^{\circ}(x,y,z) \impli \Box \todo z \todo x\psi^{\circ}(x,y,z)$
+\end{center}
+By classical reasoning,
+
+\begin{center}
+ $\teo \todo x \todo z\psi^{\circ}(x,y,z) \impli \todo z \todo x\psi^{\circ}(x,y,z)$
+\end{center}
+By necessitation and the distributivity of $\Box$ over $\impli$,
+
+\begin{center}
+ $\teo \Box \todo x \todo z\psi^{\circ}(x,y,z) \impli \Box \todo z \todo x\psi^{\circ}(x,y,z)$.
+\end{center}
+
+\qquad If $\varphi$ is derived by using the rules \textbf{R1} or \textbf{R2} the result easily follows from the induction hypothesis.
+
+\qquad Suppose $\varphi$ is derived using the rule \textbf{R3}. So $\varphi$ is $c$$:$$\psi(x)$ where $\psi(x)$ is an axiom. By the argument above, $\teo \psi^{\circ}(x)$. By generalization and necessitation, $\teo \Box \todo x\psi^{\circ}(x)$, i.e., $\teo \varphi^{\circ}$.
+\end{proof}
+
+\qquad As usual in the study of justification logic, the proof of Proposition 33 is a trivial induction on the theorems of the justification logic in question (in this case FOJT45). What is a more significant result is the following:\\
+
+
+\textbf{(Realization Theorem)} If FOS5 $\teo \varphi$, then FOJT45 $\teo_{\C} \varphi^{r}$ for a constant specification $\C$ and a normal realization $r$.\\
+
+
+
+\qquad Right now we believe that the best path to try to prove this theorem is to apply all the notions and results presented in this thesis in order to adapt the proof of the Realization Theorem using semantical tools (as presented in \cite{Fitting13}, \cite{Fitting13R} and \cite{Fitting14R}) for FOJT45. But we also consider different ways. Another strategy is to study the constructive argument using nested sequent calculus (as presented in \cite{Kuz10}) and see how this argument can be used for this case.
+We want to consider these two paths in future research.
+
+
+\section{Justification logic and interpolation}
+
+
+\qquad When studying justification logic it is natural to investigate the relationship between this logic and modal logic. The Realization Theorem gives us a tool to see this relationship. Although we have left the proof of this theorem for future work, it is worthwhile to see one easy conclusion of the Realization Theorem. To do so we need to state one definition:
+
+
+
+\begin{itemize}
+\item[] \textit{The Interpolation Theorem} holds for FOJT45 iff for every constant specification $\C$ and sentences $\varphi$ and $\psi$, if $\teo_{\C} \varphi \impli\psi$, then there is a formula $\theta$ such that $\teo_{\C} \varphi \impli \theta$, $\teo_{\C} \theta \impli \psi$ and the non-logical symbols and the justification terms that occur in $\theta$ occur both in $\varphi$ and $\psi$.
+\end{itemize}
+
+
+
+
+\begin{pro}
+If the Realization Theorem holds between FOS5 and FOJT45, then the Interpolation Theorem fails for FOJT45. 
+\end{pro}
+
+
+\begin{proof}
+Suppose that the Interpolation Theorem holds for FOJT45. By Theorem 2 and by the Completeness Theorem for FOS5, let $\varphi$ and $\psi$ be sentences such that FOS5 $\teo \varphi \impli \psi$ and there is no interpolant between them. By the Realization Theorem, there is a normal realization $r$ such that
+
+\begin{center}
+FOJT45 $\teo_{\C} \varphi^{r} \impli \psi^{r}$
+\end{center}
+
+\qquad By hypothesis, there is a formula $\theta$ such that the non-logical symbols and the justification terms that occur in $\theta$ occur both in $\varphi^{r}$ and $\psi^{r}$. Moreover, we have that 
+
+
+\begin{center}
+FOJT45 $\teo_{\C} \varphi^{r} \impli \theta$\\
+FOJT45 $\teo_{\C} \theta \impli \psi^{r}$
+\end{center}
+by the forgetful projection: 
+
+
+\begin{center}
+FOS5 $\teo (\varphi^{r} \impli \theta)^{\circ}$\\
+FOS5 $\teo (\theta \impli \psi^{r})^{\circ}$
+\end{center}
+i.e.,
+
+\begin{center}
+FOS5 $\teo \varphi \impli \theta^{\circ}$\\
+FOS5 $\teo \theta^{\circ} \impli \psi$
+\end{center}
+
+
+\qquad Now, since there is no interpolant between $\varphi$ and $\psi$, then there is no relation symbol occurring in $\theta^{\circ}$. Hence, $\theta^{\circ}$ is a formula such that $\bot$ is the only atomic formula that occur in $\theta^{\circ}$. Thus, either $\theta^{\circ}$ is FOS5-valid or $\theta^{\circ}$ is FOS5-unsatisfiable.
+
+\qquad On the one hand, if $\theta^{\circ}$ is FOS5-valid, then, since $\models_{FOS5} \theta^{\circ}\impli \psi$, $\psi$ is FOS5-valid. And so, $\varphi \impli \psi$ has an interpolant, contradicting our hypothesis.
+
+\qquad On the other hand, if $\theta^{\circ}$ is FOS5-unsatisfiable, then, since $\models_{FOS5} \varphi \impli \theta^{\circ}$, $\varphi$ is FOS5-unsatisfiable. And so, $\varphi \impli \psi$ has an interpolant, contradicting our hypothesis.
+\end{proof}
+
+\vspace{10mm}
+
+\qquad We hope that the topics presented in this thesis fulfilled two objectives: i) give a brief introduction to first-order S5; ii) clarify the connections between first-order modal logic and first-order justification logic.
+
+\qquad About the last objective it is important to stress that, as Proposition 34 shows, the failure of the Interpolation Theorem for FOJT45 is just a straightforward consequence of the Realization Theorem. And so to prove this theorem for FOJT45 will not be only a subject of interest for the researchers involved in justification logic, but will be a result of interest for the broader modal logic community. 
+
+

@@ -1,0 +1,373 @@
+\section{Language and axiom system}
+
+\begin{defn} (Basic vocabulary)
+
+	\begin{itemize} 
+		\item $P, Q, P\p, Q\p, \dots$ (\textit{relation symbols});
+		\item $x, y, z, \dots$ (\textit{individual variables});
+		\item $\impli, \bot$ (\textit{boolean connectives});
+		\item $\todo$ (\textit{universal quantifier});
+		\item $p_{0}, p_{1}, p_{2}, \dots$(\textit{justification variables});
+		\item $c_{0}, c_{1}, c_{2}, \dots$ (\textit{justification constants});
+		\item $+$, $\cdot$, $!$, $?$, $gen_{x}$ (\textit{justification operators - for every individual variable $x$, there is an operator $gen_{x}$});
+		\item $(\cdot):_{X} (\cdot)$,(for every finite set of individual variables $X$);
+		\item $),($ (\textit{parentheses}).
+	\end{itemize}
+\end{defn}
+
+\begin{defn} (Justification terms)
+\begin{center}
+$ t : = p_{i}$   $|$ $c$ $|$  $(t_{1} \cdot t_{2})$ $|$ $(t_{1} + t_{2})$ $|$  $!t$ $|$ $?t$ $|$ $gen_{x}(t)$
+\end{center}
+\end{defn}
+
+\begin{defn} (Justification formulas)
+\begin{center}
+$ \varphi : = Q(x_1, \dots, x_n)$   $|$ $\bot$ $|$  $\varphi \impli \psi$ $|$ $\todo x \varphi$ $|$  $t$$:_{X}$$\varphi$
+\end{center}
+\end{defn}
+
+
+\qquad The set of all formulas is denoted by $L$. We are assuming that the set of relational symbols, individual variables, justification variables and justification constants are all countable sets. Thus, it is easy to check that $L$ itself is a countable set. 
+
+\begin{defn}
+We define the notion of free variables of $\varphi$, $fv(\varphi)$, inductively as follows:
+
+\begin{itemize} 
+	\item If $\varphi$ is atomic, then $fv(\varphi)$ is the set of all variables occurring in $\varphi$.
+	\item If $\varphi$ is $(\psi \impli \theta)$, then $fv(\varphi)$ is $fv(\psi) \cup fv(\theta)$.
+	\item If $\varphi$ is $\todo x \psi$, then $fv(\varphi)$ is $fv(\psi) \backslash \{x\}$.
+	\item If $\varphi$ is $t$$:_{X}$$\psi$, then  $fv(\varphi)$ is $X$.
+\end{itemize}
+
+
+\qquad Similarly as in the classical case, we must define the notion of an individual variable $y$ being free for $x$ in the formula $\varphi$. The definition is the same as in the classical case, we only add the following clause: $y$ is free for $x$ in $t$$:_{X}$$\varphi$ if two conditions are met, i) $y$ is free for $x$ in $\varphi$, ii) if $y \in fv(\varphi)$, then $y \in X$.
+\end{defn}
+
+\qquad We write $\varphi(x_{1}, \dots, x_{n})$ to denote that the free variables of $\varphi$ are among $\{x_{1}, \dots, x_{n}\}$. Let $y_{1}, \dots, y_{n}$ be variables, we write $\varphi(y_{1}/x_{1}, \dots, y_{n}/x_{n})$ to denote the formula obtained by substitution of $y_{1}, \dots, y_{n}$ for all the free occurrences of $x_{1}, \dots, x_{n}$ in $\varphi$,  respectively. When it is clear from the context which variables are free in $\varphi$ we simply write $\varphi(y_{1}, \dots, y_{n})$ instead of $\varphi(y_{1}/x_{1}, \dots, y_{n}/x_{n})$. We use $\vec{x},\vec{y}, \dots$ for sequence of variables; and we write $\todo \vec{x} \varphi(\vec{x})$ in the place of $\todo x_1, \dots ,\todo x_n\varphi(x_1, \dots ,x_n)$ 
+
+
+\qquad We write $Xy$ instead of $X \cup \{y\}$, in this case it is assumed that $y \notin X$. And we use $t$$:$$\varphi$ as an abbreviation for $t$$:_{\vazio}$$\varphi$
+
+\qquad  The first-order JT45, FOJT45, is axiomatized by the following axiom schemes and inference rules:\\
+
+
+\textbf{A1} classical axioms of first-order logic\\
+
+\textbf{A2} $t$$:_{Xy}$$\varphi \impli$ $t$$:_{X}$$\varphi$, provided $y$ does not occur free in $\varphi$\\
+
+\textbf{A3} $t$$:_{X}$$\varphi \impli$ $t$$:_{Xy}$$\varphi$ \\
+
+\textbf{B1} $t$$:_{X}$$\varphi \impli \varphi$\\
+
+\textbf{B2} $t$$:_{X}$$(\varphi \impli \psi) \impli$ $(s$$:_{X}$$\varphi \impli$ $[t\cdot s]$$:_{X}$$\psi)$\\
+
+\textbf{B3} $t$$:_{X}$$\varphi \impli$ $[t+s]$$:_{X}$$\varphi$, $s$$:_{X}$$\varphi \impli$ $[t+s]$$:_{X}$$\varphi$\\ 
+
+\textbf{B4} $t$$:_{X}$$\varphi \impli$ $!t$$:_{X}$$t$$:_{X}$$\varphi$\\
+
+
+\textbf{B5} $\nao t$$:_{X}$$\varphi \impli$ $?t$$:_{X}$$\nao t$$:_{X}$$\varphi$\\
+
+
+\textbf{B6} $t$$:_{X}$$\varphi \impli$ $gen_{x}(t)$$:_{X}$$ \todo x \varphi$, provided $x \notin X$\\
+
+
+\textbf{R1} (\textit{Modus Ponens}) $\teo \varphi$, $\teo \varphi\impli\psi$ $\Rightarrow$ $\teo \psi$ \\
+
+\textbf{R2} (\textit{generalization})  $\teo \varphi$ $\Rightarrow$ $\teo \todo x \varphi$ \\
+
+\textbf{R3} (\textit{axiom necessitation})  $\teo c$$:$$\varphi$, where $\varphi$ is an axiom and $c$ is a justification constant.\\
+
+\begin{defn}
+Let $\C$ be a constant specification. We say that $\C$ is \textit{schematic} if all instances of an axiom scheme are assigned the same constants.  
+\end{defn}
+
+
+\qquad We use $\Gamma, \Delta, \Theta, \dots$ as variables for sets of formulas. The notion of $\Gamma \teo \varphi$ is define as usual. The only thing that should be noted is that, if $\Gamma$ deduces $\varphi$ using the generalization rule, then this rule was not applied to a variable which occur free in the formulas of $\Gamma$. 
+
+\qquad Since derivations depends on the constant specification being considered, we sometimes write $\teo_{\C} \varphi$ to point out that the proof of $\varphi$ meets the constant specification $\C$.
+
+\begin{defn}
+A substitution $\sigma$ is a mapping from the set of justification variables to the set of justification terms. For a justification term $t$ the result of applying a substitution $\sigma$ is denoted $t\sigma$; similarly, for a formula $\varphi$ we write $\varphi\sigma$.
+\end{defn}
+
+
+\begin{lema}
+(\textit{Substitution}) Let $\varphi$ be a formula, $\sigma$ a substitution and $\C$ a schematic constant specification. If  $\teo_{\C} \varphi$, then  $\teo_{\C} \varphi\sigma$.
+\end{lema}
+
+\begin{lema}
+(\textit{Deduction})  $\Gamma,\varphi \teo \psi$ iff  $\Gamma \teo \varphi \impli \psi$
+\end{lema}
+
+\begin{teor}
+	(\textit{Internalization}) Let $\C$ be an axiomatic appropriate constant specification; $p_{0}, \dots, p_{k}$ be justification variables; $X_{0}, \dots, X_{k}$ be finite sets of individual variables, and $X =X_{0} \cup \dots \cup X_{k}$. In these conditions, if  $p_{0}$$:_{X_{0}}$$\varphi_{0}, \dots, p_{k}$$:_{X_{k}}$$\varphi_{k} \teo_{\C} \psi$, then there is a justification term $t(p_{0}, \dots, p_{k})$ such that 
+	
+	\begin{center}
+		$p_{0}$$:_{X_{0}}$$\varphi_{0}, \dots, 
+		p_{k}$$:_{X_{k}}$$\varphi_{k} \teo_{\C} t$$:_{X}$$\psi$.
+	\end{center}
+	
+\end{teor}
+
+\begin{proof}
+The same proof as presented in \cite[p. 7]{Artemov11}.
+\end{proof}
+
+\pagebreak
+
+
+\begin{pro}
+(\textit{Explicit counterpart of the Barcan Formula and its converse}) For every formula $\varphi(x)$ and every justification term $t$, there are justification terms $CB(t)$ and $B(t)$ such that: 
+\begin{center}
+$\teo t$$:$$\todo x \varphi(x) \impli \todo x CB(t)$$:_{\{x\}}$$\varphi(x)$\\
+
+$\teo \todo x t$$:_{\{x\}}$$\varphi(x) \impli B(t)$$:$$\todo x \varphi(x)$
+\end{center}
+\end{pro}
+
+
+
+\begin{proof}
+\qquad In Appendix.
+\end{proof}
+
+
+
+\begin{pro}
+AAAA For every formula $\varphi(x)$ and every justification term $t$, there are justification terms $CB(t)$ and $B(t)$ such that: 
+	\begin{center}
+		$\teo t$$:$$\todo x \varphi(x) \impli \todo x CB(t)$$:_{\{x\}}$$\varphi(x)$\\
+		
+		$\teo \todo x t$$:_{\{x\}}$$\varphi(x) \impli B(t)$$:$$\todo x \varphi(x)$
+	\end{center}
+\end{pro}
+
+
+
+\begin{proof}
+	\qquad In Appendix.
+\end{proof}
+
+
+
+
+
+
+
+\section{Semantics: basic definitions}
+
+
+\begin{defn}
+An S5 \textit{skeleton} is a structure $\bl \W, \R, \D \br$ where: $\W \ne \vazio$; $\R \subseteq \W \times \W$ such that $\R$ is an equivalence relation, and $\D \ne \vazio$.
+\end{defn}
+
+
+\qquad For any non-empty set $\D$ we are going to use the elements of $\D$ as constants. And  we are going to use $\vec{a}, \vec{b},  \dots$ to denote sequences of constants.
+
+\begin{defn}
+Let $\D$ be a non-empty set. The set of all $\D$-formulas, $L_{\D}$, is defined as follows:
+
+\begin{center}
+	$L_{\D} = \{\varphi (\vec{a})$ $|$  $\varphi(\vec{x}) \in L$ and $\vec{a} \in \D\}$
+\end{center}
+
+\end{defn}
+
+\qquad As usual, for a $\D$-formula $\varphi$, we say that $\varphi$ is closed if  $\varphi$ has no free-variables.
+
+\begin{defn}
+A \textit{Fitting model} is a structure $M = \model$ where $\bl \W, \R, \D \br$ is an S5 skeleton; and:
+
+\begin{itemize} 
+\item $\I$ is an \textit{interpretation function}, i.e.,  $\I$ is a function assigning to each $n$-ary relational symbol $Q$ and each $w \in \W$ an $n$-ary relation $\I(Q,w)$ on $\D$.
+
+\item $\E$ is an \textit{evidence function}, i.e., for any justification term $t$ and $\D$-formula $\varphi$, $\E(t,\varphi) \subseteq \W$.
+\end{itemize}
+
+\end{defn}
+
+
+
+\begin{defn}
+\textit{Evidence Function Conditions}. Let $M = \model$ be a Fitting model. We require the evidence function to meet the following conditions:
+
+
+\begin{itemize} 
+	\item[] \textbf{$\cdot$ Condition} $\E (t, \varphi \impli \psi) \cap \E(s, \varphi) \subseteq \E([t\cdot s], \psi).$
+	\item[] \textbf{$+$ Condition} $\E (s, \varphi) \cup \E(t, \varphi) \subseteq \E([s+t], \varphi).$
+	\item[] \textbf{$!$ Condition} $\E (t, \varphi) \subseteq \E(!t, t$$:_{X}\varphi)$, where $X$ is the set of constant occurring in $\varphi$.
+    \item[] \textbf{$?$ Condition} $\W  \backslash \E (t, \varphi) \subseteq \E(?t,\nao t$$:_{X}\varphi)$, where $X$ is the set of constant occurring in $\varphi$.
+	\item[] \textbf{$\R$ Closure Condition} If $w \in \E (t, \varphi)$ and $w \R w\p$, then $w\p \in \E (t, \varphi)$.
+	\item[] \textbf{Instantiation Condition} If $w \in \E (t, \varphi(x))$ and $a \in \D$, then $w \in \E (t, \varphi(a))$.
+	\item[] \textbf{$gen_{x}$ Condition} $\E (t, \varphi) \subseteq \E(gen_{x}(t),\todo x\varphi)$.
+\end{itemize}
+\end{defn}
+
+\qquad We say that a model $M = \model$ \textit{meets constant specification $\C$} whenever $c$$:$$\varphi \in \C$, then $\E (c, \varphi) = \W$.
+
+
+\begin{defn}
+Let $M = \model$ be a Fitting model, $\varphi$ a closed $\D$-formula and $w \in \W$. The notion that \textit{$\varphi$ is true at world $w$ of $M$}, in symbols $M,w \models \varphi$, is defined as usual by induction on $\varphi$: 
+\begin{itemize} 
+	\item $M,w \models Q(\vec{a})$ iff $\bl \vec{a}\br \in \I(Q,w)$. 
+	\item $M,w \nmodels \bot$. 
+	\item $M,w \models \psi \impli \theta$ iff $\M,w \nmodels \psi$ or $M,w \models \theta$.
+	\item $M,w \models \todo x \psi(x)$ iff for every $a \in \D$, $M,w \models \psi(a)$.
+
+\pagebreak	
+	
+	\item Assume $t$$:_{X}$$\psi(\vec{x})$ is closed and $\vec{x}$ are all the free variables of $\psi$. Then, $M,w \models t$$:_{X}$$\psi(\vec{x})$ iff
+	\begin{enumerate}[(a)]
+		\item $w \in \E (t, \psi(\vec{x}))$ and
+		\item for every $w\p \in \W$ such that $w\R w\p$, $\M,w\p \models \psi(\vec{a})$ for every $\vec{a} \in \D$.
+	\end{enumerate}
+
+\end{itemize}
+
+\end{defn}
+
+	
+
+\begin{defn}
+Let $\varphi \in L$ be a closed formula. We say that $\varphi$ is \textit{valid in the Fitting model} $M = \model$ provided for every $w \in W$, $M,w \models \varphi$. A formula with free individual variables is valid if its universal closure is valid.
+\end{defn}
+
+
+\begin{defn}
+A \textit{Fitting model for FOJT45} is a Fitting model $M = \model$ where $\E$ is a \textit{strong evidence function}, i.e., for every term $t$ and $\D$-formula $\varphi$, $\E(t,\varphi) \subseteq \{w \in \W$ $|$ $ M,w \models t$$:_{X}$$\varphi\}$ where $X$ is the set of constant occurring in $\varphi$.
+
+
+\qquad For a formula $\varphi$ and constant specification $\C$, we write $\models_{\C}\varphi$ if for every Fitting model for FOJT45 $M$ meeting $\C$, $\varphi$ is valid in $M$.
+\end{defn}
+
+
+
+\section{Semantics: non-validity}
+
+\qquad Before we deal with soundness and completeness, it is useful to know some examples of non-validity in order to see that the provisions of some axioms make sense. There is only a minor problem, we require that Fitting models for FOJT45 have a strong evidence function, and it is not so easy to construct models with that property. The following proposition helps us to circumnavigate this issue.
+
+
+\begin{pro}
+If $M = \model$ is a Fitting model such that for every justification term $t$ and D-formula $\varphi$, $\E(t,\varphi) = \W$, then there is a Fitting model for FOJT45 $M^{*} = \bl\W,\R,\D,\I,\E^{*} \br$ such that for every $w \in \W$ and every formula $\varphi$, $M,w \models \varphi$ iff $M^{*},w \models \varphi$.   
+\end{pro}
+
+\begin{proof}
+\qquad Let $M^{*} =\bl\W,\R,\D,\I,\E^{*} \br$ where for every justification term and D-formula $\varphi$,
+
+\begin{center}
+$\E^{*}(t,\varphi) = \{w \in \W$ $|$ $ M,w \models t$$:_{X}$$\varphi\}$
+\end{center}
+
+where $X$ is the set of constants occurring in $\varphi$. 
+
+\qquad It is straightforward to check that $M^{*}$ is indeed a Fitting model. Now consider the following:\\
+ 
+ (*) For every $w \in \W$ and every closed D-formula $\varphi$, $M,w \models \varphi$ iff $M^{*},w \models \varphi$.\\
+ 
+ (Proof of (*)) Induction on the complexity of $\varphi$. Crucial case, $\varphi = t$$:_{X}$$\psi$. For simplicity, let's assume that $\varphi$ is $t$$:_{\{a\}}$$\psi(a,y)$.
+
+\qquad ($\Rightarrow$) If $M,w \models t$$:_{\{a\}}$$\psi(a,y)$, then by definition $w \in \E^{*}(t, \psi(a,y))$ and for every $w\p \in \W$, if $w\R w\p$, then $M,w\p \models \psi(a,b)$ for every $b \in \D$. By the induction hypothesis, for every $w\p \in \W$, if $w\R w\p$, then $M^{*},w\p \models \psi(a,b)$ for every $b \in \D$. Thus, $M^{*},w \models t$$:_{\{a\}}$$\psi(a,y)$.
+
+\qquad ($\Leftarrow$) If $M^{*},w \models t$$:_{\{a\}}$$\psi(a,y)$, then $w \in \E^{*}(t, \psi(a,y))$. By definition, $M,w \models t$$:_{\{a\}}$$\psi(a,y)$. $\Box$\\
+
+
+\qquad By (*) we have that,
+
+\begin{center}
+	$\E^{*}(t,\varphi) = \{w \in \W$ $|$ $ M,w \models t$$:_{X}$$\varphi\} = \{w \in \W$ $|$ $ M^{*},w \models t$$:_{X}$$\varphi\}$
+\end{center}
+
+
+\qquad Hence, $\E^{*}$ is a strong evidence function and $M$ and $M^{*}$ agree on all D-formulas. Therefore, $M^{*}$ is a Fitting model for FOJT45 and $M$ and $M^{*}$ agree on all formulas.
+\end{proof}
+
+
+\qquad With this proposition we can construct non-validity examples similar as presented in \cite{Fitting14}.
+
+\qquad \textbf{Example 1:} the restriction on axiom \textbf{A2} is needed. Take, for example, the formula $t$$:_{\{x,y\}}$$Q(x,y) \impli t$$:_{\{x\}}$$Q(x,y)$; let $m =\model$ be a Fitting model where:
+\begin{itemize}
+\item $\W = \{w_0, w_1\}$;
+\item $\R = \W \times \W$;
+\item $\D = \{a, b\}$;
+\item $\I(w_{0},Q) = \I(w_{1},Q) = \{\bl a,b \br\}$;
+\item $\E(t,\varphi) = \W$, for every term $t$ and formula $\varphi$.
+\end{itemize}
+
+
+\qquad Clearly, $M,w_0 \models t$$:_{\{a,b\}}$$Q(a,b)$ and $M,w_0 \nmodels t$$:_{\{a\}}$$Q(a,y)$. Hence, $M,w_0 \nmodels t$$:_{\{x,y\}}$$Q(x,y) \impli t$$:_{\{x\}}$$Q(x,y)$. By Proposition 2, $t$$:_{\{x,y\}}$$Q(x,y) \impli t$$:_{\{x\}}$$Q(x,y)$ is not valid in every Fitting model for FOJT45.
+
+
+\qquad \textbf{Example 2:} The proviso of axiom \textbf{B6} is necessary. Take, for example, the formula $t$$:_{\{x\}}$$Q(x) \impli gen(t)$$:_{\{x\}}$$\todo x Q(x)$; let $M =\model$ be a Fitting model where:
+\begin{itemize}
+\item $\W = \{w_0\}$;
+\item $\R = \W \times \W$;
+\item $\D = \{a,b\}$;
+\item $\I(w_{0},Q) =  \{a\}$;
+\item $\E(t,\varphi) = \W$, for every term $t$ and formula $\W$.
+\end{itemize}
+
+
+\qquad Clearly, $M,w_0 \models t$$:_{\{a\}}$$Q(a)$ and since $M,w_0 \nmodels Q(b)$, then $M,w_0 \nmodels \todo x Q(x)$, and so $M,w_0 \nmodels gen(t)$$:_{\{a\}}$$\todo x Q(x)$. Hence, $M,w \nmodels t$$:_{\{x\}}$$Q(x) \impli gen(t)$$:_{\{x\}}$$\todo x Q(x)$. Again by Proposition 2, $t$$:_{\{x\}}$$Q(x) \impli gen(t)$$:_{\{x\}}$$\todo x Q(x)$ is not valid in every Fitting model for FOJT45.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Soundness and completeness}
+	
+\begin{teor}
+(\textit{Soundness}) Let $\C$ be a constant specification. For every formula $\varphi \in L$, if $\teo_{\C} \varphi$, then $\models_{\C}\varphi$.
+\end{teor}	
+	
+\begin{proof}
+The proof is by induction on the theorems of the axiom system using the constant specification $\C$. The argument is exactly the same as presented in \cite[p.9-10]{Fitting14}. We are going to show validity for the specific axiom of FOJT45.
+	
+\textbf{B5} $\nao t$$:_{X}$$\psi \impli$ $?t$$:_{X}$$\nao t$$:_{X}$$\psi$. For simplicity, assume $X= \{x\}$ and $\psi = \psi(x,y)$. So, we have that $\teo_{\C}\nao t$$:_{\{x\}}$$\psi(x,y) \impli$ $?t$$:_{\{x\}}$$\nao t$$:_{\{x\}}$$\psi(x,y)$.
+
+\qquad Let $\M = \model$ be a Fitting model for FOJT45 meeting $\C$, $w \in \W$ and $a \in \D$. Suppose $M, w \models \nao t$$:_{\{a\}}$$\psi(a,y)$. Then, $M, w \nmodels t$$:_{\{a\}}$$\psi(a,y)$. By the definition of the strong evidence function, $w \notin \E (t, \psi(a,y))$. By the ? condition, $w \in \E(?t,\nao t_{\{a\}}$$:\psi(a,y))$. Again, by the strong evidence function $M, w \models ?t$$:_{\{a\}}$$\nao t$$:_{\{a\}}$$\psi(a,y)$.
+	
+\end{proof}
+
+
+\subsection{Language extension}
+
+
+
+\subsection{Templates}
+
+
+\subsection{Using templates for Henkin and Lindenbaum theorems}
+
+
+\subsection{Completeness}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

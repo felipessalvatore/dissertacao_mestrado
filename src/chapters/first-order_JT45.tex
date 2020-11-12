@@ -1,0 +1,1479 @@
+\qquad This chapter is based on three different texts. We have used \cite{Artemov11} and \cite{Fitting14} to lay down the basic syntax and semantics of first-order JT45. To prove completeness we have used an unpublished paper by Melvin Fitting. The first time Sergei Artemov constructed the quantified version of LP, it could support a constant domain semantics. In the unpublished paper Fitting proved completeness for that early version of first-order LP. Since Artemov changed the construction of the quantified version of LP, Fitting left that paper unpublished. The Completeness Theorem presented in this chapter is just an adaptation of the proof strategy presented in that paper (the use of \textit{templates}) for first-order JT45. 
+
+
+
+\section{Language and axiom system}
+
+
+\qquad For this whole chapter we set $\Li = \{P, Q, P\p, Q\p, \dots \}$ to be a countable relational language with no propositional letters.
+
+
+\begin{defn} (Basic vocabulary)
+	
+	\begin{itemize} 
+		\item $x_{0}, x_{1}, x_{2}, \dots$ (\textit{individual variables});
+		\item $\impli, \bot$ (\textit{boolean connectives});
+		\item $\todo$ (\textit{universal quantifier});
+		\item $p_{0}, p_{1}, p_{2}, \dots$(\textit{justification variables});
+		\item $c_{0}, c_{1}, c_{2A}, \dots$ (\textit{justification constants});
+		\item $+$, $\cdot$, $!$, $?$, $gen_{x}$ (\textit{justification operators -- for every individual variable $x$, there is an operator $gen_{x}$})\footnote{To be precise, there is a operator $gen_{i}$ for each $i \in \omega$. We identify each operator $gen_{i}$ with the individual variables $x_{i}$. There is no occurrence of a variable in a justification operator, it is just a label.};
+		\item $(\cdot):_{X} (\cdot)$,(for every finite set of individual variables $X$);
+		\item $),($ (\textit{parentheses}).
+	\end{itemize}
+\end{defn}
+
+\begin{defn} (First-order justification terms)
+	\begin{center}
+		$ t :: = p_{i}$   $|$ $c$ $|$  $(t \cdot t)$ $|$ $(t + t)$ $|$  $!t$ $|$ $?t$ $|$ $gen_{x}(t)$
+	\end{center}
+\end{defn}
+
+\begin{defn} (First-order justification formulas)
+	\begin{center}
+		$ \varphi :: = Px_1 \dots x_n$   $|$ $\bot$ $|$  $(\varphi \impli \varphi)$ $|$ $\todo x \varphi$ $|$  $t$$:_{X}$$\varphi$
+	\end{center}
+\end{defn}
+
+
+\qquad The set of all formulas is denoted by $\Fj$. We are assuming that the set of individual variables, justification variables and justification constants are all countable sets. Thus, it is easy to check that $\Fj$ itself is a countable set. 
+
+\begin{defn}
+	We define the notion of free variables of $\varphi$, $fv(\varphi)$, recursively as follows:
+	
+	\begin{itemize} 
+		\item If $\varphi$ is atomic, then $fv(\varphi)$ is the set of all variables occurring in $\varphi$.
+		\item If $\varphi$ is $(\psi \impli \theta)$, then $fv(\varphi)$ is $fv(\psi) \cup fv(\theta)$.
+		\item If $\varphi$ is $\todo x \psi$, then $fv(\varphi)$ is $fv(\psi) \backslash \{x\}$.
+		\item If $\varphi$ is $t$$:_{X}$$\psi$, then  $fv(\varphi)$ is $X$.
+	\end{itemize}
+	
+	
+	\qquad Similarly as in the classical case, we must define the notion of an individual variable $y$ being free for $x$ in the formula $\varphi$. The definition is the same as in the classical case, we only add the following clause: $y$ is free for $x$ in $t$$:_{X}$$\varphi$ if two conditions are met, i) $y$ is free for $x$ in $\varphi$ (in the classical sense), ii) if $y \in fv(\varphi)$, then $y \in X$.
+\end{defn}
+
+\qquad We write $Xy$ instead of $X \cup \{y\}$; in this case it is assumed that $y \notin X$. And we use $t$$:$$\varphi$ as an abbreviation for $t$$:_{\vazio}$$\varphi$
+
+\qquad  The first-order JT45, FOJT45, is axiomatized by the following axiom schemes and inference rules:\\
+
+\textbf{A1} classical axioms of first-order logic\\
+
+\textbf{A2} $t$$:_{Xy}$$\varphi \impli$ $t$$:_{X}$$\varphi$, provided $y$ does not occur free in $\varphi$\\
+
+\textbf{A3} $t$$:_{X}$$\varphi \impli$ $t$$:_{Xy}$$\varphi$ \\
+
+\textbf{B1} $t$$:_{X}$$\varphi \impli \varphi$\\
+
+\textbf{B2} $t$$:_{X}$$(\varphi \impli \psi) \impli$ $(s$$:_{X}$$\varphi \impli$ $[t\cdot s]$$:_{X}$$\psi)$\\
+
+\textbf{B3} $t$$:_{X}$$\varphi \impli$ $[t+s]$$:_{X}$$\varphi$, $s$$:_{X}$$\varphi \impli$ $[t+s]$$:_{X}$$\varphi$\\ 
+
+\textbf{B4} $t$$:_{X}$$\varphi \impli$ $!t$$:_{X}$$t$$:_{X}$$\varphi$\\
+
+
+\textbf{B5} $\nao t$$:_{X}$$\varphi \impli$ $?t$$:_{X}$$\nao t$$:_{X}$$\varphi$\\
+
+
+\textbf{B6} $t$$:_{X}$$\varphi \impli$ $gen_{x}(t)$$:_{X}$$ \todo x \varphi$, provided $x \notin X$\\
+
+
+\textbf{R1} (\textit{Modus Ponens}) $\teo \varphi$, $\teo \varphi\impli\psi$ $\Rightarrow$ $\teo \psi$ \\
+
+\textbf{R2} (\textit{generalization})  $\teo \varphi$ $\Rightarrow$ $\teo \todo x \varphi$ \\
+
+\textbf{R3} (\textit{axiom necessitation})  $\teo c$$:$$\varphi$, where $\varphi$ is an axiom and $c$ is a justification constant.\\
+
+\qquad We use $\Gamma, \Delta, \Theta, \dots$ as variables for sets of formulas. The notion of $\Gamma \teo \varphi$ is defined as usual. The only thing that should be noted is that, if $\Gamma$ deduces $\varphi$ using the generalization rule, then this rule was not applied to a variable which occurs free in the formulas of $\Gamma$. 
+
+\qquad Since derivations depend on the constant specification being considered, we sometimes write $\teo_{\C} \varphi$ to point out that the proof of $\varphi$ meets the constant specification $\C$.
+
+\begin{lema}
+	(\textit{Deduction})  $\Gamma,\varphi \teo \psi$ iff  $\Gamma \teo \varphi \impli \psi$.
+\end{lema}
+
+\begin{proof}
+	A similar proof as the one from the classical case.
+\end{proof}
+
+
+\begin{teor}
+	(\textit{Internalization}) Let $\C$ be an axiomatically appropriate constant specification; $p_{0}, \dots, p_{k}$ be justification variables; $X_{0}, \dots, X_{k}$ be finite sets of individual variables, and $X =X_{0} \cup \dots \cup X_{k}$. In these conditions, if  $p_{0}$$:_{X_{0}}$$\varphi_{0}, \dots, p_{k}$$:_{X_{k}}$$\varphi_{k} \teo_{\C} \psi$, then there is a justification term $t(p_{0}, \dots, p_{k})$ such that 
+	
+	\begin{center}
+		$p_{0}$$:_{X_{0}}$$\varphi_{0}, \dots, 
+		p_{k}$$:_{X_{k}}$$\varphi_{k} \teo_{\C} t$$:_{X}$$\psi$.
+	\end{center}
+	
+\end{teor}
+
+\begin{proof}
+	The same proof as presented in \cite[p. 7]{Artemov11}.
+\end{proof}
+
+
+
+\begin{pro}
+	(\textit{Explicit counterpart of the Barcan Formula and its converse}) Let $y$ be an individual variable. For  every finite set of individual variables $X$ such that $y \notin X$, for every formula $\varphi(y)$ and every justification term $t$, there are justification terms $CB(t)$ and $B(t)$ such that: 
+	\begin{center}
+		$\teo t$$:_{X}$$\todo y \varphi(y) \impli \todo y CB(t)$$:_{Xy}$$\varphi(y)$\\
+		
+		$\teo \todo y t$$:_{Xy}$$\varphi(y) \impli B(t)$$:_{X}$$\todo y \varphi(y)$
+	\end{center}
+\end{pro}
+
+
+
+\begin{proof}
+	\qquad In Appendix.
+\end{proof}
+
+
+
+\begin{pro}
+	Let $y$ be an individual variable. For  every finite set of individual variables $X$ such that $y \notin X$, for every formula $\varphi(y)$ and every justification term $t$, there is a justification term $s(t)$ such that: 
+	\begin{center}
+		$\teo \ex y t$$:_{Xy}$$\varphi(y) \impli s(t)$$:_{X}$$\ex y \varphi(y)$
+	\end{center}
+\end{pro}
+
+
+
+\begin{proof}
+	\qquad In Appendix.
+\end{proof}
+
+
+
+
+
+
+
+\section{Semantics: basic definitions}
+
+\qquad In Chapters 2 and 3 we have used valuation functions to define the relation $\models$. In the present case it is more convenient to define the semantic notions adding constants to the basic language. That is the path that we take here. So, for any non-empty set $\D$ we are going to use the elements of $\D$ as constants. And  we are going to use $\vec{a}, \vec{b},  \dots$ to denote sequences of constants.
+
+\begin{defn}
+	Let $\D$ be a non-empty set. The set of all $\D$-formulas, $\D$-$\Fj$, is defined as follows:
+	
+	\begin{center}
+		$\D$-$\Fj = \{\varphi (\vec{a})$ $|$  $\varphi(\vec{x}) \in \Fj$ and $\vec{a} \in \D\}$.
+	\end{center}
+	
+\end{defn}
+
+\qquad As usual, for a $\D$-formula $\varphi$, we say that $\varphi$ is closed if  $\varphi$ has no free variables.
+
+\begin{defn}
+	A \textit{Fitting model} is a structure $\M = \model$ where $\bl \W, \R, \D \br$ is a skeleton, $\R$ is an equivalence relation\footnote{Of course, we can define a Fitting model more generally for any kind of relation $\R$, but for our purposes we are going to use this restricted definition.},  $\I$ is an \textit{interpretation function} and:
+	
+	\begin{itemize} 
+		\item $\E$ is an \textit{evidence function}, i.e., for any justification term $t$ and $\D$-formula $\varphi$, $\E(t,\varphi) \subseteq \W$.
+	\end{itemize}
+	
+\end{defn}
+
+
+
+\begin{defn}
+	\textit{Evidence Function Conditions}. Let $\M = \model$ be a Fitting model. We require the evidence function to meet the following conditions:
+	
+	
+	\begin{itemize} 
+		\item[] \textbf{$\cdot$ Condition} $\E (t, \varphi \impli \psi) \cap \E(s, \varphi) \subseteq \E([t\cdot s], \psi).$
+		\item[] \textbf{$+$ Condition} $\E (s, \varphi) \cup \E(t, \varphi) \subseteq \E([s+t], \varphi).$
+		\item[] \textbf{$!$ Condition} $\E (t, \varphi) \subseteq \E(!t, t$$:_{X}\varphi)$, where $X$ is the set of constant occurring in $\varphi$.
+		\item[] \textbf{$?$ Condition} $\W  \backslash \E (t, \varphi) \subseteq \E(?t,\nao t$$:_{X}\varphi)$, where $X$ is the set of constants occurring in $\varphi$.
+		\item[] \textbf{$\R$ Closure Condition} If $w \in \E (t, \varphi)$ and $w \R w\p$, then $w\p \in \E (t, \varphi)$.
+		\item[] \textbf{Instantiation Condition} If $w \in \E (t, \varphi(x))$ and $a \in \D$, then $w \in \E (t, \varphi(a))$.
+		\item[] \textbf{$gen_{x}$ Condition} $\E (t, \varphi) \subseteq \E(gen_{x}(t),\todo x\varphi)$.
+	\end{itemize}
+\end{defn}
+
+\qquad We say that a model $\M = \model$ \textit{meets constant specification $\C$} iff whenever $c$$:$$\varphi \in \C$, then $\E (c, \varphi) = \W$.
+
+
+\begin{defn}
+	Let $\M = \model$ be a Fitting model, $\varphi$ a closed $\D$-formula and $w \in \W$. The notion that \textit{$\varphi$ is true at world $w$ of $\M$}, in symbols $\M,w \models \varphi$, is defined recursively as follows: 
+	\begin{itemize} 
+		\item $\M,w \models P(\vec{a})$ iff $\bl \vec{a}\br \in \I(P,w)$. 
+		\item $\M,w \nmodels \bot$. 
+		\item $\M,w \models \psi \impli \theta$ iff $\M,w \nmodels \psi$ or $\M,w \models \theta$.
+		\item $\M,w \models \todo x \psi(x)$ iff for every $a \in \D$, $\M,w \models \psi(a)$.        
+		\item Assume $t$$:_{X}$$\psi(\vec{x})$ is closed and $\vec{x}$ are all the free variables of $\psi$. Then, $\M,w \models t$$:_{X}$$\psi(\vec{x})$ iff
+		\begin{enumerate}[(a)]
+			\item $w \in \E (t, \psi(\vec{x}))$ and
+			\item for every $w\p \in \W$ such that $w\R w\p$, $\M,w\p \models \psi(\vec{a})$ for every $\vec{a} \in \D$.
+		\end{enumerate}
+		
+	\end{itemize}
+	
+\end{defn}
+
+
+
+\begin{defn}
+	Let $\varphi \in \Fj$ be a closed formula. We say that $\varphi$ is \textit{valid in the Fitting model} $\M = \model$ provided for every $w \in W$, $\M,w \models \varphi$. A formula with free individual variables is valid if its universal closure is valid.
+\end{defn}
+
+
+\begin{defn}
+	A \textit{Fitting model for FOJT45} is a Fitting model $\M = \model$ where $\E$ is a \textit{strong evidence function}, i.e., for every term $t$ and $\D$-formula $\varphi$, $\E(t,\varphi) \subseteq \{w \in \W$ $|$ $ \M,w \models t$$:_{X}$$\varphi\}$ where $X$ is the set of constant occurring in $\varphi$.
+	
+	
+	\qquad For a formula $\varphi$ and constant specification $\C$, we write $\models_{\C}\varphi$ if for every Fitting model for FOJT45 $\M$ meeting $\C$, $\varphi$ is valid in $\M$.
+\end{defn}
+
+
+
+\section{Semantics: non-validity}
+
+\qquad Before we deal with soundness and completeness, it is useful to know some examples of non-validity in order to see that the provisions of some axioms make sense. There is only a minor problem, we require that Fitting models for FOJT45 have a strong evidence function, and it is not so easy to construct models with that property. The following proposition helps us to circumnavigate this issue.
+
+
+\begin{pro}
+	If $\M = \model$ is a Fitting model such that for every justification term $t$ and $\D$-formula $\varphi$, $\E(t,\varphi) = \W$, then there is a Fitting model for FOJT45 $\M^{*} = \bl\W,\R,\D,\I,\E^{*} \br$ such that for every $w \in \W$ and every formula $\varphi$, $\M,w \models \varphi$ iff $\M^{*},w \models \varphi$.   
+\end{pro}
+
+\begin{proof}
+	\qquad Let $\M^{*} =\bl\W,\R,\D,\I,\E^{*} \br$ where for every justification term and $\D$-formula $\varphi$,
+	
+	\begin{center}
+		$\E^{*}(t,\varphi) = \{w \in \W$ $|$ $ \M,w \models t$$:_{X}$$\varphi\}$
+	\end{center}
+where $X$ is the set of constants occurring in $\varphi$. 
+	
+	\qquad It is straightforward to check that $\M^{*}$ is indeed a Fitting model. Now consider the following:\\
+	
+	(+) For every $w \in \W$ and every closed $\D$-formula $\varphi$, $\M,w \models \varphi$ iff $\M^{*},w \models \varphi$.\\
+	
+	(Proof of (+)) Induction on $\varphi$. Crucial case, $\varphi$ is $t$$:_{X}$$\psi$. For simplicity, let us assume that $\varphi$ is $t$$:_{\{a\}}$$\psi(a,y)$.
+	
+	\qquad ($\Rightarrow$) If $\M,w \models t$$:_{\{a\}}$$\psi(a,y)$, then by definition $w \in \E^{*}(t, \psi(a,y))$ and for every $w\p \in \W$, if $w\R w\p$, then $\M,w\p \models \psi(a,b)$ for every $b \in \D$. By the induction hypothesis, for every $w\p \in \W$, if $w\R w\p$, then $\M^{*},w\p \models \psi(a,b)$ for every $b \in \D$. Thus, $\M^{*},w \models t$$:_{\{a\}}$$\psi(a,y)$.
+	
+	\qquad ($\Leftarrow$) If $\M^{*},w \models t$$:_{\{a\}}$$\psi(a,y)$, then $w \in \E^{*}(t, \psi(a,y))$. By definition, $\M,w \models t$$:_{\{a\}}$$\psi(a,y)$. $\Box$\\
+	
+	
+	\qquad By (+) we have that,
+	
+	\begin{center}
+		$\E^{*}(t,\varphi) = \{w \in \W$ $|$ $ \M,w \models t$$:_{X}$$\varphi\} = \{w \in \W$ $|$ $ \M^{*},w \models t$$:_{X}$$\varphi\}$
+	\end{center}
+	
+	
+	\qquad Hence, $\E^{*}$ is a strong evidence function and $\M$ and $\M^{*}$ agree on all $\D$-formulas. Therefore, $\M^{*}$ is a Fitting model for FOJT45 and $\M$ and $\M^{*}$ agree on all formulas.
+\end{proof}
+
+
+\qquad With this proposition we can construct non-validity examples similar to those presented in \cite{Fitting14}.
+
+\qquad \textbf{Example 1:} the restriction on axiom \textbf{A2} is needed. Take, for example, the formula $t$$:_{\{x,y\}}$$Qxy \impli t$$:_{\{x\}}$$Qxy$; let $\M =\model$ be a Fitting model where:
+\begin{itemize}
+	\item $\W = \{w_0, w_1\}$;
+	\item $\R = \W \times \W$;
+	\item $\D = \{a, b\}$;
+	\item $\I(w_{0},Q) = \I(w_{1},Q) = \{\bl a,b \br\}$;
+	\item $\E(t,\varphi) = \W$, for every term $t$ and formula $\varphi$.
+\end{itemize}
+
+
+\qquad Clearly, $\M,w_0 \models t$$:_{\{a,b\}}$$Qab$ and $\M,w_0 \nmodels t$$:_{\{a\}}$$Qay$. Hence, $\M,w_0 \nmodels t$$:_{\{x,y\}}$$Qxy \impli t$$:_{\{x\}}$$Qxy$. By Proposition 19, $t$$:_{\{x,y\}}$$Qxy \impli t$$:_{\{x\}}$$Qxy$ is not valid in every Fitting model for FOJT45.
+
+
+\qquad \textbf{Example 2:} The proviso of axiom \textbf{B6} is necessary. Take, for example, the formula $t$$:_{\{x\}}$$Qx \impli gen_{x}(t)$$:_{\{x\}}$$\todo x Qx$; let $\M =\model$ be a Fitting model where:
+\begin{itemize}
+	\item $\W = \{w_0\}$;
+	\item $\R = \W \times \W$;
+	\item $\D = \{a,b\}$;
+	\item $\I(w_{0},Q) =  \{a\}$;
+	\item $\E(t,\varphi) = \W$, for every term $t$ and formula $\W$.
+\end{itemize}
+
+
+\qquad Clearly, $\M,w_0 \models t$$:_{\{a\}}$$Qa$ and since $\M,w_0 \nmodels Qb$, then $\M,w_0 \nmodels \todo x Qx$, and so $\M,w_0 \nmodels gen_{x}(t)$$:_{\{a\}}$$\todo x Qx$. Hence, $\M,w \nmodels t$$:_{\{x\}}$$Qx \impli gen_{x}(t)$$:_{\{x\}}$$\todo x Qx$. Again by Proposition 19, $t$$:_{\{x\}}$$Qx \impli gen_{x}(t)$$:_{\{x\}}$$\todo x Qx$ is not valid in every Fitting model for FOJT45.
+
+\section{Soundness and Completeness}
+
+\subsection{Soundness}
+
+\begin{teor}
+	(\textit{Soundness}) Let $\C$ be a constant specification. For every formula $\varphi \in \Fj$, if $\teo_{\C} \varphi$, then $\models_{\C}\varphi$.
+\end{teor}    
+
+\begin{proof}
+	The proof is by induction on the theorems of the axiom system using the constant specification $\C$. The argument is exactly the same as presented in \cite[pp. 9-10]{Fitting14}. We are going to show validity for the specific axiom of FOJT45.
+	
+	\qquad Suppose $\varphi$ is an instance of \textbf{B5}, i.e., $\varphi$ is $\nao t$$:_{X}$$\psi \impli$ $?t$$:_{X}$$\nao t$$:_{X}$$\psi$. For simplicity, assume $X= \{x\}$ and $\psi = \psi(x,y)$. So, we have that $\teo_{\C}\nao t$$:_{\{x\}}$$\psi(x,y) \impli$ $?t$$:_{\{x\}}$$\nao t$$:_{\{x\}}$$\psi(x,y)$.
+	
+	\qquad Let $\M = \model$ be a Fitting model for FOJT45 meeting $\C$, $w \in \W$ and $a \in \D$. Suppose $\M, w \models \nao t$$:_{\{a\}}$$\psi(a,y)$. Then, $\M, w \nmodels t$$:_{\{a\}}$$\psi(a,y)$. By the definition of the strong evidence function, $w \notin \E (t, \psi(a,y))$. By the ? condition, $w \in \E(?t,\nao t_{\{a\}}$$:\psi(a,y))$. Again, by the strong evidence function $\M, w \models ?t$$:_{\{a\}}$$\nao t$$:_{\{a\}}$$\psi(a,y)$.
+	
+\end{proof}
+
+
+\subsection{An obstacle in the proof of the Completeness Theorem}
+
+\qquad There are two ways that we can prove the Completeness Theorem, one simple and the other more complex. Here we shall present the complex version. Although we are going to have much more work (if compared to the simple version) it is worthwhile because, we believe that \textit{the methods that we are going to use in the next subsections can be used to prove the semantical version of the Realization Theorems for FOJT45} (in Chapter 6 we give a more detailed exposition of that theorem).   
+
+\qquad The general strategy is the same as presented in \cite[pp. 256-265]{Hughes96}. Let us just briefly comment on what is the obstacle that we find when trying to adapt the proof from the modal case to the justification case. In one step of the proof \cite[pp. 259-260]{Hughes96} we need to establish the following: \\
+
+(+) There is an individual variable $y^{*}$ such that $\Gamma^{\#} \cup \{ \gamma_{n} \e (\delta(y^{*}/ x) \impli \todo x \delta) \}$ is consistent,\\ 
+where $\Gamma^{\#} = \{\varphi$ $|$ $\Box \varphi \in \Gamma\}$ and $\Gamma$ is a maximal consistent set. We begin proving (+) with the following argument. Suppose (+) is false.
+
+\qquad (1) Then for every individual variable $y$,  $\Gamma^{\#} \cup \{ \gamma_{n} \e (\delta(y/ x) \impli \todo x \delta) \}$ is inconsistent. Hence, for some $\beta_{1}, \dots, \beta_{k} \in \Gamma^{\#}$ we have that
+
+\begin{center}
+	$\teo (\beta_{1} \e \dots \e \beta_{k}) \impli( \gamma_{n} \impli \nao (\delta(y/ x) \impli \todo x \delta))$;
+\end{center}
+by the usual reasoning in modal logic,
+
+
+\begin{center}
+	$\teo (\Box\beta_{1} \e \dots \e \Box\beta_{k}) \impli\Box( \gamma_{n} \impli \nao (\delta(y/ x) \impli \todo x \delta))$
+\end{center}
+
+\qquad Since $\Box\beta_{1}, \dots, \Box\beta_{k} \in \Gamma$, then $\Box( \gamma_{n} \impli \nao (\delta(y/ x) \impli \todo x \delta)) \in \Gamma$.
+
+\qquad (2) It is assumed that $\Gamma$ has the `$\todo$-property', i.e., for every formula $\varphi (x)$ there is an individual variable $y^{*}$ such that   $\varphi(y^{*}/ x) \impli \todo x \varphi \in \Gamma$.
+
+\qquad Now, using these two facts we can conclude the following: let $z$ be a variable that does not occur in $\gamma_{n}$ and $\delta$. By (2), there is a variable $y^{*}$ such that
+
+\begin{center}
+	$\Box(\gamma_{n} \impli \nao (\delta(y^{*}/ x) \impli \todo x \delta)) \impli \todo z \Box(\gamma_{n} \impli \nao (\delta(z/ x) \impli \todo x \delta)) \in \Gamma$
+\end{center}
+
+\qquad And by (1) for the particular case when $y = y^{*}$,
+
+
+\begin{center}
+	$\Box( \gamma_{n} \impli \nao (\delta(y^{*}/ x) \impli \todo x \delta)) \in \Gamma$.
+\end{center}
+
+\qquad So, by the maximal consistency of $\Gamma$ we can conclude that $\todo z \Box(\gamma_{n} \impli \nao (\delta(z/ x) \impli \todo x \delta)) \in \Gamma$. The rest of the proof of (+) is not important for our point here.
+
+\qquad The adaptation of this step for the first-order justification logic is problematic because \textit{justification terms internalize Hilbert-style derivations}.
+
+\qquad It should be noted that for two different individual variables $y$ and $y\p$ if $\Gamma^{\#} \cup \{ \gamma_{n} \e (\delta(y/ x) \impli \todo x \delta) \}$ and $\Gamma^{\#} \cup \{ \gamma_{n} \e (\delta(y\p/ x) \impli \todo x \delta) \}$ are inconsistent sets, then there are two finite subsets of $\Gamma^{\#}$, $\{ \beta_{1}, \dots, \beta_{k} \}$ and $\{ \beta\p_{1}, \dots, \beta\p_{k\p} \}$ such that
+
+
+\begin{center}
+	$\teo (\beta_{1} \e \dots \e \beta_{k}) \impli( \gamma_{n} \impli \nao (\delta(y/ x) \impli \todo x \delta))$\\
+	$\teo (\beta\p_{1} \e \dots \e \beta\p_{k\p}) \impli( \gamma_{n} \impli \nao (\delta(y\p/ x) \impli \todo x \delta))$
+\end{center}
+and we cannot assume that $\{ \beta_{1}, \dots, \beta_{k} \}=\{ \beta\p_{1}, \dots, \beta\p_{k\p} \}$. So, for each variable $y$ we may have a different derivation.
+
+\qquad If we adopt the argument (1) for first-order justification logic we would have that for each individual variable $y$ 
+
+\begin{center}
+	$t^{y}$$:_{X}$$( \gamma_{n} \impli \nao (\delta(y/ x) \impli \todo x \delta)) \in \Gamma$,
+\end{center}
+where $t^{y}$ is a term constructed by the Internalization Theorem, the axiom \textbf{B2} and the fact that $\Gamma^{\#} \cup \{ \gamma_{n} \e (\delta(y/ x) \impli \todo x \delta) \}$ is inconsistent. Hence, $t^{y}$ \textit{depends on the individual variable} $y$. 
+
+\qquad Now, let us try to continue the argument. Let $z$ be a variable that does not occur in $\gamma_{n}$ and $\delta$. If we adapt (2) for justification logic, we would have that for every individual variable $y$ there is an individual variable $y^{*}$ such that
+
+\begin{center}
+	$t^{y}$$:_{X}$$(\gamma_{n} \impli \nao (\delta(y^{*}/ x) \impli \todo x \delta)) \impli \todo z t^{y}$$:_{X}$$(\gamma_{n} \impli \nao (\delta(z/ x) \impli \todo x \delta)) \in \Gamma$
+\end{center}
+
+
+\qquad But from this adapted version of (2) we cannot conclude that there is a variable $y^{*}$ such that
+
+
+\begin{center}
+	$t^{y^{*}}$$:_{X}$$(\gamma_{n} \impli \nao (\delta(y^{*}/ x) \impli \todo x \delta)) \impli \todo z t^{y^{*}}$$:_{X}$$(\gamma_{n} \impli \nao (\delta(z/ x) \impli \todo x \delta)) \in \Gamma$
+\end{center}
+
+\qquad  So  we cannot use (1) to conclude that $\todo z t^{y^{*}}$$:_{X}$$(\gamma_{n} \impli \nao (\delta(z/ x) \impli \todo x \delta)) \in \Gamma$.
+
+
+\qquad  A way to remedy this problem is to make the `$\todo$-property' stronger. If  $\varphi(y^{*}/ x) \impli \todo x \varphi \in \Gamma$ we say that $y^{*}$ instantiates the formula $\todo x \varphi$. We want that the same individual variable is used to simultaneously instantiate an infinite list of formulas of the same form. In order to guarantee this feature we are going to use the notion of \textit{templates}. But in doing so we need to stablish some facts about templates. That makes the proof bigger than it should be, and that is why we divided the proof of the Completeness Theorem into different subsections.  
+
+
+
+
+\subsection{Language extension}
+
+\qquad The basic idea is to extend the language in order to prove a Henkin-style Completeness Theorem. Instead of using constants to construct our canonical model we shall add a new kind of variable called `witness variable'. We do that because when working with maximal consistent sets we need to be able to do formal derivations and so bind some witness variables.
+
+
+
+\begin{defn}
+	Two formulas are \textit{variable variants} provided each can be turned into the other by a uniform renaming of free individual variables, bound individual variables and labels of justification terms. We are always assuming that the renaming is safe, i.e., the new variables that are being introduced do not occur in the original formula.
+\end{defn}
+
+\begin{defn}
+	A constant specification $\C$ is \textit{variant closed} iff whenever $\varphi$ and $\psi$ are variable variants, then $c$$:$$\varphi \in \C$ iff $c$$:$$\psi \in \C$.
+\end{defn}
+
+
+\begin{defn}
+	Fix a countable set \textbf{V} $=\{a_{0}, a_{1}, a_{2}, \dots \}$ of additional individual variables that are not in the original language. We define a new set of formulas $\Fjv$ in the same fashion as $\Fj$. It should be noted that variables of \textbf{V} can be bound. We add every finite subset of $\textbf{V}\cup \{x_{0}, x_{1}, \dots \}$ to the language; and for every $a \in \textbf{V}$ we add the justification operator $gen_{a}$.\footnote{To be precise, we add $gen_{\omega +i}$ for each $i \in \omega$. And we identify each operator $gen_{\omega +i}$ with $a_{i}$.} It can be easily checked that $\Fjv$ is a countable set.
+	
+\end{defn}
+
+\qquad Until the end of this chapter we write `individual variables' to denote the members of $\textbf{V}\cup \{x_{0}, x_{1}, \dots \}$, `basic variables' to denote the members of $\{x_{0}, x_{1}, \dots \}$ and `witness variables' to denote the members of \textbf{V}.
+
+
+\qquad We are interested in using $\textbf{V}$ as the domain $\D$ of the canonical model, so from now on we shall call a $\D$-formula a formula of $\Fjv$ where the members of $\textbf{V}$ \textit{occur only free} (not bound, nor as labels of justification terms). And we say that a $\D$-formula is closed if no basic variable occurrences are free.
+
+
+
+\qquad Together with this new language we construct a new axiomatic system for FOJT45 based on the formulas from $\Fjv$.
+
+
+\begin{defn}
+	Let $\C$ be a variant closed constant specification for the basic system. $\Cv$ is the smallest set satisfying the following:
+	
+	\begin{itemize}
+		\item[] If $\varphi \in \C$, $\psi \in \Fjv$ and $\varphi$ and $\psi$ are variable variants, then $\psi \in \Cv$.
+	\end{itemize}    
+\end{defn}
+
+
+
+\qquad From this definition we can make some observations:
+\begin{itemize}
+	\item $\C \subseteq \Cv$.
+	\item $\Cv$ is variant closed.
+	\item If $\C$ is axiomatically appropriate, then $\Cv$ is axiomatically appropriate. 
+	\item We can prove the Deduction Lemma, the Internalization Theorem, Propositions 17 and 18 for the new axiom system.
+\end{itemize}
+
+\begin{pro}
+	Let $\C$ be a variant closed constant specification for the basic system and $\Cv$ its extension for $\Fjv$. In these conditions, for every $\varphi \in \Fj$, if $\teocv \varphi$, then $\teoc \varphi$. 
+\end{pro}
+
+\begin{proof}
+	Let $\psi_{1}, \psi_{2}, \dots , \psi_{n} = \varphi$ be a FOJT45 proof in the language of $\Fjv$ using $\Cv$. Let $a_{1}, \dots, a_{k}$ be all the witness variables that occur free, bound or as a label in the proof. Let $y_{1}, \dots, y_{k}$ be basic variables that do not appear free, bound or as a label in the proof. And let $(\psi_{i})^{-}$ be the result of replacing each $a_{j}$ with $y_{j}$ throughout.
+	
+	\qquad We shall show that  $(\psi_{1})^{-}, (\psi_{2})^{-}, \dots , (\psi_{n})^{-}$ is a FOJT45 proof in the language of $\Fj$ using $\C$. And so $\teoc (\psi_{n})^{-}$, i.e., $\teoc \varphi$.  
+	
+	\qquad If $\psi_{i}$ is an axiom, since we are using axiom schemes and the introduced variables are new (to prevent that any proviso be violated), then $(\psi_{i})^{-}$ is also an axiom.    
+	
+	\qquad If $\psi_{i}$ is a member of $\Cv$, then there is a $\phi \in \C$ such that $\psi_{i}$ and $\phi$ are variable variants. Now, $(\psi_{i})^{-}$ and $\phi$ may not be variable variants, because they may have some basic variable in common. But we can construct a formula $\theta \in \Fj$ such that $\theta$ has no variable in common with $(\psi_{i})^{-}$ and $\phi$, $\theta$ and $(\psi_{i})^{-}$ are variable variants, and $\theta$ and $\phi$ are variable variants. Since $\phi \in \C$ and $\C$ is variant close, $(\psi_{i})^{-}\in \C$.    
+	
+	\qquad If $\psi_{i}$ is deduced from $\psi_{i_1}$ and $\psi_{i_2} = \psi_{i_1}\impli \psi_{i}$ by modus ponens, then $(\psi_{i_2})^{-}$ is $(\psi_{i_1})^{-} \impli (\psi_{i})^{-}$. So $(\psi_{i})^{-}$ also follows from $(\psi_{i_2})^{-}$ and $(\psi_{i_1})^{-}$ by modus ponens. 
+	
+	
+	\qquad If $\psi_{i}$ is deduced from $\psi_{l}$ by generalization, then $\psi_{i}$ is $\todo x \psi_{l}$. If $x$ is a basic variable, then $\todo x (\psi_{l})^{-}$ is deduced from $(\psi_{l})^{-}$ by generalization. If $x = a_{j}$, then $\todo y_{j} (\psi_{l})^{-}$ is deduced from $(\psi_{l})^{-}$ by generalization.    
+	
+\end{proof}
+
+
+\begin{pro}
+	(\textit{Controlled Internalization}) Let $\C$ be a constant specification variant closed and axiomatically appropriate, $\Cv$ its expansion to $\Fjv$ and $\varphi \in \Fjv$. If $\varphi$ is a $\D$-formula and $\teocv \varphi$, then there is a justification term $t$ of $\Fj$ such that
+	
+	\begin{center}
+		$\teocv t$$:$$\varphi$
+	\end{center}
+\end{pro}
+
+\begin{proof}
+	Let $a_{1}, \dots, a_{n}$ be the witness variables occurring free in $\varphi$. So we can write $\varphi$ as $\varphi(a_{1}, \dots, a_{n})$. Let $x_{1}, \dots, x_{n}$ be basic variables that do not occur in the proof of $\varphi(a_{1}, \dots, a_{n})$. By an argument similar to the one presented in the proof of Proposition 20, we have that
+	
+	\begin{center}
+		$\teoc \varphi(x_{1}, \dots, x_{n})$
+	\end{center}
+	
+	\qquad Since $\C$ is axiomatically appropriated, by the Internalization Theorem there is a justification term $s$ of $\Fj$ such that
+	
+	\begin{center}
+		$\teoc s$$:$$\varphi(x_{1}, \dots, x_{n})$
+	\end{center}
+	
+	\qquad Let `$gen_{\vec{x}}(s)$' be the abreviation of `$gen_{x_{1}}(gen_{x_{2}} \dots (gen_{x_{n}}(s)))$'. By repeated use of the axiom \textbf{B6},
+	
+	\begin{center}
+		$\teoc gen_{\vec{x}}(s)$$:$$\todo x_{1} \dots \todo x_{n} \varphi(x_{1}, \dots, x_{n})$
+	\end{center}
+	
+	\qquad Now, since the axiom system in the language of $\Fjv$ using $\Cv$ is an extension of the basic axiom system using $\C$, we have that
+	
+	\begin{center}
+		$\teocv gen_{\vec{x}}(s)$$:$$\todo x_{1} \dots \todo x_{n} \varphi(x_{1}, \dots, x_{n})$
+	\end{center}
+	
+	
+	\qquad By the fact that $\Cv$ is axiomatically appropriate, we have that the following formulas are elements of $\Cv$: 
+	
+	
+	\begin{center}
+		$c_{1}$$:$$[\todo x_{1} \todo x_{2} \dots \todo x_{n} \varphi(x_{1},x_{2}, \dots, x_{n}) \impli  \todo x_{2} \dots \todo x_{n} \varphi(a_{1},x_{2}, \dots, x_{n}) ]$\\
+		$c_{2}$$:$$[\todo x_{2} \todo x_{3} \dots \todo x_{n} \varphi(a_{1},x_{2},x_{3}, \dots, x_{n}) \impli  \todo x_{3} \dots \todo x_{n} \varphi(a_{1},a_{2},x_{3}, \dots, x_{n}) ]$\\
+		$\vdots$\\
+		$c_{n}$$:$$[\todo x_{n} \varphi(a_{1}, \dots, a_{n-1}, x_{n}) \impli  \varphi(a_{1}, \dots, a_{n-1}, a_{n}) ]$.
+	\end{center}
+	
+	\qquad Hence, by repeated use of axiom \textbf{B2} and modus ponens,
+	
+	
+	\begin{center}
+		$\teocv [c_{n}\cdot$ $\dots$ $\cdot [c_{1} \cdot gen_{\vec{x}}(s)]]$$:$$\varphi(a_{1}, \dots, a_{n})$
+	\end{center}
+	
+	\qquad Take $t$ as $[c_{n}\cdot$ $\dots$ $\cdot [c_{1} \cdot gen_{\vec{x}}(s)]]$. 
+\end{proof}
+
+
+\qquad It should be noted that in the proofs of Proposition 17 and 18 we can use Proposition 21 in the place of the Internalization Theorem. So if $\varphi(y)$ is a $\D$-formula and $t$ is a term of $\Fj$, then the terms constructed by Propositions 17 and 18 -- $CB(t)$, $B(t)$ and $s(t)$ -- are also justification terms of $\Fj$.
+
+
+
+
+
+\begin{defn}
+	Let $\C$ be a variant closed constant specification for the basic language and $\Gamma \subseteq \Fj$. We say that $\Gamma$ is $\C$-\textit{inconsistent} iff $\Gamma \teo_{\C} \bot$. By the Deduction Lemma, 
+	$\Gamma$ is $\C$-inconsistent iff there is a finite subset $\{\psi_{1}, \dots, \psi_{n}\}$ of $\Gamma$ such that $\teo_{\C} (\psi_{1} \e \dots \e \psi_{n}) \impli \bot$. A set $\Gamma$ is $\C$-\textit{consistent} if it is not $\C$-inconsistent. And we say that $\Gamma$ is $\C$-\textit{maximal consistent} whenever $\Gamma$ is $\C$-consistent and $\Gamma$ has no proper extension that is $\C$-consistent. We have similar notions for $\C(\textbf{V})$.
+\end{defn}
+
+\qquad It follows from Proposition 20 that for every set of basic formulas $\Gamma$, if $\Gamma$ is $\C$-consistent, then $\Gamma$ is $\C(\textbf{V})$-consistent.
+
+
+
+\begin{pro}
+	(\textit{Lindenbaum})  Let $\C$ be a constant specification variant closed and $\Cv$ its extension. If $\Gamma \subseteq \Fjv$ is $\Cv$-consistent then there is a $\Gamma\p \subseteq \Fjv$ such
+	that $\Gamma \subseteq \Gamma\p$ and $\Gamma\p$ is a $\Cv$-maximal consistent set.
+\end{pro}
+
+\begin{proof}
+	A similar proof as the one from the classical case.
+\end{proof}
+
+
+\subsection{Templates}
+
+
+\begin{defn} (Template vocabulary)    
+	\begin{itemize} 
+		\item $\tp_{0}$, $\tp_{1}$, $\tp_{2}$, $\dots$ (\textit{propositional variables});
+		\item $\nao, \ou, \e $ (\textit{boolean connectives});
+		\item $\Box$ (\textit{necessity});
+		\item $),($ (\textit{parentheses}).
+	\end{itemize}
+\end{defn}
+
+
+
+\qquad We are going to use $\tp$, $\tq$ and $\tr$ as meta-variables for propositional variables. Similarly, we write $\tvp$ to denote a sequence of propositional variables.
+
+\begin{defn} 
+	We define the notions of \textit{template} $F$ and the occurrence set of $F$, $occ(F)$, recursively as follows:
+	
+	\begin{enumerate}[a)]
+		\item 
+		\begin{itemize}
+			\item $\tp$ is a template.
+			\item $occ(\tp) = \{ \tp \}$.
+		\end{itemize}
+		
+		
+		
+		\item 
+		\begin{itemize}
+			\item If $F$ is a template, then $\nao F$ is a template. 
+			\item $occ(\nao F) = occ(F)$.
+		\end{itemize}
+		
+		
+		
+		\item 
+		\begin{itemize}
+			\item If $F$ and $G$ are templates and if  $occ(F)\cap occ(G) =\vazio$, then $F \ou G$ is a template. 
+			\item $occ(F\ou G) = occ(F)\cup occ(G)$.
+		\end{itemize}
+		
+		
+		
+		\item 
+		\begin{itemize}
+			\item If $F$ and $G$ are templates and if  $occ(F)\cap occ(G) =\vazio$, then $F \e G$ is a template. 
+			\item $occ(F\e G) = occ(F)\cup occ(G)$.
+		\end{itemize}
+		
+		
+		\item 
+		\begin{itemize}
+			\item If $F$ is a template, then $\Box F$ is a template. 
+			\item $occ(\Box F) = occ(F)$.
+		\end{itemize}
+		
+	\end{enumerate}
+\end{defn}
+
+
+\qquad Similarly as in the case when we work with formulas, we can define the notion of \textit{complexity} of a template (the number of occurrences of boolean and modal connectives). So we shall define some notions recursively based on the complexity of templates  and prove some facts by induction on the complexity of templates.
+
+
+\begin{defn} 
+	Let $\tvp$ be an $n$-ary sequence of propositional variables, $\vvarphi$ be an $n$-ary sequence of $\D$-formulas and    $F(\tvp)$ a template. We define the \textit{instantiation set} $\Arrowvert F(\vvarphi) \Arrowvert$ recursively as follows:
+	
+	\begin{enumerate}[a)]
+		
+		\item If $F(\tvp)$ is $\tp_{i}$, then $\Arrowvert F(\vvarphi) \Arrowvert = \{ \varphi_{i}\}$.
+		
+		\item If $F(\tvp)$ is $\nao G(\tvp)$, then  $\Arrowvert F(\vvarphi) \Arrowvert = \{ \nao \psi$ $|$ $\psi \in  \Arrowvert G(\vvarphi) \Arrowvert   \}$.
+		
+		\item If $F(\tvp)$ is $G(\tvp) \ou H(\tvp)$, then  $\Arrowvert F(\vvarphi) \Arrowvert = \{ \psi\ou \theta $ $|$ $\psi \in  \Arrowvert G(\vvarphi) \Arrowvert$ and $\theta \in  \Arrowvert H(\vvarphi) \Arrowvert  \}$.
+		
+		\item If $F(\tvp)$ is $G(\tvp) \e H(\tvp)$, then   $\Arrowvert F(\vvarphi) \Arrowvert = \{ \psi\e \theta $ $|$ $\psi \in  \Arrowvert G(\vvarphi) \Arrowvert$ and $\theta \in  \Arrowvert H(\vvarphi) \Arrowvert  \}$.
+		
+		
+		\item If $F(\tvp)$ is  $\Box G(\tvp)$, then   $\Arrowvert F(\vvarphi) \Arrowvert = \{ t$$:_{X}$$\psi$ $|$ $\psi \in  \Arrowvert G(\vvarphi) \Arrowvert   \}$; where $t$ is a justification term of $\Fj$ and $X$ is the set of all witness variables occurring in $\psi$.
+	\end{enumerate}
+\end{defn}
+
+\qquad Clearly, for every template $F(\tvp)$ and every sequence $\vvarphi$ of $\D$-formulas, $\Arrowvert F(\vvarphi) \Arrowvert$ is a set of $\D$-formulas.  
+
+
+\begin{defn}
+	We say that the template $F$ is \textit{positive} if all the  boolean connectives that occur in $F$ are $\e$ and $\ou$. Similarly, we say that $F$ is \textit{disjunctive} if all the boolean connectives that occur in $F$ are $\ou$.           
+\end{defn}
+
+
+\qquad From now to the end of this subsection we shall prove some facts about templates. We are always assuming that there is a fixed constant specification variant closed and axiomatically appropriate $\C$ for the basic language, and that $\Cv$ is its extension. To make things simple, we will not refer to this assumption in every proposition and, in this subsection only, we shall write `$\teo$' to denote `$\teocv$', `consistent' to denote `$\Cv$-consistent', `inconsistent' to denote `$\Cv$-inconsistent' and `maximal-consistent' to denote `$\Cv$-maximal consistent'.
+
+
+
+\begin{pro}(\textit{Semi-Replacement})
+	Let $F(\tvp,\tq)$ be a positive template,  $\varphi$ and $\psi$ $\D$-formulas, and $\vvarphi$ a sequence of $\D$-formulas. In these conditions, if $\teo \varphi \impli \psi$, then for every $\phi \in \Arrowvert F(\vvarphi,\varphi) \Arrowvert$ there is a $\theta \in \Arrowvert F(\vvarphi,\psi) \Arrowvert$ such that
+	
+	
+	\begin{center}
+		$\teo \phi \impli \theta$
+	\end{center}    
+\end{pro}
+
+\begin{proof} (Induction on the complexity of $F(\tvp,\tq)$).\\
+	
+	
+	($F(\tvp,\tq)$ is atomic)\\
+	
+	\qquad i) $F(\tvp,\tq) = \tp_{i}$. Then for any $\phi \in \Arrowvert F(\vvarphi,\varphi) \Arrowvert = \{ \varphi_{i}\}$, $\phi = \varphi_{i}$. Since $\varphi_{i} \in  \Arrowvert F(\vvarphi,\psi) \Arrowvert = \{ \varphi_{i}\}$, take $\theta$ as $\varphi_{i}$. 
+	
+	\qquad ii) $F(\tvp,\tq) = \tq$. Then for any $\phi \in \Arrowvert F(\vvarphi,\varphi) \Arrowvert = \{ \varphi\}$, $\phi = \varphi$. Since $\psi \in  \Arrowvert F(\vvarphi,\psi) \Arrowvert = \{ \psi\}$, take $\theta$ as $\psi$. \\
+	
+	
+	
+	($F(\tvp,\tq)$ is $G(\tvp, \tq)\ou H(\tvp, \tq)$)\\
+	
+	\qquad Let $\phi \in \Arrowvert F(\vvarphi,\varphi) \Arrowvert$. So $\phi$ is $\phi\p \ou \phi\pp$ where  $\phi\p \in \Arrowvert G(\vvarphi,\varphi) \Arrowvert$ and  $\phi\pp \in \Arrowvert H(\vvarphi,\varphi) \Arrowvert$. By the induction hypothesis, there are $\theta\p \in \Arrowvert G(\vvarphi,\psi) \Arrowvert$ and  $\theta\pp \in \Arrowvert H(\vvarphi,\psi) \Arrowvert$ such that
+	
+	\begin{center}
+		$\teo \phi\p \impli \theta\p$ and $\teo \phi\pp \impli \theta\pp$
+	\end{center}
+Hence,
+	
+	\begin{center}
+		$\teo \phi\p \ou \phi\pp  \impli \theta\p \ou \theta\pp$.
+	\end{center}
+	
+	\qquad Since $\theta\p \ou \theta\pp \in \Arrowvert F(\vvarphi,\psi) \Arrowvert$, take $\theta$ as $\theta\p \ou \theta\pp$. \\
+	
+	\qquad If $F(\tvp,\tq)$ is $G(\tvp, \tq)\e H(\tvp, \tq)$, then the argument is similar to the previous one.\\
+	
+	($F(\tvp,\tq)$ is $\Box G(\tvp, \tq)$)\\
+	
+	
+	\qquad Let $\phi \in \Arrowvert F(\vvarphi,\varphi) \Arrowvert$. So $\phi$ is $t$$:_{X}$$\phi\p$ where $\phi\p \in \Arrowvert G(\vvarphi,\varphi) \Arrowvert$. By the induction hypothesis, there is a $\theta\p \in \Arrowvert G(\vvarphi,\psi) \Arrowvert$ such that $\teo \phi\p \impli \theta\p$. By Proposition 21, there is a justification term $s$ of $\Fj$ such that
+	
+	\begin{center}
+		$\teo s$$:$$(\phi\p \impli \theta\p)$
+	\end{center}
+By repeated use of axiom \textbf{A3} and classical reasoning  
+	
+	\begin{center}
+		$\teo s$$:_{X}$$(\phi\p \impli \theta\p)$
+	\end{center}
+By axiom \textbf{B2} and modus ponens 
+	
+	\begin{center}
+		$\teo t$$:_{X}$$\phi\p \impli [s\cdot t]$$:_{X}$$ \theta\p$.
+	\end{center}
+	
+	
+	\qquad Let $Y$ be the set of all witness variables that occur in $\theta\p$. By repeated use of axioms \textbf{A2} and \textbf{A3}, we have that
+	
+	
+	\begin{center}
+		$\teo [s\cdot t]$$:_{X}$$ \theta\p \impli [s\cdot t]$$:_{Y}$$ \theta\p$
+	\end{center} 
+Hence, 
+	
+	\begin{center}
+		$\teo t$$:_{X}$$\phi\p \impli [s\cdot t]$$:_{Y}$$ \theta\p$.
+	\end{center} 
+	
+	\qquad Since $[s\cdot t]$$:_{Y}$$ \theta\p \in \Arrowvert F(\vvarphi,\psi) \Arrowvert$, take $\theta$ as $[s\cdot t]$$:_{Y}$$ \theta\p$.
+	
+\end{proof}
+
+
+
+
+\begin{coro}(\textit{Variable Change})
+	Let $\Gamma \subseteq \Fjv$, $F(\tvp,\tq)$ a positive template, $\vvarphi$ a sequence of $\D$-formulas, $\todo x \varphi(x)$ a $\D$-formula, and $y$ a basic variable that does not occur free in $\todo x \varphi(x)$. In these conditions, if $\Gamma \cup \Arrowvert \nao F(\vvarphi,\todo x\varphi(x)) \Arrowvert$ is consistent, then $\Gamma \cup \Arrowvert \nao F(\vvarphi,\todo y\varphi(y)) \Arrowvert$ is consistent.     
+\end{coro}
+
+
+
+\begin{proof} Suppose that $\Gamma \cup \Arrowvert \nao F(\vvarphi,\todo x\varphi(x)) \Arrowvert$ is consistent and  $\Gamma \cup \Arrowvert \nao F(\vvarphi,\todo y\varphi(y)) \Arrowvert$ is inconsistent. Then, there are $\psi_{1}, \dots, \psi_{n} \in \Arrowvert F(\vvarphi,\todo y\varphi(y)) \Arrowvert$ such that
+	
+	
+	
+	\begin{center}
+		$\Gamma \teo \psi_{1} \ou \dots \ou \psi_{n}$
+	\end{center} 
+By classical logic,
+	
+	
+	\begin{center}
+		$\teo \todo y\varphi(y) \impli \todo x\varphi(x) $.
+	\end{center} 
+	
+	
+	\qquad Hence by Proposition 23, for each $\psi_{i}$ there is a $\theta_{i} \in  \Arrowvert F(\vvarphi,\todo x\varphi(x)) \Arrowvert$
+	such that     
+	
+	\begin{center}
+		$\teo \psi_{i} \impli \theta_{i}$
+	\end{center} 
+Thus,
+	
+	\begin{center}
+		$\Gamma \teo \theta_{1} \ou \dots \ou \theta_{n}$.
+	\end{center} 
+	
+	\qquad And since each $\nao \theta_{i} \in  \Arrowvert \nao F(\vvarphi,\todo x\varphi(x)) \Arrowvert$, $\Gamma \cup \Arrowvert \nao F(\vvarphi,\todo x\varphi(x)) \Arrowvert$ is inconsistent; a contradiction.
+\end{proof}
+
+\begin{pro}(\textit{Vacuous Quantification})
+	Let $F(\tvp)$ be a disjunctive template, and $\vvarphi$ a sequence of $\D$-formulas none of which contain free occurrences of the basic variable $y$. In these conditions, for each $\psi \in \Arrowvert F(\vvarphi) \Arrowvert$ there is some $\theta \in \Arrowvert F(\vvarphi) \Arrowvert$ such that
+	
+	
+	\begin{center}
+		$\teo \ex y\psi \impli \theta$
+	\end{center}    
+\end{pro}
+
+\begin{proof} (Induction on the complexity of $F(\tvp)$)\\
+	
+	
+	($F(\tvp)$ is $\tp_{i}$)\\
+	
+	\qquad  For each $\psi \in \Arrowvert F(\vvarphi) \Arrowvert =\{ \varphi_{i}  \}$,  $\psi = \varphi_{i}$. Since $y$ does not occur free in $\varphi_{i}$, $\teo \ex y\varphi_{i} \impli \varphi_{i}$. We can take $\theta$ as $\varphi_{i}$.\\
+	
+	($F(\tvp)$ is $G(\tvp)\ou H(\tvp)$)\\
+	
+	\qquad Let $\psi \in \Arrowvert F(\vvarphi) \Arrowvert$. So $\psi$ is $\psi\p \ou \psi\pp$ where  $\psi\p \in \Arrowvert G(\vvarphi) \Arrowvert$ and  $\psi\pp \in \Arrowvert H(\vvarphi) \Arrowvert$. By the induction hypothesis, there are $\theta\p \in \Arrowvert G(\vvarphi) \Arrowvert$ and  $\theta\pp \in \Arrowvert H(\vvarphi) \Arrowvert$ such that
+	
+	\begin{center}
+		$\teo \ex y \psi\p \impli \theta\p$ and $\teo \ex y\psi\pp \impli \theta\pp$
+	\end{center}    
+By classical logic,
+	
+	
+	\begin{center}
+		$\teo \ex y (\psi\p \ou \psi\pp) \see  (\ex y\psi\p \ou \ex y\psi\pp)$
+	\end{center}     
+Hence,
+	
+	\begin{center}
+		$\teo \ex y (\psi\p \ou \psi\pp) \impli \theta\p \ou \theta\pp$.
+	\end{center}
+	
+	
+	\qquad Since $\theta\p \ou \theta\pp \in \Arrowvert F(\vvarphi) \Arrowvert$, take $\theta$ as $\theta\p \ou \theta\pp$.\\
+	
+	
+	
+	($F(\tvp)$ is $\Box G(\tvp)$)\\
+	
+	
+	\qquad Let $\psi \in \Arrowvert F(\vvarphi) \Arrowvert$. So $\psi$ is $t$$:_{X}$$\phi$ where $\phi \in \Arrowvert G(\vvarphi) \Arrowvert$. By the axiom \textbf{A3}, 
+	
+	\begin{center}
+		$\teo t$$:_{X}$$\phi \impli t$$:_{Xy}$$\phi$
+	\end{center}
+By classical logic,
+	
+	
+	\begin{center}
+		$\teo \ex y t$$:_{X}$$\phi \impli \ex y t$$:_{Xy}$$\phi$.
+	\end{center}     
+	
+	\qquad By definition, $X$ is a set of witness variables and since $y$ is a basic variable we have that $y \notin X$; so by Proposition 18,
+	
+	\begin{center}
+		$\teo \ex y t$$:_{Xy}$$\phi \impli s(t)$$:_{X}$$\ex y \phi$
+	\end{center}
+	
+	
+	
+	\qquad By induction hypothesis, there is a $\theta\p \in \Arrowvert G(\vvarphi) \Arrowvert$ such that $\teo \ex y \phi \impli \theta\p$. By Proposition 21 and by the axiom \textbf{A3}, there is a justification term $s\p$ of $\Fj$ such that
+	
+	\begin{center}
+		$\teo s\p$$:_{X}$$(\ex y \phi \impli \theta\p)$
+	\end{center}    
+By axiom \textbf{B2},    
+	
+	
+	\begin{center}
+		$\teo s(t)$$:_{X}$$\ex y \phi \impli [s\p \cdot s(t)]$$:_{X}$$\theta\p$.
+	\end{center}
+	
+	\qquad Let $Y$ be the set of all witness variables that occur in $\theta\p$. By repeated use of axioms \textbf{A2} and \textbf{A3}, we have that
+	
+	
+	\begin{center}
+		$\teo [s\p \cdot s(t)]$$:_{X}$$\theta\p \impli  [s\p \cdot s(t)]$$:_{Y}$$\theta\p$
+	\end{center} 
+Hence, 
+	
+	\begin{center}
+		$\teo \ex y t$$:_{X}$$\phi \impli [s\p \cdot s(t)]$$:_{Y}$$\theta\p$.
+	\end{center}
+	
+	
+	\qquad Since $[s\p \cdot s(t)]$$:_{Y}$$\theta\p \in \Arrowvert F(\vvarphi) \Arrowvert$, take $\theta$ as $[s\p \cdot s(t)]$$:_{Y}$$\theta\p$.\\    
+	
+\end{proof}
+
+
+\begin{pro}(\textit{Generalized Barcan})
+	Let $F(\tvp,\tq)$ be a disjunctive template, $y$ a basic variable, $\varphi(y)$ a $\D$-formula, and  $\vvarphi$ a sequence of $\D$-formulas none of which contain free occurrences of $y$. In these conditions, for each $\psi \in \Arrowvert F(\vvarphi,\varphi(y)) \Arrowvert$ there is some $\theta \in \Arrowvert F(\vvarphi,\todo y \varphi(y)) \Arrowvert$ such that
+	
+	
+	\begin{center}
+		$\teo \todo y\psi \impli \theta$
+	\end{center}    
+\end{pro}
+
+\begin{proof} (Induction on the complexity of $F(\tvp,\tq)$)\\
+	
+	\qquad If $F(\tvp,\tq)$ is atomic, then the result is trivial.\\
+	
+	($F(\tvp,\tq)$ is $G(\tvp,\tq)\ou H(\tvp,\tq)$)\\
+	
+	
+	\qquad By the definition of template, the propositional variable $\tq$ can occur at most once in $F(\tvp,\tq)$. So either it does not occur in $G(\tvp,\tq)$ or it does not occur in  $H(\tvp,\tq)$. Assume that it does not occur in $H(\tvp,\tq)$ (the other case is symmetric); then we can assume that $H(\tvp,\tq)$ is $H(\tvp)$.    
+	
+	\qquad Let $\psi \in \Arrowvert F(\vvarphi,\varphi(y)) \Arrowvert$. So $\psi$ is $\phi\p \ou \phi\pp$ where  $\phi\p \in \Arrowvert G(\vvarphi,\varphi(y)) \Arrowvert$ and  $\phi\pp \in \Arrowvert H(\vvarphi) \Arrowvert$. By classical logic, we have that 
+	
+	\begin{center}    
+		$\teo \todo y (\phi\p \ou \phi\pp) \impli (\todo y \phi\p \ou \ex y \phi\pp)$
+	\end{center}
+	
+	\qquad Since $y$ does not occur free in any formula of $\vvarphi$, then by Proposition 24 there is some $\theta\pp \in \Arrowvert H(\vvarphi) \Arrowvert$ such that 
+	
+	
+	\begin{center}    
+		$\teo \ex y \phi\pp \impli \theta\pp$
+	\end{center}
+	
+	\qquad By the induction hypothesis, there is $\theta\p \in \Arrowvert G(\vvarphi,\todo y \varphi (y)) \Arrowvert$ such that
+	
+	\begin{center}
+		$\teo \todo y \psi\p \impli \theta\p$ 
+	\end{center}    
+Hence,    
+	
+	\begin{center}    
+		$\teo \todo y (\phi\p \ou \phi\pp) \impli \theta\p \ou \theta\pp$.
+	\end{center}    
+	
+	
+	\qquad And so we can take $\theta$ as $\theta\p \ou \theta\pp$.    \\
+	
+	
+	($F(\tvp,\tq)$ is $\Box G(\tvp,\tq)$)\\
+	
+	\qquad Let $\psi \in \Arrowvert F(\vvarphi, \varphi(y)) \Arrowvert$. So $\psi$ is $t$$:_{X}$$\phi$ where $\phi \in \Arrowvert G(\vvarphi,\varphi(y)) \Arrowvert$. By definition, $X$ is a set of witness variables, then $y \notin X$. So, by Proposition 17 
+	
+	
+	\begin{center}
+		$\teo \todo y t$$:_{Xy}$$\phi \impli B(t)$$:_{X}$$\todo y \phi$
+	\end{center}
+By axiom \textbf{A3},
+	
+	
+	\begin{center}
+		$\teo t$$:_{X}$$\phi \impli t$$:_{Xy}$$\phi$
+	\end{center}
+By classical logic,
+	
+	
+	\begin{center}
+		$\teo \todo y t$$:_{X}$$\phi \impli \todo y t$$:_{Xy}$$\phi$
+	\end{center}
+So,
+	
+	\begin{center}
+		$\teo \todo y t$$:_{X}$$\phi \impli B(t)$$:_{X}$$\todo y \phi$.
+	\end{center}
+	
+	\qquad By the induction hypothesis, there is a $\theta\p \in \Arrowvert G(\vvarphi, \todo y \varphi(y)) \Arrowvert$ such that $\teo \todo y \phi \impli \theta\p$. By Proposition 21 and by the axiom \textbf{A3}, there is a justification term $s$ of $\Fj$ such that
+	
+	\begin{center}
+		$\teo s$$:_{X}$$(\todo y \phi \impli \theta\p)$
+	\end{center}    
+By axiom \textbf{B2},    
+	
+	
+	\begin{center}
+		$\teo B(t)$$:_{X}$$\todo y \phi \impli [s \cdot B(t)]$$:_{X}$$\theta\p$.
+	\end{center}
+	
+	\qquad Let $Y$ be the set of all witness variables that occur in $\theta\p$. By repeated use of axioms \textbf{A2} and \textbf{A3}, we have that
+	
+	
+	\begin{center}
+		$\teo [s \cdot B(t)]$$:_{X}$$\theta\p \impli  [s \cdot B(t)]$$:_{Y}$$\theta\p$
+	\end{center} 
+Hence, 
+	
+	\begin{center}
+		$\teo \todo y t$$:_{X}$$\phi \impli [s \cdot B(t)]$$:_{Y}$$\theta\p$.
+	\end{center}
+	
+	\qquad Take $\theta$ as $[s \cdot B(t)]$$:_{Y}$$\theta\p$.\\    
+	
+	
+	
+	
+	
+\end{proof}
+
+
+\begin{pro}(\textit{Formula Combining}) Let $F(\tvp)$ be a disjunctive template, and $\vvarphi$ a sequence of $\D$-formulas. In these conditions, for any $\psi_{1}, \dots, \psi_{k}  \in \Arrowvert F(\vvarphi) \Arrowvert$ there is some formula $\theta \in \Arrowvert F(\vvarphi) \Arrowvert$ such that
+	
+	
+	\begin{center}
+		$\teo (\psi_{1} \ou \dots \ou \psi_{k}) \impli \theta$
+	\end{center}    
+\end{pro}
+
+\begin{proof} (Induction on the complexity of $F(\tvp)$.)\\
+	
+	\qquad If $F(\tvp)$ is atomic, then the result is trivial.\\
+	
+
+	
+	($F(\tvp)$ is $G(\tvp)\ou H(\tvp)$)\\
+	
+	\qquad Let $\psi_{1}, \dots, \psi_{k} \in \Arrowvert F(\vvarphi) \Arrowvert$. So there are $\phi_{1}^{\p}, \dots, \phi_{k}^{\p} \in \Arrowvert G(\vvarphi) \Arrowvert$ and  $\phi_{1}^{\pp}, \dots, \phi_{k}^{\pp} \in \Arrowvert H(\vvarphi) \Arrowvert$, such that $\psi_{i} = \phi_{i}^{\p} \ou \phi_{i}^{\pp}$. By the induction hypothesis, there are $\theta^{\p} \in \Arrowvert G(\vvarphi) \Arrowvert$ and $\theta^{\pp} \in \Arrowvert H(\vvarphi) \Arrowvert$ such that  
+	
+	
+	\begin{center}
+		$\teo (\phi_{1}^{\p} \ou \dots \ou \phi_{k}^{\p}) \impli \theta\p$\\
+		$\teo (\phi_{1}^{\pp} \ou \dots \ou \phi_{k}^{\pp}) \impli \theta\pp$
+	\end{center}
+Hence, 
+	
+	
+	\begin{center}
+		$\teo ((\phi_{1}^{\p} \ou \dots \ou \phi_{k}^{\p}) \ou (\phi_{1}^{\pp} \ou \dots \ou \phi_{k}^{\pp})) \impli \theta\p \ou \theta\pp$
+	\end{center}
+And so, 
+	
+	\begin{center}
+		$\teo ((\phi_{1}^{\p} \ou \phi_{1}^{\pp})  \ou \dots \ou (\phi_{k}^{\p} \ou \phi_{k}^{\pp}))  \impli \theta\p \ou \theta\pp$
+	\end{center}
+i.e.,
+	
+	\begin{center}
+		$\teo (\psi_{1} \ou \dots \ou \psi_{k}) \impli \theta\p \ou \theta\pp$.
+	\end{center}
+	
+	
+	\qquad Take $\theta$ as $\theta\p \ou \theta\pp$.\\    
+	
+\pagebreak
+	
+	($F(\tvp)$ is $\Box G(\tvp)$)\\    
+	
+	\qquad Let $\psi_{1}, \dots, \psi_{k} \in \Arrowvert F(\vvarphi) \Arrowvert$. So there are justification terms $t_{1}, \dots, t_{k}$ and $\phi_{1}, \dots, \phi_{k} \in \Arrowvert G(\vvarphi) \Arrowvert$ such that $\psi_{i} =     t_{i}$$:_{X_{i}}$$\phi_{i}$.
+	By the induction hypothesis, there is $\theta^{\p} \in \Arrowvert G(\vvarphi) \Arrowvert$ such that  
+	
+	
+	\begin{center}
+		$\teo (\phi_{1} \ou \dots \ou \phi_{k}) \impli \theta\p$\
+	\end{center}
+Hence, by classical reasoning, for each $i$,
+	
+	\begin{center}
+		$\teo \phi_{i} \impli \theta\p$\
+	\end{center}
+	
+\qquad So, by Proposition 21 and by the axiom \textbf{A3} there are  justification terms $s_{1}, \dots, s_{k}$ of $\Fj$ such that for each $i$,
+	
+	
+	\begin{center}
+		$\teo s_{i}$$:_{X_{i}}$$(\phi_{i} \impli \theta\p)$\
+	\end{center}
+By axiom \textbf{B2},
+	
+	
+	\begin{center}
+		$\teo t_{i}$$:_{X_{i}}$$\phi_{i}  \impli [s_{i} \cdot t_{i}]$$:_{X_{i}}$$\theta\p$\
+	\end{center}
+By an appropriate use of axiom \textbf{B3}, we have that for each $i$, 
+	
+	
+	\begin{center}
+		$\teo [s_{i} \cdot t_{i}]$$:_{X_{i}}$$\theta\p  \impli [[s_{1} \cdot t_{1}] +$ $\dots$ $+ [s_{k} \cdot t_{k}]]$$:_{X_{i}}$$\theta\p$.
+	\end{center}
+	
+	
+	\qquad Let $Y$ be the set of all witness variables that occur in $\theta\p$. By repeated use of axioms \textbf{A2} and \textbf{A3}, we have that
+	
+	
+	\begin{center}
+		$\teo [[s_{1} \cdot t_{1}] +$ $\dots$ $+ [s_{k} \cdot t_{k}]]$$:_{X_{i}}$$\theta\p  \impli [[s_{1} \cdot t_{1}] +$ $\dots$ $+ [s_{k} \cdot t_{k}]]$$:_{Y}$$\theta\p$
+	\end{center}
+Hence, for each $i$, 
+	
+	\begin{center}
+		$\teo t_{i}$$:_{X_{i}}$$\phi_{i}  \impli  [[s_{1} \cdot t_{1}] +$ $\dots$ $+ [s_{k} \cdot t_{k}]]$$:_{Y}$$\theta\p$
+	\end{center}
+So,
+	
+	\begin{center}
+		$\teo (t_{1}$$:_{X_{1}}$$\phi_{1} \ou \dots \ou t_{k}$$:_{X_{k}}$$\phi_{k} )   \impli  [[s_{1} \cdot t_{1}] +$ $\dots$ $+ [s_{k} \cdot t_{k}]]$$:_{Y}$$\theta\p$.
+	\end{center}
+	
+	\qquad Since $[[s_{1} \cdot t_{1}] +$ $\dots$ $+ [s_{k} \cdot t_{k}]]$$:_{Y}$$\theta\p \in \Arrowvert F(\vvarphi) \Arrowvert$, we can take $\theta$ as $[[s_{1} \cdot t_{1}] +$ $\dots$ $+ [s_{k} \cdot t_{k}]]$$:_{Y}$$\theta\p$.
+\end{proof}
+
+\begin{pro}(\textit{Existential Instantiation})
+	Let $F(\tvp,\tq)$ be a disjunctive template, $\Gamma \subseteq \Fj$, $\vvarphi$ a sequence of $\D$-formulas,  $\todo x \varphi(x)$ a $\D$-formula, and $a$ a witness variable that does not occur free in $\todo x \varphi(x)$ and in any member of $\vvarphi$. In these conditions, if $\Gamma \cup \Arrowvert \nao F(\vvarphi,\todo x\varphi(x)) \Arrowvert$ is consistent, then $\Gamma \cup \Arrowvert \nao F(\vvarphi,\varphi(a)) \Arrowvert$ is consistent.    
+\end{pro}
+
+\begin{proof} 
+	Suppose that  $\Gamma \cup \Arrowvert \nao F(\vvarphi,\todo x\varphi(x)) \Arrowvert$ is consistent and $\Gamma \cup \Arrowvert \nao F(\vvarphi,\varphi(a)) \Arrowvert$ is inconsistent.  Then, there are $\psi_{1}, \dots, \psi_{n} \in \Gamma$ and $\nao \phi_{1}(a), \dots, \nao \phi_{k}(a) \in \Arrowvert \nao F(\vvarphi,\varphi(a)) \Arrowvert$ such that
+	
+	
+	
+	\begin{center}
+		$\teo(\psi_{1} \e \dots \e \psi_{n}) \e (\nao \phi_{1}(a) \e \dots \e \nao \phi_{k}(a)) \impli \bot$
+	\end{center} 
+Hence,
+	
+	
+	\begin{center}
+		$\teo(\psi_{1} \e \dots \e \psi_{n}) \impli (\phi_{1}(a) \ou \dots \ou \phi_{k}(a))$.
+	\end{center} 
+	
+	
+\qquad By Proposition 26 there is a $\psi(a) \in \Arrowvert F(\vvarphi,\varphi(a)) \Arrowvert$, such that
+	
+	\begin{center}
+		$\teo (\phi_{1}(a) \ou \dots \ou \phi_{k}(a)) \impli \psi(a)$
+	\end{center} 
+Hence,
+	
+	
+	\begin{center}
+		$\teo (\psi_{1} \e \dots \e \psi_{n}) \impli \psi(a)$
+	\end{center}
+By generalization (remember, $a$ is a variable in the new language),
+	
+	\begin{center}
+		$\teo \todo a [(\psi_{1} \e \dots \e \psi_{n}) \impli \psi(a)]$.
+	\end{center}
+	
+\qquad Let $y$ be a basic variable that does not occur in $\psi_{1}, \dots,\psi_{n}$, $\todo x \varphi (x)$, $\vvarphi$, $\varphi (a)$ and $\psi(a)$. By classical logic,  
+	
+	
+	
+	\begin{center}
+		$\teo \todo a [(\psi_{1} \e \dots \e \psi_{n}) \impli \psi(a)] \impli [(\psi_{1} \e \dots \e \psi_{n}) \impli \psi(a)](y/a)$.
+	\end{center}
+	
+	\qquad Since $\Gamma$ is a set of basic formulas, $a$ does not occur in any formula of $\Gamma$; in particular, $a$ does not occur in any $\psi_{i}$. Hence $[(\psi_{1} \e \dots \e \psi_{n}) \impli \psi(a)](y/a)$ is $(\psi_{1} \e \dots \e \psi_{n}) \impli \psi(y)$. So, by modus ponens and generalization, 
+	
+	\begin{center}
+		$\teo \todo y [(\psi_{1} \e \dots \e \psi_{n}) \impli \psi(y)]$.
+	\end{center}
+	
+
+	\qquad Since $y$ does not occur in any $\psi_{i}$, by classical reasoning,
+	
+	\begin{center}
+		$\teo (\psi_{1} \e \dots \e \psi_{n}) \impli \todo y \psi(y)$
+	\end{center}
+	
+	
+	\qquad Since $a$ does not occur free in any formula of $\vvarphi$, it can be easily checked that for every formula $\psi(a)$,
+	
+	\begin{center}
+		If $\psi(a) \in \Arrowvert F(\vvarphi,\varphi(a)) \Arrowvert$, then $\psi(y) \in \Arrowvert F(\vvarphi,\varphi(y)) \Arrowvert$.
+	\end{center}
+	
+	\qquad By this fact, we have that $\psi(y) \in \Arrowvert F(\vvarphi,\varphi(y)) \Arrowvert$. Now since $y$ does not occur in $\vvarphi$, then by Proposition 25 there is a $\theta \in \Arrowvert F(\vvarphi,\todo y \varphi(y)) \Arrowvert$ such that
+	\begin{center}
+		$\teo \todo y\psi \impli \theta$
+	\end{center}
+Thus,
+	
+	\begin{center}
+		$\teo  (\psi_{1} \e \dots \e \psi_{n})  \impli \theta$.
+	\end{center}
+	
+	
+	\qquad Since $\nao\theta \in \Arrowvert \nao F(\vvarphi,\todo y \varphi(y)) \Arrowvert$, it follows that $\Gamma \cup \Arrowvert \nao F(\vvarphi,\todo y\varphi(y)) \Arrowvert$ is inconsistent. By Corollary 1, $\Gamma \cup \Arrowvert \nao F(\vvarphi,\todo x\varphi(x)) \Arrowvert$ is inconsistent, a contradiction.
+\end{proof}
+
+
+\begin{defn}
+	If $\Gamma \subseteq \Fjv$, then let $\Gamma^{\#}$ be the set of all formulas $\todo \vec{y} \varphi$ such that $t$$:_{X}$$\varphi \in \Gamma$, where $t$$:_{X}$$\varphi$ is a closed $\D$-formula with $X$ being the set of witness variables in $\varphi$, and $\vec{y}$ are the free  basic variables of $\varphi$. 
+\end{defn}
+
+\begin{pro}\textit{(Up and Down Consistency})
+	Let $F(\tvp) = \Box G(\tvp)$ be a template, $\Gamma \subseteq \Fjv$,  and $\vvarphi$ a sequence of $\D$-formulas.
+	
+	\begin{enumerate}[1)]
+		\item Suppose $\Gamma$ is maximal consistent. In these conditions, if $\Gamma^{\#} \cup \Arrowvert \nao G(\vvarphi) \Arrowvert$ is consistent, then  $\Gamma \cup \Arrowvert \nao F(\vvarphi) \Arrowvert$ is consistent.
+		\item Suppose $G(\tvp)$ is a disjunctive template. In these conditions,  if $\Gamma \cup \Arrowvert \nao F(\vvarphi) \Arrowvert$ is consistent, then  $\Gamma^{\#} \cup \Arrowvert \nao G(\vvarphi) \Arrowvert$ is consistent.
+	\end{enumerate}    
+\end{pro}
+
+\begin{proof} 
+	
+	1) Suppose $\Gamma^{\#} \cup \Arrowvert \nao G(\vvarphi) \Arrowvert$ is consistent and  $\Gamma \cup \Arrowvert \nao F(\vvarphi) \Arrowvert$ is inconsistent. Then, for some $\nao t_{1}$$:_{X_{1}}$$\theta_{1}, \dots,  \nao t_{k}$$:_{X_{k}}$$\theta_{k} \in  \Arrowvert \nao F(\vvarphi) \Arrowvert$ (where $\theta_{1}, \dots, \theta_{k} \in  \Arrowvert  G(\vvarphi) \Arrowvert$)
+	
+	
+	\begin{center}
+		$\Gamma \teo (\nao t_{1}$$:_{X_{1}}$$\theta_{1} \e \dots \e  \nao t_{k}$$:_{X_{k}}$$\theta_{k}) \impli \bot $
+	\end{center}    
+Hence,
+	
+	\begin{center}
+		$\Gamma \teo t_{1}$$:_{X_{1}}$$\theta_{1} \ou \dots \ou   t_{k}$$:_{X_{k}}$$\theta_{k}$.
+	\end{center}        
+	
+	
+\qquad Now, since $\Gamma$ is maximal consistent set, for some $i$, $t_{i}$$:_{X_{i}}$$\theta_{i} \in \Gamma$. And since $t_{i}$$:_{X_{i}}$$\theta_{i}$ is a closed $\D$-formula, $\todo \vec{x} \theta_{i} \in \Gamma^{\#}$. By classical logic, 
+	
+	\begin{center}
+		$\teo \nao \theta_{i} \impli \nao \todo \vec{x} \theta_{i}$
+	\end{center}        
+	
+\qquad Since $\nao \theta_{i} \in \Arrowvert  \nao G(\vvarphi) \Arrowvert$, we have that  $\Gamma^{\#} \cup \Arrowvert \nao G(\vvarphi) \Arrowvert$ is inconsistent, a contradiction.\\
+	
+	
+\qquad 2) Suppose $\Gamma \cup \Arrowvert \nao F(\vvarphi) \Arrowvert$ is consistent and $\Gamma^{\#} \cup \Arrowvert \nao G(\vvarphi) \Arrowvert$ is inconsistent. Then, there are $\todo \vec{x}_{1} \psi_{1}, \dots, \todo \vec{x}_{n} \psi_{n} \in \Gamma^{\#}$ (where $t_{1}$$:_{X_{1}}$$\psi_{1}, \dots,  t_{n}$$:_{X_{n}}$$\psi_{n} \in  \Gamma$) and $\nao \theta_{1}, \dots, \nao \theta_{k} \in \Arrowvert  \nao G(\vvarphi) \Arrowvert$ such that
+	
+	
+	\begin{center}
+		$\teo (\todo \vec{x}_{1} \psi_{1} \e \dots \e \todo \vec{x}_{n} \psi_{n}) \e  (\nao \theta_{1}\e \dots \e \nao \theta_{k}) \impli \bot $
+	\end{center}
+So,
+	
+	\begin{center}
+		$\teo (\todo \vec{x}_{1} \psi_{1} \e \dots \e \todo \vec{x}_{n} \psi_{n}) \impli  (\theta_{1} \ou \dots \ou  \theta_{k})$.
+	\end{center}
+	
+	\qquad Since $\theta_{1}, \dots, \theta_{k} \in \Arrowvert G(\vvarphi) \Arrowvert$ and $G(\tvp)$ is a disjunctive template, then by Proposition 26 there is a $\theta \in \Arrowvert G(\vvarphi) \Arrowvert$ such that 
+	
+	\begin{center}
+		$\teo (\theta_{1} \ou \dots \ou  \theta_{k}) \impli \theta$
+	\end{center}
+By classical logic,
+	
+	\begin{center}
+		$\teo \todo \vec{x}_{1} \psi_{1} \impli \dots \impli \todo \vec{x}_{n} \psi_{n} \impli  \theta$.
+	\end{center}
+	
+	\qquad Now, for each $i$ any member of the sequence $\vec{x}_{i}$ does not occur in the set $X_{i}$ (the set $X_{i}$ is a set of witness variables). So, by repeated use of axiom \textbf{B6} we have that for each $i$
+	
+	\begin{center}
+		$\teo t_{i}$$:_{X_{i}}$$\psi_{i}\impli gen_{\vec{x}_{i}}(t)$$:_{X_{i}}$$\todo \vec{x}\psi_{i}$
+	\end{center}
+	
+	\qquad It should be noted that `$gen_{\vec{x}_{i}}(t)$' is not a justification term, it is just an abbreviation that we use to help readability. Let $X = X_{1}\cup$ $\dots$ $\cup X_{n}$, by axiom \textbf{A3},
+	
+	\begin{center}
+		$\teo t_{i}$$:_{X_{i}}$$\psi_{i}\impli gen_{\vec{x}_{i}}(t)$$:_{X}$$\todo \vec{x}\psi_{i}$
+	\end{center}
+	
+	\qquad By Proposition 21 and axiom \textbf{A3} there is a justification term $s$ of $\Fj$ such that 
+	
+	\begin{center}
+		$\teo s$$:_{X}$$(\todo \vec{x}_{1} \psi_{1} \impli \dots \impli \todo \vec{x}_{n} \psi_{n} \impli  \theta)$
+	\end{center}
+And by repeated use of axiom \textbf{B2}
+	
+	
+	\begin{center}
+		$\teo gen_{\vec{x}_{1}}(t)$$:_{X}$$\todo \vec{x}\psi_{1}\impli \dots \impli gen_{\vec{x}_{n}}(t)$$:_{X}$$\todo \vec{x}\psi_{n}\impli  [s\cdot gen_{\vec{x}_{1}}(t) \cdot$ $\dots$ $\cdot gen_{\vec{x}_{n}}(t) ]$$:_{X}$$\theta$.
+	\end{center}
+	
+	\qquad Let $Y$ be the set of all witness variables of $\theta$; by axioms \textbf{A2} and \textbf{A3}
+	
+	\begin{center}
+		$\teo [s\cdot gen_{\vec{x}_{1}}(t) \cdot$ $\dots$ $\cdot gen_{\vec{x}_{n}}(t) ]$$:_{X}$$\theta \impli  [s\cdot gen_{\vec{x}_{1}}(t) \cdot$ $\dots$ $\cdot gen_{\vec{x}_{n}}(t) ]$$:_{Y}$$\theta$
+	\end{center}
+By classical reasoning,
+	
+	\begin{center}
+		$\teo (t_{1}$$:_{X_{1}}$$\psi_{1} \e \dots \e t_{n}$$:_{X_{n}}$$\psi_{n}) \impli  [s\cdot gen_{\vec{x}_{1}}(t) \cdot$ $\dots$ $\cdot gen_{\vec{x}_{n}}(t) ]$$:_{Y}$$\theta$.
+	\end{center}
+	
+	
+	\qquad Since each $t_{i}$$:_{X_{i}}$$\psi_{i} \in \Gamma$ and $[s\cdot gen_{\vec{x}_{1}}(t) \cdot$ $\dots$ $\cdot gen_{\vec{x}_{n}}(t) ]$$:_{Y}$$\theta \in \Arrowvert F(\vvarphi) \Arrowvert$ we have that $\Gamma \cup \Arrowvert \nao F(\vvarphi) \Arrowvert$ is inconsistent; a contradiction.
+\end{proof}
+
+
+
+\begin{defn}  
+	A set of formulas $\Gamma$ \textit{admits instantiation} provided for each disjunctive template $F(\tvp,\tq)$, for each sequence $\vvarphi$ of $\D$-formulas, and each universally quantified $\D$-formula $\todo x \varphi (x)$, if $\Gamma \cup \Arrowvert \nao F(\vvarphi,\todo x\varphi(x)) \Arrowvert$ is consistent, then for some witness variable $a$, $\Gamma \cup \Arrowvert \nao F(\vvarphi,\varphi(a)) \Arrowvert$ is consistent.\footnote{This is the stronger version of the `$\todo$-property' that we mentioned in subsection 5.4.2.}   
+\end{defn}
+
+
+
+\begin{pro}
+	Suppose $\Gamma$ is maximal consistent and $\Gamma$ admits instantiation. For every $\D$-formula $\todo x \varphi(x)$, if $\nao \todo x \varphi(x) \in \Gamma$, then there is a witness variable $a$ such that $\nao \varphi(a) \in \Gamma$.          
+\end{pro}
+
+
+\begin{proof} 
+	
+	If $\nao \todo x \varphi (x) \in \Gamma $, then $S\cup \{ \nao \todo x \varphi (x) \}$ is consistent. Let $\tq$ be a propositional letter; $F(\tq) =\tq$ is a disjunctive template. Since $\Arrowvert \nao F(\todo x\varphi(x)) \Arrowvert=  \{ \nao \todo x \varphi (x) \}$, then  $\Gamma \cup \Arrowvert \nao F(\todo x\varphi(x)) \Arrowvert$ is consistent. Since $\Gamma$ admits instantiation, there is a witness variable $a$ such that $\Gamma \cup \Arrowvert \nao F(\varphi(a)) \Arrowvert$ is consistent, i.e., $\Gamma \cup  \{ \nao \varphi (a) \}$ is consistent. By the maximality of $\Gamma$, $ \nao \varphi(a) \in \Gamma$. 
+	
+\end{proof}
+
+
+\begin{pro}Let $\Gamma \subseteq \Fjv$. If $\Gamma$ is maximal consistent and admits instantiation, then $\Gamma^{\#}$ also admits instantiation.
+\end{pro}
+
+\begin{proof} 
+	Suppose $\Gamma$ is maximal consistent, $\Gamma$ admits instantiation, $F(\tvp, \tq)$ is a disjunctive template, $\vvarphi$ is a sequence of $\D$-formulas, $\todo x \varphi(x)$ is a $\D$-formula, and $\Gamma^{\#}\cup \Arrowvert \nao F(\vvarphi,\todo x\varphi(x)) \Arrowvert$ is consistent. By item 1) of Proposition 28, $\Gamma\cup \Arrowvert \nao\Box F(\vvarphi,\todo x\varphi(x)) \Arrowvert$ is consistent.  $\Box F(\tvp, \tq)$ is also a disjunctive template. Then, since $\Gamma$ admits instantiation, for some witness variables $a$,  $\Gamma\cup \Arrowvert \nao\Box F(\vvarphi,\varphi(a)) \Arrowvert$ is consistent. By item 2) of Proposition 28, $\Gamma^{\#}\cup \Arrowvert \nao F(\vvarphi,\varphi(a)) \Arrowvert$ is consistent.       
+\end{proof}
+
+
+\subsection{Using templates for Henkin-like theorems}
+
+\qquad Since the set of all templates is a countable set, the set of all disjunctives templates is also a countable set. By the same set-theoretical considerations, since $\Fjv$ is countable, the set of all sequences $\vvarphi$ of $\D$-formulas is also countable. Hence, the set of all pairs $\bl F(\tvp), \vvarphi \br$ is countable, where $F$ is a disjunctive template, $\tvp$ is $n$-ary sequence of propositional variables and $\vvarphi$ is a $n$-ary sequence of $\D$-formulas.
+
+\qquad For this whole subsection we shall assume that the members of the set of pairs $\bl F(\tvp), \vvarphi \br$ are arranged in a sequence
+
+\begin{center}
+	$\bl F_{1}(\tvp_{1}), \vvarphi_{1} \br, \bl F_{2}(\tvp_{2}), \vvarphi_{2} \br, \bl F_{3}(\tvp_{3}), \vvarphi_{3} \br, \dots $
+\end{center}  
+
+\qquad From now on we shall refer to this sequence as the `initial sequence'. This sequence of pairs determines a corresponding sequence of instantiation sets:
+
+\begin{center}
+	$\Arrowvert F_{1}( \vvarphi_{1}) \Arrowvert, \Arrowvert F_{2}( \vvarphi_{2}) \Arrowvert, \Arrowvert F_{3}( \vvarphi_{3}) \Arrowvert, \dots $
+\end{center}  
+
+
+\qquad It should be noted that for two different pairs $\bl F_{i}(\tvp_{i}), \vvarphi_{i} \br$, $\bl F_{j}(\tvp_{j}), \vvarphi_{j} \br$ the corresponding instantiation sets may be the same. For example, the pairs $\bl \tp_{0}, \bl \todo x \varphi (x)\br\br$, $\bl \tp_{1}, \bl \todo x \varphi (x)\br \br$ determine the same set $\{\todo x \varphi(x)\}$. Hence there are some repetitions in the sequence of instantiation sets, but this will not cause any trouble. 
+
+
+
+
+\begin{pro}(\textit{Basic expansion})
+	Let $\C$ be a variant closed and axiomatically appropriate constant specification for the basic language, $\Cv$ its extension and let $\Gamma \subseteq \Fj$ be a $\C$-consistent set. In these conditions, there is a $\Gamma\p \subseteq \Fjv$ such that $\Gamma \subseteq \Gamma\p$, $\Gamma\p$ is $\Cv$-maximal consistent set and $\Gamma\p$ admits instantiation.  
+\end{pro}
+
+\begin{proof}
+	We define a sequence of sets of $\Fjv$ formulas $\Gamma_{1}, \Gamma_{2}, \Gamma_{3}, \dots $ so that:
+	
+	\begin{itemize}
+		\item $\Gamma_{n}$ is $\Cv$-consistent.
+		\item $\Gamma_{n}$ is either $\Gamma$ or $\Gamma \cup \Arrowvert \nao F_{i_{1}}( \vvarphi_{i_{1}}) \Arrowvert \cup$ $\dots$ $\cup\Arrowvert \nao F_{i_{k}}( \vvarphi_{i_{k}}) \Arrowvert $.    
+	\end{itemize}    
+	
+	\qquad First of all, $\Gamma_{1} =\Gamma$. By the remark at the end of subsection 5.4.3, $\Gamma_{1}$ is $\Cv$-consistent.  
+	
+	\qquad Now, suppose $\Gamma_{n}$ is constructed and it is of the form
+	$\Gamma \cup \Arrowvert \nao F_{i_{1}}( \vvarphi_{i_{1}}) \Arrowvert \cup$ $\dots$ $\cup\Arrowvert \nao F_{i_{k}}( \vvarphi_{i_{k}}) \Arrowvert $ (the other case has a similar proof). Let $\bl F_{n}(\tvp_{n}), \vvarphi_{n} \br$ be the $n$\textsuperscript{th} pair of the initial sequence. If the last term of the sequence $\vvarphi_{n}$ is not a universal formula, let $\Gamma_{n+1} = \Gamma_{n}$. Otherwise, consider the following. $\vvarphi_{n}$ is of the form $\vec{\psi}, \todo x \varphi (x)$. And $F_{n}(\tvp_{n})$ is the disjunctive template $G(\vec{\tq},\tr)$ and so  $\Arrowvert\nao  F_{n}( \vvarphi_{n}) \Arrowvert = \Arrowvert \nao G(\vec{\psi}, \todo x \varphi (x)) \Arrowvert$.
+	
+	\qquad If $\Gamma_{n}\cup \Arrowvert \nao G(\vec{\psi}, \todo x \varphi (x)) \Arrowvert$ is not $\Cv$-consistent, then take $\Gamma_{n+1}$ as $\Gamma_{n}$.
+	
+	\qquad If $\Gamma_{n}\cup \Arrowvert \nao G(\vec{\psi}, \todo x \varphi (x)) \Arrowvert$ is $\Cv$-consistent, we shall show that for some witness variable $a$, $\Gamma_{n}\cup \Arrowvert \nao G(\vec{\psi}, \varphi (a)) \Arrowvert$ is $\Cv$-consistent.
+	
+	\qquad First, we can assume that there is no overlap between the propositional variables $\tvp_{i_{1}}, \dots,\tvp_{i_{k}},\vec{\tq},\tr$ because from the point of view of the instantiation sets it does not matter if there is an overlap or not, and we are going to work only with the instantiation sets. Hence, by the definition of template
+	
+	
+	\begin{center}
+		$F_{i_{1}}(\tvp_{i_{1}})\ou \dots \ou F_{i_{k}}(\tvp_{i_{k}}) \ou G(\vec{\tq},\tr)$
+	\end{center}
+is a disjunctive template.
+	
+	\qquad Second, from the definition of instantiation set and from classical reasoning, it can be easily checked that the sets  
+	
+	
+	\begin{center}
+		$\Gamma \cup \Arrowvert \nao F_{i_{1}}( \vvarphi_{i_{1}}) \Arrowvert \cup \dots \cup\Arrowvert \nao F_{i_{k}}( \vvarphi_{i_{k}}) \Arrowvert \cup \Arrowvert \nao G(\vec{\psi}, \todo x\varphi (x)) \Arrowvert$ \\    
+		
+		$\Gamma \cup \Arrowvert \nao F_{i_{1}}( \vvarphi_{i_{1}}) \e \dots \e \nao F_{i_{k}}( \vvarphi_{i_{k}}) \e \nao G(\vec{\psi}, \todo x\varphi (x)) \Arrowvert$ \\        
+		
+		$\Gamma \cup \Arrowvert \nao (F_{i_{1}}( \vvarphi_{i_{1}}) \ou \dots \ou  F_{i_{k}}( \vvarphi_{i_{k}}) \ou  G(\vec{\psi}, \todo x\varphi (x))) \Arrowvert$     
+	\end{center}
+have the same consequences. Thus, $\Gamma \cup \Arrowvert \nao (F_{i_{1}}( \vvarphi_{i_{1}}) \ou \dots \ou  F_{i_{k}}( \vvarphi_{i_{k}}) \ou  G(\vec{\psi}, \todo x\varphi (x))) \Arrowvert$  is $\Cv$-consistent.
+	
+	
+	\qquad Third, let $a$ be the first witness variable that does not occur in $\Gamma, \vvarphi_{i_{1}},\dots, \vvarphi_{i_{k}}, \vec{\psi}$ and $\todo x \varphi (x)$ (remember $\Gamma$ is a set of formulas from the basic language). Then, by Proposition 27, $\Gamma \cup \Arrowvert \nao (F_{i_{1}}( \vvarphi_{i_{1}}) \ou \dots \ou  F_{i_{k}}( \vvarphi_{i_{k}}) \ou  G(\vec{\psi},\varphi (a))) \Arrowvert$  is $\Cv$-consistent. As before, it can be seen that  
+	\begin{center}
+		$\Gamma \cup \Arrowvert \nao F_{i_{1}}( \vvarphi_{i_{1}}) \Arrowvert \cup \dots \cup\Arrowvert \nao F_{i_{k}}( \vvarphi_{i_{k}}) \Arrowvert \cup \Arrowvert \nao G(\vec{\psi}, \varphi (a)) \Arrowvert$ \\    
+		
+	\end{center}
+is $\Cv$-consistent. That is:    
+	
+	
+	\begin{center}
+		$\Gamma_{n} \cup  \Arrowvert \nao G(\vec{\psi}, \varphi (a)) \Arrowvert$ \\        
+	\end{center}
+is $\Cv$-consistent. So, take $\Gamma_{n+1}$ as $\Gamma_{n} \cup \Arrowvert \nao G(\vec{\psi}, \varphi (a)) \Arrowvert$.
+	
+	\qquad It can be easily checked that $\bigcup_{n\in \omega} \Gamma_{n}$ is $\Cv$-consistent. So, by Proposition 22 there is a set $\Gamma\p$ such that  $\bigcup_{n\in \omega} \Gamma_{n} \subseteq\Gamma\p$ and $\Gamma\p$ is $\Cv$-maximal consistent. 
+	
+	\qquad Clearly, $\Gamma\subseteq\bigcup_{n\in \omega} \Gamma_{n} \subseteq\Gamma\p$. Now we show that $\Gamma\p$ admits instantiation.
+	
+	
+	\qquad Let $\vvarphi$ be a sequence of $\D$-formulas, $\todo x \varphi (x)$ a $\D$-formula and $F(\tvp,\tq)$ a disjunctive template. Suppose that $\Gamma\p \cup  \Arrowvert \nao F(\vvarphi, \todo x\varphi (x)) \Arrowvert$ is $\Cv$-consistent. So, for some $k \in \omega$, $\bl F(\tvp,\tq) , \bl\vvarphi,\todo x \varphi (x)  \br\br$ is the $k$\textsuperscript{th} term of the initial sequence. Since $\Gamma_{k}\subseteq\bigcup_{n\in \omega} \Gamma_{n} \subseteq\Gamma\p$, $\Gamma_{k} \cup  \Arrowvert \nao F(\vvarphi, \todo x\varphi (x)) \Arrowvert$ is $\Cv$-consistent. By construction, for some witness variable $a$, $\Gamma_{k+1}=\Gamma_{k} \cup  \Arrowvert \nao F(\vvarphi, \varphi (a)) \Arrowvert$ is $\Cv$-consistent. Thus $\Arrowvert \nao F(\vvarphi, \varphi (a)) \Arrowvert\subseteq \Gamma\p$. Hence, $\Gamma\p \cup \Arrowvert \nao F(\vvarphi, \varphi (a)) \Arrowvert$ is $\Cv$-consistent. 
+\end{proof}
+
+
+
+\begin{lema}
+	Suppose $\Gamma$ is a set of formulas that admits instantiation, $F(\tvp)$ is a disjunctive template, and $\vvarphi$ is a sequence of $\D$-formulas. Then, $\Gamma \cup \Arrowvert \nao F(\vvarphi) \Arrowvert$ also admits instantiation.
+\end{lema}
+
+\begin{proof}
+	Let $\vec{\psi}$ be a sequence of $\D$-formulas, $\todo x \varphi (x)$ a $\D$-formula and $G(\vec{\tq}, \tr)$ a disjunctive template. Suppose $(\Gamma \cup \Arrowvert \nao F(\vvarphi) \Arrowvert) \cup \Arrowvert \nao G(\vec{\psi}, \todo x \varphi (x)) \Arrowvert$ is $\Cv$-consistent.
+	
+	\qquad As before, we can assume that $occ(F(\tvp)) \cap occ(G(\vec{\tq}, \tr)) = \vazio$. So $F(\tvp) \ou G(\vec{\tq}, \tr)$ is a disjunctive template. And as before, the sets
+	
+	\begin{center}
+		$(\Gamma \cup \Arrowvert \nao F(\vvarphi) \Arrowvert) \cup \Arrowvert \nao G(\vec{\psi}, \todo x \varphi (x)) \Arrowvert$ \\
+		$\Gamma \cup \Arrowvert \nao F(\vvarphi) \e \nao G(\vec{\psi}, \todo x \varphi (x)) \Arrowvert$\\ 
+		$\Gamma \cup \Arrowvert  \nao (F(\vvarphi) \ou  G(\vec{\psi}, \todo x \varphi (x))) \Arrowvert$
+	\end{center}
+have the same consequences. Thus, $\Gamma \cup \Arrowvert  \nao (F(\vvarphi) \ou  G(\vec{\psi}, \todo x \varphi (x))) \Arrowvert$ is $\Cv$-consistent. Since $\Gamma$ admits instantiation, there is a witness variable $a$ such that $\Gamma \cup \Arrowvert  \nao (F(\vvarphi) \ou  G(\vec{\psi}, \varphi (a))) \Arrowvert$ is $\Cv$-consistent. Hence, $(\Gamma \cup \Arrowvert \nao F(\vvarphi) \Arrowvert) \cup \Arrowvert \nao G(\vec{\psi},\varphi (a)) \Arrowvert$ is $\Cv$-consistent.
+\end{proof}
+
+
+
+
+\begin{pro}(\textit{Secondary expansion}) Let $\C$ be a variant closed and axiomatically appropriate constant specification for the basic language, $\Cv$ its extension and $\Gamma \subseteq \Fjv$ a $\Cv$-consistent set that admits instantiation. In these conditions, there is a $\Gamma\p \subseteq \Fjv$ such that $\Gamma \subseteq \Gamma\p$, $\Gamma\p$ is $\Cv$-maximal consistent set and $\Gamma\p$ admits instantiation.  
+\end{pro}
+
+\begin{proof}
+	The proof is very similar to the proof of Proposition 31.
+	
+	\qquad We define a sequence $\Gamma_{1},\Gamma_{2}, \dots$ of $\Cv$-consistent sets that admit instantiation. First,     $\Gamma_{1} = \Gamma$.
+	
+	\qquad Now, suppose $\Gamma_{n}$ is already constructed. Let $\bl F_{n}(\tvp_{n}), \vvarphi_{n} \br$ be the $n$\textsuperscript{th} pair of the initial sequence. If the last term of the sequence $\vvarphi_{n}$ is not a universal formula, let $\Gamma_{n+1} = \Gamma_{n}$. Otherwise, consider the following. $\vvarphi_{n}$ is of the form $\vec{\psi}, \todo x \varphi (x)$. And $F_{n}(\tvp_{n})$ is the disjunctive template $G(\vec{\tq},\tr)$ and so  $\Arrowvert \nao F_{n}( \vvarphi_{n}) \Arrowvert = \Arrowvert \nao G(\vec{\psi}, \todo x \varphi (x)) \Arrowvert$. If $\Gamma_{n}\cup \Arrowvert \nao G(\vec{\psi}, \todo x \varphi (x)) \Arrowvert$ is not $\Cv$-consistent, then take $\Gamma_{n+1}$ as $\Gamma_{n}$.
+	
+	\qquad If $\Gamma_{n}\cup \Arrowvert \nao G(\vec{\psi}, \todo x \varphi (x)) \Arrowvert$ is $\Cv$-consistent, then, since $\Gamma_{n}$ admits instantiation, there is a witness variable $a$ such that $\Gamma_{n}\cup \Arrowvert \nao G(\vec{\psi}, \varphi (a)) \Arrowvert$ is $\Cv$-consistent. By Lemma 4,  $\Gamma_{n}\cup \Arrowvert \nao G(\vec{\psi}, \varphi (a)) \Arrowvert$ admits instantiation. So, take $\Gamma_{n+1}$ as $\Gamma_{n}\cup \Arrowvert \nao G(\vec{\psi}, \varphi (a)) \Arrowvert$.
+	
+	\qquad As before, it can be checked that $\bigcup_{n\in \omega}\Gamma _{n}$ is a  $\Cv$-consistent set that admits instantiation. By Proposition 22 there is a set $\Gamma\p$ such that  $\bigcup_{n\in \omega} \Gamma_{n} \subseteq\Gamma\p$ and $\Gamma\p$ is $\Cv$-maximal consistent. It is easy to see that  $\Gamma\p$  admits instantiation. 
+\end{proof}
+
+
+\subsection{Completeness}
+
+\begin{defn}
+	A \textit{canonical model} $\M = \model$, using constant specification $\C$, is specified as follows.
+	
+	\begin{itemize}
+		\item $\W$ is the set of all $\C(\textbf{V})$-maximally consistent sets that admit instantiation.
+		\item Let $\Gamma, \Delta \in \W$. $\Gamma\R\Delta$ iff $\Gamma^{\#} \subseteq  \Delta$.
+		\item $\D = \textbf{V}$.
+		\item For an $n$-place relation symbol $P$ and for $\Gamma \in \W$, let $\I(P,\Gamma)$ be the set of all $\vec{a}$ where $\vec{a} \in \textbf{V}$ and $P(\vec{a}) \in \Gamma$.
+		\item For $\Gamma \in \W$, set $\Gamma \in \E(t,\varphi)$ iff $t$$:_{X}$$\varphi \in \Gamma$, where $t$$:_{X}$$\varphi$ is a closed $\D$-formula and $X$ is the set of witness variables in $\varphi$.
+	\end{itemize}
+\end{defn}
+
+
+\qquad First we need to check that $\M$ is indeed a Fitting model meeting $\C$. Since the argument is similar to the one presented in \cite[pp. 13-14]{Fitting14} we are only going to show that $\R$ is an equivalence relation and that the $?$ Condition holds.  \\
+
+\qquad \textit{$\R$ is reflexive}. Let $\Gamma \in \W$, and let $t$$:_{X}$$\varphi = t$$:_{X}$$\varphi(\vec{y})$ be a closed $\D$-formula in $\Gamma$ such that $\vec{y}$ is an $n$-ary sequence of basic variables, say $y_{1}, \dots, y_{n}$ and, of course, $\vec{y} \notin X$. By repeated use of axiom \textbf{B6} and classical reasoning:
+
+\begin{center}
+	$\teo_{C(\textbf{V})}t$$:_{X}$$\varphi(\vec{y}) \impli gen_{y_{1}}(gen_{y_{2}} \dots (gen_{y_{n}}(t)))$$:_{X}\todo \vec{y} \varphi(\vec{y})$
+\end{center}
+By axiom \textbf{B1},
+
+\begin{center}
+	$\teo_{C(\textbf{V})} gen_{y_{1}}(gen_{y_{2}} \dots (gen_{y_{n}}(t)))$$:_{X}\todo \vec{y} \varphi(\vec{y}) \impli \todo \vec{y} \varphi(\vec{y})$
+\end{center}
+hence, by the maximal consistency of $\Gamma$, $\todo \vec{y} \varphi(\vec{y}) \in \Gamma$. Thus $\Gamma^{\#} \subseteq \Gamma$, i.e., $\Gamma\R\Gamma$.\\
+
+\qquad \textit{$\R$ is transitive}. Let $\Gamma, \Delta, \Theta \in \W$ such that $\Gamma\R\Delta$ and $\Delta\R\Theta$; and let $\varphi \in \Gamma^{\#}$, i.e., $\varphi = \todo \vec{y} \psi(\vec{a},\vec{y})$ ($\vec{a}$ is a sequence of witness variables and $\vec{y}$ is a sequence of basic variables) and $t$$:_{\{\vec{a}\}}$$\psi(\vec{a},\vec{y}) \in \Gamma$.
+
+\qquad By the axiom \textbf{B4} and by the maximal consistency of $\Gamma$,  $!t$$:_{\{\vec{a}\}}$$ t$$:_{\{\vec{a}\}}$$\psi(\vec{a},\vec{y}) \in \Gamma$. Since $t$$:_{\{\vec{a}\}}$$\psi(\vec{a},\vec{y})$ has no free basic variables and $\Gamma \R \Delta$, then $t$$:_{\{\vec{a}\}}$$\psi(\vec{a},\vec{y}) \in \Delta$. And since $\Delta\R\Theta$, then $\todo \vec{y} \psi(\vec{a},\vec{y}) \in \Theta$, i.e., $\varphi  \in \Theta$. Thus, $\Gamma^{\#} \subseteq \Theta$, i.e., $\Gamma\R\Theta$.\\
+
+
+
+
+
+\qquad \textit{$\R$ is symmetric}. Let $\Gamma, \Delta \in \W$. Suppose that $\Gamma \R \Delta$ and suppose it is not the case that $\Delta \R \Gamma$. Then $\Delta^{\#} \nsubseteq \Gamma$. So for some term $t$, some set of witness variables $X$ and some $\D$-formula $\varphi(\vec{y})$,  $t$$:_{X}$$\varphi(\vec{y}) \in \Delta$ and $\todo \vec{y} \varphi(\vec{y}) \notin \Gamma$. By the maximal consistency of $\Gamma$,  $\nao \todo \vec{y} \varphi(\vec{y}) \in \Gamma$. Now, assume that $t$$:_{X}$$\varphi(\vec{y}) \in \Gamma$. Then by repeated use of axiom \textbf{B6}, $gen_{y_{1}}(gen_{y_{2}} \dots (gen_{y_{n}}(t)))$$:_{X}\todo \vec{y} \varphi(\vec{y})\in \Gamma$. By axiom \textbf{B1}, $\todo \vec{y} \varphi(\vec{y})\in \Gamma$, a contradiction. Hence, $t$$:_{X}$$\varphi(\vec{y}) \notin \Gamma$, by the maximal consistency of $\Gamma$, $\nao t$$:_{X}$$\varphi(\vec{y}) \in \Gamma$. By axiom \textbf{B5}, $?t$$:_{X}$$\nao t$$:_{X}$$\varphi(\vec{y}) \in \Gamma$. Since $\Gamma^{\#} \subseteq \Delta$, then $\nao t$$:_{X}$$\varphi(\vec{y}) \in \Delta$, a contradiction. Therefore, if $\Gamma \R \Delta$, then $\Delta \R \Gamma$.\\
+
+\qquad \textit{$?$ Condition}. Suppose $\Gamma \in \W \backslash \E(t,\varphi)$; and let $X$ be the set of all witness variables occurring in $\varphi$. Thus, by the definition of $\E$, $t$$:_{X}$$\varphi \notin \Gamma$. By the maximal consistency of $\Gamma$,  $\nao t$$:_{X}$$\varphi \in \Gamma$. By the axiom \textbf{B5}, $?t$$:_{X}$$\nao t$$:_{X}$$\varphi \in \Gamma$. Hence, $\Gamma \in \E(?t,\nao t$$:_{X}$$\varphi)$.\\
+
+
+\qquad We have shown that the canonical model is a Fitting model meeting $\C$. Now, to show that the canonical model is a Fitting model for FOJT45, we need to show that $\E$ is a strong evidence function. This is going to be a consequence of the following Lemma:
+
+
+\begin{lema}
+	(\textit{Truth Lemma}). Let $\M=\model$ be a canonical model. For each $\Gamma \in \W$ and for each closed $\D$-formula $\varphi$,
+	\begin{center}
+		$\M,\Gamma \models \varphi$ iff $\varphi \in \Gamma$
+	\end{center}
+\end{lema}
+
+\begin{proof}
+	Induction on the complexity of $\varphi$. The crucial cases are when $\varphi$ is $t$$:_{X}$$\psi$ and when $\varphi$ is $\todo x \psi(x)$. \\
+	
+	($\varphi$ is $t$$:_{X}$$\psi$)\\
+	
+	\qquad ($\Rightarrow$) Suppose $t$$:_{X}$$\psi \notin \Gamma$. Let $X\p \subseteq X$ be a set where $X\p$ contain exactly the witness variables that occur in $\psi$. It is not the case that $t$$:_{X\p}$$\psi \in \Gamma$. Otherwise, by axiom \textbf{A3} and by the maximal consistency of $\Gamma$,  $t$$:_{X}$$\psi \in \Gamma$. So by the definition of $\E$, $\Gamma \notin \E(t,\psi)$, thus $\M,\Gamma \nmodels t$$:_{X}$$\psi$.
+	
+	\qquad ($\Leftarrow$) First, suppose $t$$:_{X}$$\psi \in \Gamma$. Again, let $X\p \subseteq X$ be as above. So, by the axiom \textbf{A2} and by the maximal consistency of $\Gamma$, $t$$:_{X\p}$$\psi \in \Gamma$. Hence, $\Gamma \in \E(t,\psi)$. Second, let $\Delta \in \W$ such that $\Gamma \R \Delta$. So $\todo \vec{y}\psi \in \Delta$ where $\vec{y}$ are the free basic variables of $\psi$. Thus, by the classical axioms and by the maximal consistency of $\Delta$, for every $\vec{a} \in \textbf{V}$,  $\psi(\vec{a}) \in \Delta$. By the induction hypothesis, for every $\vec{a} \in \textbf{V}$, $\M, \Delta \models \psi(\vec{a})$. Therefore, $\M,\Gamma \models t$$:_{X\p}$$\psi$, and so $M,\Gamma \models t$$:_{X}$$\psi$.\\
+	
+	
+	($\varphi$ is $\todo x \psi(x)$)\\
+	
+	\qquad ($\Rightarrow$) Suppose $\todo x \psi(x) \notin \Gamma$. By the maximal consistency of $\Gamma$, $\nao \todo x \psi(x) \in \Gamma$. Since $\Gamma$ admits instantiation, then by Proposition 29 there is an $a \in \textbf{V}$ such that $\nao \psi(a) \in \Gamma$. By the consistency of $\Gamma$, $\psi(a) \notin \Gamma$. By the induction hypothesis, $\M, \Gamma \nmodels \psi(a)$, thus $\M, \Gamma \nmodels \todo x \psi(x)$.    
+	
+	
+	\qquad ($\Leftarrow$) Suppose  $\todo x \psi(x) \in \Gamma$. By the classical axioms and by the maximal consistency of $\Gamma$, for every $a \in \textbf{V}$,  $\psi(a) \in \Gamma$. By the induction hypothesis, $\M, \Gamma \models \psi(a)$, for every $a \in \textbf{V}$. Therefore,  $\M, \Gamma \models \todo x \psi(x)$.  
+\end{proof}
+
+\qquad By the Truth Lemma, we have the following:
+
+
+\begin{center}
+	$\Gamma \in \E(t,\varphi) \Rightarrow t$$:_{X}$$\varphi \in \Gamma \Rightarrow \M,\Gamma \models t$$:_{X}$$\varphi \Rightarrow \Gamma \in \{w \in \W$ $|$ $ \M,w \models t$$:_{X}$$\varphi\}$
+\end{center}
+
+Hence $\E$ is a strong evidence function, and so $\M$ is a Fitting model for FOJT45 meeting $\C$.
+
+\begin{teor}
+	(\textit{Completeness}) Let $\C$ be a constant specification. For every closed formula $\varphi \in \Fj$, if $\models_{\C} \varphi$, then $\teo_{\C}\varphi$.
+\end{teor}
+
+\begin{proof}
+	Suppose $\not\teo_{\C}\varphi$. Then $\{\nao \varphi\}$ is $\C$-consistent. By Proposition 31, there is a $\C(\textbf{V})$-maximal consistent $\Gamma$ such that $\Gamma$ admits instantiation and  $\{\nao \varphi\} \subseteq \Gamma$. By the Truth Lemma, $\M,\Gamma \models \nao \varphi$, so  $\M,\Gamma \nmodels \varphi$. Hence, $\nmodels_{\C} \varphi$.     
+\end{proof}
+
+
+
+
+\begin{defn}
+	A model $\M = \model$ is \textit{fully explanatory} if the following condition is fulfilled. Let $\varphi$ be a formula with no free individual variables, but with constants from the domain of the model. Let $w \in \W$. If for every $v \in \W$ such that $w\R v$, $\M, v \models \varphi$, then there is a justification term $t$ such that $\M, w \models t$$:_{X}$$\varphi$, where $X$ is the set of
+	domain constants appearing in $\varphi$. 
+\end{defn}
+
+
+\begin{teor}
+	The canonical model is fully explanatory.
+\end{teor}
+
+\begin{proof}
+	Let $\M = \model$ be a canonical model, $\Gamma \in \W$, $\varphi$ a closed $\D$-formula and $X$ the set of the witness variables occurring $\varphi$. We shall show that if $\M, \Gamma \nmodels t$$:_{X}$$\varphi$ for every justification term $t$ of $\Fj$, then there is a $\Delta \in \W$ such that $\Gamma \R\Delta$ and $\M, \Delta \nmodels \varphi$.
+	
+	\qquad If $\M, \Gamma \nmodels t$$:_{X}$$\varphi$ for every justification term $t$ of $\Fj$, then by the Truth Lemma, $\nao t$$:_{X}$$\varphi \in \Gamma$ for every justification term $t$ of $\Fj$. The template $G(\tp) =\tp$ is a disjunctive template. Let $F(\tp) = \Box G(\tp)$. Hence, $\Arrowvert \nao F(\varphi)\Arrowvert \subseteq \Gamma$. And so, $\Gamma \cup \Arrowvert \nao F(\vvarphi)\Arrowvert$ is $\Cv$-consistent. By item 2) of Proposition 28, $\Gamma^{\#} \cup \Arrowvert \nao G(\varphi)\Arrowvert$ is $\Cv$-consistent, i.e.,  $\Gamma^{\#} \cup \{  \nao \varphi \} $ is $\Cv$-consistent. By Proposition 30, $\Gamma^{\#}$ admits instantiation. By Lemma 4,  $\Gamma^{\#} \cup \{  \nao \varphi \} $ admits instantiation. By Proposition 32, there is a $\Cv$-maximal consistent set $\Delta$ such that $\Delta$ admits instantiation and $\Gamma^{\#} \cup \{  \nao \varphi \}\subseteq\Delta$. Since $\Gamma^{\#} \subseteq \Delta$, $\Gamma \R \Delta$. And since $\nao \varphi \in \Delta$, by the Truth Lemma,  $\M, \Delta \nmodels \varphi$.
+	
+\end{proof}

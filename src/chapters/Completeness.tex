@@ -1,0 +1,612 @@
+\section{Prefixed Tableaus}
+
+\qquad For a fixed language $\Li$, we can think on the logic \textbf{L} as the set of all valid sentences relative to the class of all \textbf{L}-structures. There is a natural interest to know if there is a constructive method to verify which sentence belong to the mentioned set. For this purpose proof methods have been developed and used. Here, among the variety of methods, we choose the method of \textit{semantic tableaus}, more specifically, we are going to use the method of \textit{prefixed modal tableaus} as introduced in \cite{Fitting83}.
+
+\qquad This choice is motivated by practical reasons: it is easier to find a proof using tableaus, if compared to axiomatic proof procedures; and the tableau method play a key role in the study of the Interpolation theorem for \textbf{S5B} with propositional quantification.   
+
+\qquad In this chapter, we are going to present a prefixed tableau system for \textbf{S5} and \textbf{S5B}, which, not surprisingly, are going to be called \textbf{S5}-\textit{tableau system} and \textbf{S5B}-\textit{tableau system}, respectively. Although the two systems are presented, we are going to prove the basic theorems (Soundness and Completness) only for the \textbf{S5}-tableau system. The corresponding proofs for the other system are similar, so we believe that there would be no loss by omitting them.
+
+\qquad Another detail worth noticing is that for tableaus is convenient to have $\nao, \e, \ou, \impli, \Box, \Diamond, \todo, \ex$ as primitive logical symbols. So, in this chapter only, we will assume that these symbols are primitive.
+
+\qquad Let $\Li$ be a language such that for any $n \in \omega$ there is an infinite list of $n$-ary relations. When working with tableaus is useful to add new variables called \textit{parameters}. We use $\Li^{+}$ to denote a language obtained from $\Li$ which for each $n \in \omega - \{0\}$ there is an infinite list of parameters associated with $n$ (from now on we call an $n \in \omega - \{0\}$ a \textit{prefix}). It is assumed that different prefixes never have the same parameters associated with them. We use $a^{1}, b^{1}, \dots, a^{n}, b^{n}, \dots$ as syntactical variables for parameters. $a^{n}$ indicates that $a$ is a parameter associated with the prefix $n$. It is easy to check that both $\Li$ and $\Li^{+}$ are countable languages.
+
+\qquad The informal idea behind this is that each prefix $n$ names a possible world and the set of parameters associated with $n$ represent the domain of individuals in the world $n$. Of course, when working with \textbf{S5B}-Tableaus $\Li^{+}$ will have only parameters that are not associated with any prefix $n$ (they will be denoted by $a, b, \dots$). 
+
+\qquad The formulas of $\Li^{+}$  are defined in the same way as the formulas of $\Li$, the only difference is that \textit{there cannot be any bound occurrence of a parameter in a formula of} $\Li^{+}$. Clearly, $\FLi \subset Fml(\Li^{+})$.
+
+\begin{defn}
+A \textit{prefixed formula} is $n.$  $\varphi$ where $n$ is a prefix and $\varphi \in  Fml(\Li^{+})$.
+\end{defn}
+
+\begin{defn}
+A \textit{prefixed tableau} $\mathcal{T}$ is a tree whose nodes are prefixed formulas. We say that a branch $\mathcal{B}$ of $\mathcal{T}$ is \textit{closed} if it contains $n.$ $\varphi$ and $n.$ $\nao \varphi$ for some prefix $n$ and some formula $\varphi \in  Fml(\Li^{+})$. Similarly, a prefixed tableau is closed if each branch of it is closed. A \textit{tableau proof} of a sentence $\varphi$ is a closed tableau with $1.$ $\nao \varphi$ at its root.
+\end{defn}
+
+\qquad To give a simple presentation it is useful to group the formulas of $\Li^{+}$  in some categories. The next table defines what are called \textit{alpha} and \textit{beta} formulas and for each, two components. 
+
+\begin{center}
+Alpha and Beta Formulas
+\end{center}
+
+$$
+\begin{tabular}{c|c}
+$\alpha$ & \hspace{2mm} $\alpha_1$ \hspace{5mm} $\alpha_2$\\
+\hline
+$\varphi \e \psi$ & \hspace{2mm} $\varphi$ \hspace{5mm} $\psi$  \\ 
+$\nao(\varphi \ou \psi)$ & \hspace{2mm} $\nao\varphi$ \hspace{5mm} $\nao\psi$ \\ 
+$\nao(\varphi \impli \psi)$ & \hspace{2mm} $\varphi$ \hspace{5mm} $\nao\psi$ \\ 
+\end{tabular}
+\quad
+\begin{tabular}{c|c}
+$\beta$ & \hspace{2mm} $\beta_1$ \hspace{5mm} $\beta_2$\\
+\hline
+$\varphi \ou \psi$ & \hspace{2mm} $\varphi$ \hspace{5mm} $\psi$  \\ 
+$\nao(\varphi \e \psi)$ & \hspace{2mm} $\nao\varphi$ \hspace{5mm} $\nao\psi$ \\ 
+$(\varphi \impli \psi)$ & \hspace{2mm} $\nao\varphi$ \hspace{5mm} $\psi$ \\ 
+\end{tabular}
+$$
+
+
+\pagebreak
+\qquad To deal with the modal operators $\Box$ and $\Diamond$, the next table defines the \textit{nu} and \textit{pi} formulas and their components.
+
+\begin{center}
+Nu and Pi Formulas
+\end{center}
+
+$$
+\begin{tabular}{c|c}
+$\nu$ & \hspace{2mm} $\nu_0$ \\
+\hline
+$\Box \varphi$ & \hspace{2mm} $\varphi$\\ 
+$\nao \Diamond \varphi$ & \hspace{2mm} $\nao \varphi$\\ 
+\end{tabular}
+\quad
+\begin{tabular}{c|c}
+$\pi$ & \hspace{2mm} $\pi_0$ \\
+\hline
+$\Diamond\varphi$ & \hspace{2mm} $\varphi$\\ 
+$\nao \Box \varphi$ & \hspace{2mm} $\nao \varphi$\\
+\end{tabular}
+$$
+
+\vspace{10mm}
+
+\qquad The least two categories deals with the quantifiers $\todo$ and $\ex$. The following table defines the \textit{gamma} and \textit{delta} formula and their components.
+
+\vspace{10mm}
+
+
+
+\begin{center}
+Gamma and Delta Formulas
+\end{center}
+
+$$
+\begin{tabular}{c|c}
+$\gamma$ & \hspace{2mm} $\gamma(a)$ \\
+\hline
+$\todo x \varphi$ & \hspace{2mm} $\varphi(a)$\\ 
+$\nao \ex x \varphi$ & \hspace{1mm} $\nao \varphi(a)$\\ 
+\end{tabular}
+\quad
+\begin{tabular}{c|c}
+$\delta$ & \hspace{2mm} $\delta(a)$ \\
+\hline
+$\ex x \varphi$ & \hspace{2mm} $\varphi(a)$\\ 
+$\nao \todo x \varphi$ & \hspace{1mm} $\nao \varphi(a)$\\
+\end{tabular}
+$$
+
+\vspace{10mm}
+
+
+\qquad To construct a tableau for a sentence $\varphi$ we start with $1.$ $\nao \varphi$ and we apply some \textit{branch extension rules}. These rules are:
+\pagebreak
+\begin{center}
+\textbf{Negation Rule}
+\end{center}
+
+$$
+\begin{tabular}{c}
+$n.$ $\nao \nao \psi$ \\
+\hline
+$n.$ $\psi$
+\end{tabular}
+$$
+
+\vspace{10mm}
+
+
+\begin{center}
+\textbf{Alpha and Beta Rules}
+\end{center}
+
+$$
+\begin{tabular}{c}
+$n.$ $\alpha$ \\
+\hline
+$n.$ $\alpha_1$\\
+$n.$ $\alpha_2$
+\end{tabular}
+\quad
+\begin{tabular}{c}
+$n.$ $\beta$ \\
+\hline
+$n.$ $\beta_1$ $|$ $n.$ $\beta_2$
+\end{tabular}
+$$
+
+\vspace{10mm}
+
+
+\begin{center}
+\textbf{Nu and Pi Rules}
+\end{center}
+
+$$
+\begin{tabular}{c}
+$n.$ $\nu$ \\
+\hline
+$k.$ $\nu_0$ \\
+for $k$ used. 
+\end{tabular}
+\quad
+\begin{tabular}{c}
+$n.$ $\pi$ \\
+\hline
+$k.$ $\pi_{0}$ \\
+for $k$ new. 
+\end{tabular}
+$$
+
+
+\pagebreak
+\begin{center}
+\textbf{Varying Domain Gamma and Delta Rules}
+\end{center}
+
+$$
+\begin{tabular}{c}
+$n.$ $\gamma$ \\
+\hline
+$n.$ $\gamma(a^{n})$ \\
+for any $a^{n}$. 
+\end{tabular}
+\quad
+\begin{tabular}{c}
+$n.$ $\delta$ \\
+\hline
+$n.$ $\delta(a^{n})$ \\
+for $a^{n}$ new. 
+\end{tabular}
+$$
+
+
+\vspace{10mm}
+
+
+\begin{center}
+\textbf{Constant Domain Gamma and Delta Rules}
+\end{center}
+
+$$
+\begin{tabular}{c}
+$n.$ $\gamma$ \\
+\hline
+$n.$ $\gamma(a)$ \\
+for any $a$. 
+\end{tabular}
+\quad
+\begin{tabular}{c}
+$n.$ $\delta$ \\
+\hline
+$n.$ $\delta(a)$ \\
+for $a$ new. 
+\end{tabular}
+$$
+
+
+
+\vspace{10mm}
+\begin{center}
+\textbf{Reflexivity Rule}
+\end{center}
+
+$$
+\begin{tabular}{c}
+
+\hline
+$n.$ $a=a$ \\
+\end{tabular}
+$$
+\begin{center}
+for any used $a$ and any used $n$. 
+\end{center}
+
+
+
+\pagebreak
+\begin{center}
+\textbf{Substitutivity Rule}
+\end{center}
+
+$$
+\begin{tabular}{c}
+$k.$ $a=b$ \\
+$n.$ $\varphi(a)$ \\
+\hline
+$n.$ $\varphi(b)$ \\
+for any $k$. 
+\end{tabular}
+$$
+
+
+\vspace{10mm}
+
+
+\begin{defn}
+The \textbf{S5}-tableau system is a prefixed tableau system whose branch extension rules are all the rules listed above with the exception of the constant domain gamma rule and the constant domain delta rule. Analogously, the \textbf{S5B}-tableau system is a prefixed tableau system whose branch extension rules are the same as the \textbf{S5}-tableau system, but in the place of the varying domain gamma and delta rules, the \textbf{S5B}-tableau system has the constant domain gamma and delta rules.
+\end{defn}
+
+\qquad We write $\vdash_{\textbf{L}}\varphi$ to indicate that $\varphi$ has a proof in the \textbf{L}-tableau system. For example, the following is a proof of
+$\vdash_{\textbf{S5}} \Box \todo x \Box \ex y (x=y) \impli (\Box \todo x Fx \see  \todo x \Box Fx)$:\\
+
+\vspace{10mm}
+
+\Tree
+[ .{$1.$ $\nao (\Box \todo x \Box \ex y$ $x=y$ $\impli (\Box \todo x Fx \see \todo \Box x Fx))$\\
+	$1.$ $\Box \todo x \Box \ex y$ $x=y$\\
+	$1.$ $\nao (\Box \todo x Fx \see \todo x \Box Fx)$
+}
+[.{$1.$ $\Box \todo x Fx$\\
+	$1.$ $\nao (\todo x \Box Fx)$\\
+	$1.$ $\nao (\Box Fa^{1})$\\
+	$2.$ $\nao Fa^{1}$\\
+	$1.$ $\todo x \Box \ex y$ $x=y$\\
+	$1.$ $\Box \ex y$ $a^{1}=y$\\
+	$2.$ $\ex y$ $a^{1}=y$\\
+	$2.$ $a^{1}=a^{2}$\\
+	$2.$ $\nao Fa^{2}$\\
+	$2.$ $\todo x Fx$\\
+	$2.$ $Fa^{2}$}
+]
+[.{$1.$ $\todo x \Box Fx$\\
+	$1.$ $\nao (\Box \todo x Fx)$\\
+	$2.$ $\nao (\todo x Fx)$\\
+	$2.$ $\nao Fa^{2}$\\
+	$2.$ $\todo x \Box \ex y$ $x=y$\\
+	$2.$ $\Box \ex y$ $a^{2}=y$\\
+	$1.$ $\ex y$ $a^{2}=y$\\
+	$1.$ $a^{2}=a^{1}$\\
+	$2.$ $\nao Fa^{1}$\\
+	$1.$ $\Box Fa^{1}$\\
+	$2.$ $Fa^{1}$}
+]
+]
+
+\vspace{10mm}
+
+
+
+
+\section{Soundness}
+
+\begin{defn}
+Let $S$ be a set of prefixed formulas. We say that $S$ is S5-\textit{satisfiable} if there is an S5-structure $\A = \strucAS$, a valuation $s$ and a function $f$ assigning to each prefix $n$ that occur in $S$ some member $f(n)$ of $\W$ such that:
+
+\begin{enumerate}[(i)]
+\item if the parameter $a^{n}$ occur in $S$, then $s(a^{n}) \in \barD_{f(n)}$.
+\item if $n.$ $\varphi \in S$, then $\A, f(n) \vSs \varphi$.
+\end{enumerate}
+
+\end{defn}
+
+
+\qquad A tableau branch is S5-satisfiable is the set of prefixed formulas on it is S5-satisfiable. And an S5-tableau is satisfiable if some branch of it is S5-satisfiable.
+
+
+
+\begin{lema}
+Suppose $\mathcal{T}$ is an S5-tableau that is S5-satisfiable. If any S5-tableau rule is applied to $\mathcal{T}$, the resulting tableau is still S5-satisfiable. 
+\end{lema}
+
+\begin{proof}
+Suppose that the branch $\mathcal{B}$ of $\mathcal{T}$ is S5-satisfiable, say $\mathcal{B}$ is satisfiable in the S5-structure $\A = \strucAS$ with respect to the valuation $s$, using the function $f$. And say a tableau rule is applied to $\mathcal{T}$. If it is applied on a branch other than $\mathcal{B}$, the resulting tableau is trivially S5-satisfiable. So now we assume that the tableau   rule has been applied on $\mathcal{B}$. 
+
+\qquad Since the argument for the negation rule, alpha rule, beta rule, reflexivity rule and substitutivity rule are straightforward, we omit them.  
+
+\qquad If the applied rule was the \textit{nu rule}, then for some prefixed formula $n.$ $\nu$ occurring in $\mathcal{B}$ we add $k.$ $\nu_{0}$ for some k alredy occurring in $\mathcal{B}$, i.e. we expand $\mathcal{B}$ in the new branch $\mathcal{B}$, $k.$ $\nu_{0}$. By hypothesis, $\A, f(n) \vSs \nu$. It is easy to see that for every $w\p \in \W$, $\A, w\p \vSs \nu_{0}$. So for every prefix $m$ occurring in $\mathcal{B}$, $\A, f(m) \vSs \nu_{0}$; in particular, $\A, f(k) \vSs \nu_{0}$. Therefore, $\mathcal{B}$, $k.$ $\nu_{0}$ is S5-satisfiable. 
+
+
+\qquad If the applied rule was the \textit{pi rule}, then for some prefixed formula $n.$ $\pi$ occurring in $\mathcal{B}$ we expand $\mathcal{B}$ in the new branch $\mathcal{B}$, $k.$ $\nu_{0}$ for a $k$ not occuring in $\mathcal{B}$. By hypothesis, $\A, f(n) \vSs \pi$; so there is a world $w\p \in \W$ such that $\A, w\p \vSs \pi_{0}$. Let $f\p = f \cup \{\bl k, w\p \br\}$. Since $k$ did not occur in $\mathcal{B}$, $f\p$ is a function from the set of prefixes of the branch $\mathcal{B}$, $k.$ $\nu_{0}$ to $\W$. Clearly, the branch $\mathcal{B}$, $k.$ $\nu_{0}$ is satisfiable in $\A$ with respect to the valuation $s$ using the function $f\p$.
+
+\qquad Now, suppose the applied rule was the \textit{varying domain gamma rule}, then for some formula $n.$ $\gamma$ occuring in  $\mathcal{B}$, we expand $\mathcal{B}$ in the new branch $\mathcal{B}$, $n.$ $\gamma(a^{n})$ where $a^{n}$ is any parameter associated with $n$.
+
+\qquad If $a^{n}$ occurs in $\mathcal{B}$, then by condition $(i)$ of Definition 16, $s(a^{n}) \in \barD_{f(n)}$. Let $s^{*}$ be an $x$-variant of $s$ such that for every variable $y$ of $\Li^{+}$
+  
+$$
+s^{*}(y) = \left\{
+\begin{array}{rcl}
+s(y) & \mbox{if} & y \neq x\\
+s(a^{n}) & \mbox{if} & y = x\\
+\end{array}
+\right.
+$$
+
+\qquad So, $s^{*}$ is an $x$-variant of $s$ at $f(n)$. By hypothesis, $\A, f(n)\vSs \gamma$. Thus, for every $x$-variant $s\p$ of $s$ at $f(n)$, $\A, f(n)\vSp \gamma(x)$. In particular, $\A, f(n)\models_{s^{*}} \gamma(x)$. By Proposition 3, $\A, f(n)\vSs \gamma(a^{n})$. Therefore, $\mathcal{B}$,  $n.$ $\gamma(a^{n})$ is satisfiable in $\A$ with respect to the valuation $s$ using the function $f$.
+
+\qquad On the other hand if $a^{n}$ did not occur in $\mathcal{B}$, then, since $\barD_{f(n)} \neq \vazio$, there is a $c \in \barD_{f(n)}$. Let $s^{*}$ be a valuation such that for every variable $y$ of $\Li^{+}$
+  
+$$
+s^{*}(y) = \left\{
+\begin{array}{rcl}
+s(y) & \mbox{if} & y \neq a^{n}\\
+c & \mbox{if} & y = a^{n}\\
+\end{array}
+\right.
+$$
+
+\qquad  By hypothesis, $\A, f(n)\vSs \gamma$. Thus, for every $x$-variant $s\p$ of $s$ at $f(n)$, $\A, f(n)\vSp \gamma(x)$. In particular, for an $x$-variant $s\p$ of $s$ such that $s\p(x)=c$, $\A, f(n)\vSp \gamma(x)$. By Proposition 3, $\A, f(n)\models_{s^{*}} \gamma(a^n)$. Using Proposition 2 it is easy to see that $s^{*}$ satisfies conditions (i) and (ii) of Definition 16. Therefore, $\mathcal{B}$,  $n.$ $\gamma(a^{n})$ is satisfiable in $\A$ with respect to the valuation $s^{*}$ using the function $f$.
+
+\qquad  At last, if the applied rule was the \textit{varying domain delta rule}, then for some formula $n.$ $\delta$ occurring in  $\mathcal{B}$, we expand $\mathcal{B}$ in the new branch $\mathcal{B}$, $n.$ $\delta(a^{n})$ where $a^{n}$ is a new parameter associated with $n$.
+
+\qquad By hypothesis, $\A, f(n)\vSs \delta$. Thus, for some $x$-variant $s\p$ of $s$ at $f(n)$, $\A, f(n)\vSp \delta(x)$. Let $s^{*}$ be a valuation such that for every variable $y$ of $\Li^{+}$
+  
+$$
+s^{*}(y) = \left\{
+\begin{array}{rcl}
+s(y) & \mbox{if} & y \neq a^{n}\\
+s\p(x) & \mbox{if} & y = a^{n}\\
+\end{array}
+\right.
+$$
+
+\qquad Since $\A, f(n)\vSp \delta(x)$, then by Proposition 3, $\A, f(n)\models_{s^{*}} \delta(a^n)$. Once again, using Proposition 2 it is easy to see that $s^{*}$ satisfies conditions (i) and (ii) of Definition 16. Therefore $\mathcal{B}$,  $n.$ $\delta(a^{n})$ is satisfiable in $\A$ with respect to the valuation $s^{*}$ using the function $f$.
+\end{proof}
+
+
+\begin{teor}
+(Soundness) For every $\varphi \in sen(\Li)$, if $\vdash_{S5} \varphi$, then $\vS \varphi$.
+\end{teor}
+
+
+\begin{proof}
+Suppose $\not\vS \varphi$, then there is an S5-structure $\A$, a world $w$ and a valuation $s$ such that $\A, w\models_{s} \nao\varphi$. Then $\{1.$ $\nao \varphi\}$ is S5-satisfiable. Any tableau proof of $\varphi$ has $1.$ $\nao \varphi$ at its root. By Lemma 1, any extension rule applied to $1.$ $\nao \varphi$ will generate an S5-satisfiable tableau. And, of course, an S5-satisfiable tableau is not closed. Therefore, $\not \vdash_{S5} \varphi$
+\end{proof}
+
+\section{Completeness}
+
+\begin{defn}
+We now present a \textit{systematic tableau construction} for \textbf{S5}. As in \cite{Fitting83}  we will work with each occurrence of a prefixed formula only once, but whenever we work with one of the form $n.$ $ \nu$ and $n.$ $ \gamma$ we add a fresh occurrence of it at the end of the branch. It is assumed that the tableau method has the property to declare that some occurrences are "finished' (or "used'). And we say that a tableau $\mathcal{T}$ is a \textit{systematic tableau} if it is generated by this construction.
+
+\qquad A prefix formula is \textit{atomic} if it is of the form $n.$ $\psi$ or $n.$ $\nao\psi$ and $\psi$ is an atomic formula. Since $\Li^{+}$ is a countable language, we may arrange all the parameters of $\Li^{+}$ in a list, this list will be refered as \textit{initial list}.
+
+\qquad Let $\varphi$ be a sentence, as usual the method is described in stages.
+
+\qquad \textit{Stage $1)$} Begin by placing $1.$ $\nao \varphi$ at the origin.
+
+\qquad Suppose $n$ stages of the construction have been completed. If the tableau we have constructed is closed, then stop. Likewise if every occurrence of a prefixed formulas is finished, then stop. Otherwise we go on to:
+
+\qquad \textit{Stage $n+1)$} Chose an occurrence of a prefixed formulas as closed to the origin as possible that has not been declared finished and which appears on at least one open branch, say $m.$ $\psi$. If $m.$ $\psi$ is atomic, simply declare the occurrence finished. This ends stage $n+1$. Otherwise we extend the tableau as follows:
+
+\qquad For each open branch $\mathcal{B}$ thought the occurrence of $m.$ $\psi$:
+
+\begin{itemize}
+\item If $m.$ $\psi$ is of the form $m.$ $\nao \nao \theta$, then we extend $\mathcal{B}$ to the branch $\mathcal{B}, m.$ $\theta$. 
+\item If $m.$ $\psi$ is of the form $m.$ $\alpha$, then we extend $\mathcal{B}$ to the branch $\mathcal{B}, m.$ $\alpha_{1},m.$ $\alpha_{2}$. 
+\item If $m.$ $\psi$ is of the form $m.$ $\beta$, then we simultaneously extend $\mathcal{B}$ to the two branches $\mathcal{B}, m.$ $\beta_{1}$ and $\mathcal{B}, m.$ $\beta_{2}$.
+\item If $m.$ $\psi$ is of the form $m.$ $\nu$ and $k_{1}, \dots , k_{l}$ are all the prefixes occurring in $\mathcal{B}$, then we extend $\mathcal{B}$ to the branch $\mathcal{B}, k_{1}.$ $\nu_{o}, \dots, k_{l}.$ $\nu_{0}, m.$ $\nu$.
+\item If $m.$ $\psi$ is of the form $m.$ $\pi$, then we extend $\mathcal{B}$ to the branch $\mathcal{B}, k.$ $\pi_{0}$ where $k$ is the least prefix not used on $\mathcal{B}$.
+\item If $m.$ $\psi$ is of the form $m.$ $\gamma$ and  $a_{1}, \dots , a_{n}$ are the first $n$ parameters associated with $m$ of the initial list, then we extend $\mathcal{B}$ to the branch $\mathcal{B}, m.$ $\gamma(a_{1}), \dots, m.$ $\gamma(a_{n}), m.$ $\gamma$.
+\item If $m.$ $\psi$ is of the form $m.$ $\delta$, then we extend $\mathcal{B}$ to the branch $\mathcal{B}, m.$ $\delta(a)$ where $a$ is the first parameter associated with $m$ of the initial list that has not yet been used on the branch $\mathcal{B}$.
+\end{itemize}
+
+\qquad Having done this for each branch $\mathcal{B}$ thought the particular occurrence of $m.$ $\psi$  being considered, we declare that occurrence of $m.$ $\psi$  \textit{finished}. Immediately afterward, for every open branch $\mathcal{B}$ we do the following:
+
+\begin{itemize}
+\item If a new prefix $k$ has been introduced to $\mathcal{B}$ and $a_{1}, \dots, a_{s}$ are all the parameter occurring on $\mathcal{B}$, we extend $\mathcal{B}$ to $\mathcal{B}$, $k.$ $a_{1} = a_{1}, \dots,k.$ $a_{s} = a_{s}$.   
+\item If a new parameter $a$ has been introduced to $\mathcal{B}$ and $k_{1}, \dots, k_{s}$ are all the prefixes occurring on $\mathcal{B}$, we extend $\mathcal{B}$ to $\mathcal{B}$, $k_{1}.$ $a=a, \dots,k_{s}.$ $a = a$.   
+\item For each $n.$ $a = a\p$ and for each $k.$ $\psi(a)$ occurring on $\mathcal{B}$, we extend $\mathcal{B}$ to $\mathcal{B}, k.$ $\psi(a\p)$ provided that $k.$ $\psi(a\p)$ did not occur on $\mathcal{B}$.  
+\end{itemize}
+
+\qquad This complete \textit{stage} $n+1$.
+\end{defn}
+
+\qquad The above construction can terminate and produce a closed tableau; can terminate and produce a tableau with an open branch; or can never terminate. In the last case, we need a fact which inform us if a systematic tableau construction never terminate, then an infinite branch is involved. This fact is called "K\"onig Lemma'. We are going to state this fact without proof, but such a proof can be found in \cite{Fitting83}. 
+
+\qquad A tree is \textit{finitely generated} if each node has only a finite number of immediate successors. And a tree is \textit{infinite} if it has infinitely many nodes. A tableau is a finitely generate tree because any node has at most two immediate successors (when we apply the beta rule). Now the content of K\"onig Lemma is: \\
+
+\vspace{10mm}
+
+
+\textbf{K\"onig Lemma:} \textit{If $\mathcal{T}$ is an infinite tree which is finitely generated, then $\mathcal{T}$ has an infinite branch $\mathcal{B}$.}
+\vspace{10mm}
+
+
+\qquad Clearly, if a systematic tableau $\mathcal{T}$ has an infinite branch $\mathcal{B}$, $\mathcal{B}$ is open. Therefore, if the systematic tableau construction never terminate, there must be an infinite open branch.
+
+
+
+\begin{defn}
+Let $S$ be a set of prefixed formulas of $\Li^{+}$. $S$ is S5-\textit{downward saturated} if:
+
+\begin{enumerate} [$(i)$]
+
+\item For no atomic formula $\varphi$ and no prefix $n$ do we have both $n.$ $\varphi$ and $n.$ $\nao \varphi$ in $S$. 
+\item If $n.$ $\nao\nao\varphi \in S$, then $n.$ $\varphi \in S$.
+\item If $n.$ $\alpha \in S$, then $n.$ $\alpha_{1}, n.$ $\alpha_{2} \in S$.
+\item If $n.$ $\beta \in S$, then $n.$ $\beta_{1}$ or $n.$ $\beta_{2} \in S$.
+\item If $n.$ $\nu \in S$, then for every prefix $k$ that occurs in $S$,  $k.$ $\nu_{0} \in S$.
+\item If $n.$ $\pi \in S$, then for some prefix $k$ that occurs in $S$,  $k.$ $\pi_{0} \in S$.
+\item If $n.$ $\gamma \in S$, then for every parameter $a$ associated with $n$, $n.$ $\gamma(a) \in S$.
+\item If $n.$ $\delta \in S$, then for some parameter $a$ associated with $n$, $n.$ $\delta(a) \in S$.
+\item If $n$ and $a$ both occur in $S$, then $n.$ $a=a \in S$.
+\item If $n.$ $a=a\p ,k.$ $\varphi(a) \in S$, then $k.$ $\varphi(a\p) \in S$.
+\end{enumerate}
+\end{defn}
+
+
+\begin{pro}
+Let $\mathcal{B}$ be a branch from a systematic tableau $\mathcal{T}$ and $S$ be the set of all prefixed formulas occurring on $\mathcal{B}$. If $\mathcal{B}$  is an open branch, then $S$ is an S5-downward saturated set. 
+\end{pro}
+
+
+\begin{proof}
+To prove this fact we need to check that $S$ satisfies conditions $(i)-(x)$ of Definition 18. We will present here the argument only for the non-trivial ones.
+
+\qquad $(v)$: Suppose $k.$ $\nu \in S$ and $m$ is a prefix occurring on some prefixed formula $m.$ $\psi$ of $S$. Then, in some stage $n$, $m.$ $\psi$ is not finished. If $k.$ $\nu$ appear in some stage $n\p$ and $n \leq n\p$ , then $m.$ $\nu_{0}$ is added in the stage $n\p +1$. On the other hand, if $k.$ $\nu$ had appear in some stage $n\p$ and $n\p<n$, then, since we always introduce a fresh occurrence of $k.$ $\nu$ in any stage, there is a not finished occurrence of $k.$ $\nu$ in the stage $n$, so $m.$ $\nu_{0}$ is added in the stage $n +1$. Therefore,  $m.$ $\nu_{0} \in S$.        
+
+\qquad $(vii)$: Suppose $k.$ $\gamma \in S$ and $a$ is a parameter associated with $k$. Let $a_{1}, \dots , a_{m}$ be all parameters associated with $k$ which come before $a$ in the initial list. Then, in some stage $n$, $k.$ $\gamma$ is not finished. If $n = m+1$, then $k.$ $\gamma(a)$ is added in the stage $m+2$. If $n<m+1$, then since we always introduce a fresh occurrence of $k.$ $\gamma$ in any stage, there is a not finished occurrence of $k.$ $\gamma$ in the stage $m+1$, so $k.$ $\gamma(a)$ is added in the stage $m+2$. And if $n>m+1$, then $a_{1}, \dots , a_{m},a, \dots, a_{l}$ are the first $n$ parameters associated with $k$, so $k.$ $\gamma(a)$ is added in the stage $n+1$. Therefore,  $k.$ $\gamma(a) \in S$.        
+\end{proof}
+
+\begin{lema}
+If $S$ is S5-downward saturated, then $S$ is S5-satisfiable. 
+\end{lema}
+
+\begin{proof}
+We shall define an S5-structure $\A$ using the formulas of $S$. First, for every parameter $a,b$ in $S$, we define:
+
+\begin{center}
+$a \thicksim b$ iff there is a prefix $n$ such that $n.$ $a=b \in S$.
+\end{center}
+
+\qquad Using properties $(ix)$ and $(x)$ of Definition 18, it can be easily seen that $\thicksim$ is an equivalence relation. We write $a^{\circ}$ to denote the equivalence class of $a$. 
+
+\qquad Second, let $\A = \strucAS$ where:
+
+
+\begin{itemize}
+\item $\W$ is the set of prefixes of $S$.
+\item $\D$ the set of all equivalence classes of $\thicksim$.
+\item $a^{\circ} \in \barD_{n}$ iff there is a $b \in a^{\circ}$ such that $b$ is a parameter associated with $n$.
+\item for any $a_1^{\circ}, \dots, a_k^{\circ}$ in $\D$, $\bl a_1^{\circ}, \dots, a_k^{\circ} \br \in \I(F,n)$ iff $n.$  $Fa_1, \dots, a_k \in S$.
+\end{itemize}
+
+\qquad Again, using property $(x)$ of Definition 18, it can be seen that the definition of $\I(F,n)$ depend only on the $a_i^{\circ}$ and not on the $a_i$.
+
+\qquad Now, let $s$ be a valuation in $\A$ such that for every parameter $a$, $s(a)= a^{\circ}$. To prove that $S$ is S5-satisfiable is enough to prove the following proposition:
+
+
+\begin{center}
+(+) For each formula $\varphi$ and for each prefix $n$ of $S$:\\
+$\bullet$ If $n.$ $\varphi \in S$, then $\A,n \vSs \varphi$. \\
+$\bullet$ If $n.$ $\nao \varphi \in S$, then $\A,n \nvSs \varphi$.
+\end{center}
+
+\qquad (Proof of (+)) Induction on $\varphi$.
+\vspace{10mm}
+
+
+
+
+($\varphi : = a=b$)\\
+\qquad If $n.$ $a=b \in S$, then $a\thicksim b$. Thus, $a^{\circ} = b^{\circ}$. Hence, $s(a)=s(b)$ and so $\A,n \vSs a=b$. 
+
+\qquad If $n.$ $a\neq b \in S$, suppose $a\thicksim b$. Then, for some prefix $m$, $m.$ $a = b \in S$. By $(x)$ of Definition 18, $n.$ $b\neq b \in S$. By $(ix)$ of Definition 18, $n.$ $b= b \in S$; contradicting condition $(i)$. Therefore, $a \not \thicksim b$, thus $a^{\circ} \neq b^{\circ}$. Hence, $s(a)\neq s(b)$ and so $\A,n \nvSs a=b$. 
+
+
+
+\vspace{10mm}
+
+($\varphi: = Fa_{1},\dots,a_{n}$)\\
+\qquad If $n.$ $Fa_1, \dots ,a_k \in S$, then $\bl a_1^{\circ}, \dots, a_k^{\circ} \br \in \I(F,n)$, i.e. $\bl s(a_1), \dots, s(a_k) \br \in \I(F,n)$. And so  $\A,n \vSs Fa_1, \dots ,a_k$.   
+
+\qquad If $n.$ $\nao Fa_1, \dots ,a_k \in S$, then, by condition $(i)$, $n.$ $Fa_1, \dots ,a_k \notin S$. So $\bl a_1^{\circ}, \dots, a_k^{\circ} \br \notin \I(F,n)$, i.e. $\bl s(a_1), \dots, s(a_k) \br \notin \I(F,n)$. And so  $\A,n \nvSs Fa_1, \dots ,a_k$.     
+\vspace{10mm}
+
+
+($\varphi := \nao \psi$)\\
+\qquad If $n.$ $\nao \psi \in S$, then, by induction hypothesis, $\A,n \nvSs \psi$; so $\A,n \vSs \nao \psi$. 
+
+\qquad If $n.$ $\nao\nao \psi \in S$, then, by condition $(ii)$, $n.$ $\psi \in S$. Thus, by induction hypothesis, $\A,n \vSs \psi$; so $\A,n \nvSs \nao\psi$.  
+
+\vspace{10mm}
+
+($\varphi: = \psi \ou \theta$)\\
+\qquad If $n.$ $\psi \ou \theta \in S$, then, by condition $(iii)$, either $n.$ $\psi \in S$, or $n.$ $\theta \in S$.  By induction hypothesis, either $\A,n \vSs \psi$ or $\A,n \vSs \theta$; so $\A,n \vSs \psi \ou \theta$. 
+
+\qquad If $n.$ $\nao(\psi \ou \theta) \in S$, then, by condition $(iv)$, $n.$ $\nao \psi, n.$ $\nao \theta \in S$. Thus, by induction hypothesis, $\A,n \nvSs \psi$ and $\A,n \nvSs \theta$; so $\A,n \nvSs \psi\ou\theta$.  
+\vspace{10mm}
+
+
+\qquad The proof for $\varphi := \psi \e \theta$ and $\varphi := \psi \impli \theta$ are similar.
+\vspace{10mm}
+
+
+
+($\varphi: = \Diamond \psi$)\\
+\qquad If $n.$ $\Diamond \psi \in S$, then, by condition $(vi)$, for some prefix $k$ of $S$, $k.$ $\psi \in S$. By induction hypothesis, $\A,k \vSs \psi$; so  $\A,n \vSs \Diamond\psi$.  
+
+\qquad If $n.$ $\nao\Diamond\psi \in S$, then, by condition $(v)$, for every prefix $k$ of S, $k.$ $\nao \psi \in S$. Thus, by induction hypothesis, for every $k \in \W$, $\A,k \nvSs \psi$; so $\A,n \nvSs \Diamond \psi$.  
+\vspace{10mm}
+
+
+\qquad The proof for $\varphi := \Box\psi$ is similar.
+\vspace{10mm}
+
+
+
+($\varphi := \ex x \psi$)\\
+\qquad If $n.$ $\ex x \psi \in S$, then, by condition $(viii)$, for some parameter $a$ associated with $n$, $n.$ $\psi(a) \in S$. By induction hypothesis, $\A,n \vSs \psi(a)$. Since $a \in a^{\circ} = s(a)$ and $a$ is a parameter associated with $n$, then $a^{\circ} \in \barD_{n}$. Let $s\p$ be a valuation in $\A$ such that for every variable $y$ of $\Li^{+}$
+  
+$$
+s\p(y) = \left\{
+\begin{array}{rcl}
+s(y) & \mbox{if} & y \neq x\\
+s(a) & \mbox{if} & y = x\\
+\end{array}
+\right.
+$$
+    
+\qquad Clearly, $s\p$ is an $x$-variant of $s$ at $n$. By Proposition 3, $\A,n \vSp \psi$. So, $\A,n \vSs \ex x\psi$.      
+
+\qquad If $n.$ $\nao\ex x \psi\in S$, then, by condition $(vii)$, for every parameter $a$ associated with $n$, $n.$ $\nao \psi(a) \in S$. By induction hypothesis, for every parameter $a$ associated with $n$, $\A,n \vSs \psi(a)$.
+
+\qquad Suppose $\A,n \vSs \ex x \psi$. Then, for some $x$-variant $s\p$ of $s$ at $n$, $\A,n \vSp \psi$. Since $s\p(x) \in \barD_{n}$, there is a parameter $b$ associated with $n$ such that $b \in s\p(x)$. So, $b^{\circ} = s\p(x)$, i.e. $s(b)= s\p(x)$. By Proposition 3, $\A,n \vSs \psi(b)$, a contradiction. Therefore, $\A,n \nvSs \ex x \psi$.    
+\vspace{10mm}
+
+\qquad The proof for $\varphi := \todo x\psi$ is similar.
+\end{proof}
+
+\begin{teor}
+(Completeness) For every $\varphi \in sen(\Li)$, if $\vS\varphi$, then $\vdash_{\textbf{S5}} \varphi$
+\end{teor}
+
+\begin{proof}
+Suppose $\not\vdash_{\textbf{S5}} \varphi$. Then, $\varphi$ has no S5-tableau proof, then a systematic tableau for $1.$  $\nao \varphi$ will wither terminate producing an open branch or will not terminate. By K\"onig's Lemma, in either case there will be an open branch $\mathcal{B}$. Let $S$ be the set of all prefixed formulas occurring on $\mathcal{B}$. By Proposition 7, $S$ is an S5-downward saturated set. By Lemma 2, $S$ is S5-satisfiable. Since $1.$ $\nao \varphi \in S$, $\nao \varphi$ is S5-satisfiable. Therefore $\not\vS\varphi$.
+\end{proof}
+
+
+\section{Compactness}
+
+
+\begin{defn}
+Let $T$ be a set of sentences of $\Li$. We modify the definition of systematic tableau construction in order to extend the tableau method for sets of sentences. Since both $\Li$ and $\Li^{+}$ are countable languages, $T$ is a countable set. Let $\varphi_1, \varphi_2, \varphi_3, \dots$ be a list of the member of $T$. The construction of the sistematic tableau for $T$ is described as follows:
+
+\qquad \textit{Stage $1)$} Begin by placing $1.$ $\varphi_{1}$ at the origin
+
+\qquad Suppose $n$ stages have been completed.
+
+\qquad \textit{Stage $n+1)$} Do everything as described in Definition 17. But before completing stage $n+1$, we extend each open branch $\mathcal{B}$ to the branch $\mathcal{B}, 1.$ $\varphi_{n+1}$. 
+
+\end{defn}
+
+\begin{teor}
+(Compactness) Let $\{\varphi\}$, $T$ be set of sentences of $\Li$. Then:
+\begin{enumerate}[(a)]
+\item If for every $T_{0} \subseteq_{fin} T$, $T_{0}$ is S5-satisfiable, then $T$ is S5-satisfiable.
+\item If $T\vS \varphi$, then for some $T_{0} \subseteq_{fin} T$, $T_{0}\vS \varphi$.
+\end{enumerate}
+\end{teor}
+
+\begin{proof}
+(a) By definition, the construction of the systematic tableau for $T$ can either terminate and produce a closed tableau or can never terminate. Suppose it terminates, then it terminates at some stage $n$. So the resulting tableau is the same as the tableau for the set $\{\varphi_1, \dots, \varphi_n\}$. It can be easily seen, that if there is a closed tableau for $\{\varphi_1, \dots, \varphi_n\}$, then there is a closed tableau for $\varphi_1 \e \dots \e \varphi_n$; and so there is a closed tableau for $\nao\nao(\varphi_1 \e \dots \e \varphi_n)$. Hence, $\vdash_{\textbf{S5}}\nao(\varphi_1 \e \dots \e \varphi_n)$. By Theorem 2, $\vS\nao(\varphi_1 \e \dots \e \varphi_n)$; contradicting the assumption that $\{\varphi_1, \dots, \varphi_n\}$ is S5-satisfiable. Therefore, the construction of the systematic tableau for $T$ never terminate. By K\"onig's Lemma, there is an infinite open branch $\mathcal{B}$. Let $S$ be the set of all formulas occurring in $\mathcal{B}$. Clearly, for every $\varphi \in T$, $1.$ $\varphi \in S$. By Proposition 7 and Lemma 2, $S$ is S5-satisfiable, and so $T$ is S5-satisfiable.   
+
+
+\qquad (b) If $T\vS \varphi$, then $T \cup \{\nao \varphi\}$ is not S5-satisfiable. By item (a), there is a $T_{0}\cup\{\nao \varphi\}  \subseteq_{fin} T \cup \{\nao \varphi\}$ such that $T_{0}\cup\{\nao \varphi\}$ is not S5-satisfiable. Hence, $T_{0}\vS \varphi$.
+\end{proof}
+
+
+
+

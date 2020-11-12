@@ -1,0 +1,119 @@
+
+\textbf{Proof of Proposition 17}
+
+\qquad Proof of the explicit version of the converse Barcan Formula:
+
+\begin{enumerate}[1.]
+	\item $ \todo y \varphi(y) \impli \varphi(y)$   (\textit{classical axiom}) 
+	\item $c_{1}$$:$$(\todo y \varphi(y) \impli \varphi(y))$  (\textit{axiom necessitation})
+	\item $c_{1}$$:_{Xy}$$(\todo y \varphi(y) \impli \varphi(y))$  (\textit{\textbf{A3} + Modus Ponens})
+	\item $c_{1}$$:_{Xy}$$(\todo y \varphi(y) \impli \varphi(y)) \impli  (t$$:_{Xy}$$\todo y \varphi(y)  \impli   [c_{1} \cdot t]$$:_{Xy}$$ \varphi(y))$  (\textit{Axiom \textbf{B2}})
+	\item $t$$:_{Xy}$$\todo y \varphi(y)  \impli   [c_{1} \cdot t]$$:_{Xy}$$ \varphi(y)$  (\textit{Modus Ponens})
+	\item $t$$:_{X}$$\todo y \varphi(y)  \impli   t$$:_{Xy}$$\todo y \varphi(y)$  (\textit{Axiom \textbf{A3}})
+	\item $t$$:_{X}$$\todo y \varphi(y)  \impli   [c_{1} \cdot t]$$:_{Xy}$$ \varphi(y)$  (\textit{classical reasoning})
+	\item $\todo y(t$$:_{X}$$\todo y \varphi(y)  \impli   [c_{1} \cdot t]$$:_{Xy}$$ \varphi(y))$  (\textit{generalization})
+	\item $t$$:_{X}$$\todo y \varphi(y)  \impli   \todo y [c_{1} \cdot t]$$:_{Xy}$$ \varphi(y)$  (\textit{$y \notin X$ + classical reasoning})
+	
+\end{enumerate}
+
+\pagebreak
+
+\qquad Proof of the explicit version of the Barcan Formula:
+
+\begin{enumerate}[1.]
+\item $ \todo y t$$:_{Xy}$$\varphi(y) \impli t$$:_{Xy}$$\varphi(y)$   (\textit{classical axiom})
+
+\item $c_{1}$$:$$(\todo y t$$:_{Xy}$$\varphi(y) \impli t$$:_{Xy}$$\varphi(y))$   (\textit{axiom necessitation})
+
+\item $c_{1}$$:_{X}$$(\todo y t$$:_{Xy}$$\varphi(y) \impli t$$:_{Xy}$$\varphi(y))$    (\textit{\textbf{A3} + Modus Ponens})
+
+
+
+
+\item $gen_{y}(c_{1})$$:_{X}$$\todo y (\todo y t$$:_{Xy}$$\varphi(y) \impli t$$:_{Xy}$$\varphi(y))$   (\textit{$y \notin X$ + \textbf{B6} + Modus Ponens})
+
+\item $gen_{y}(c_{1})$$:_{X}$$\todo y (\todo y t$$:_{Xy}$$\varphi(y) \impli t$$:_{Xy}$$\varphi(y)) \impli \todo y [c_{2} \cdot gen_{y}(c_{1})]$$:_{Xy}$$ (\todo y t$$:_{Xy}$$\varphi(y) \impli t$$:_{Xy}$$\varphi(y))$    (\textit{Converse Barcan Formula}\footnote{where $c_{2}$$:$$\todo y (\todo y t$$:_{Xy}$$\varphi(y) \impli t$$:_{Xy}$$\varphi(y)) \impli (\todo y t$$:_{Xy}$$\varphi(y) \impli t$$:_{Xy}$$\varphi(y)) \in \C$.})
+
+\item $\todo y [c_{2} \cdot gen_{y}(c_{1})]$$:_{Xy}$$ (\todo y t$$:_{Xy}$$\varphi(y) \impli t$$:_{Xy}$$\varphi(y))$    (\textit{Modus Ponens})
+
+\item $[c_{2} \cdot gen_{y}(c_{1})]$$:_{Xy}$$ (\todo y t$$:_{Xy}$$\varphi(y) \impli t$$:_{Xy}$$\varphi(y))$    (\textit{classical axiom + Modus Ponens})
+
+\item $c_{3}$$:_{Xy}$$((\todo y t$$:_{Xy}$$\varphi(y) \impli t$$:_{Xy}$$\varphi(y)) \impli (\nao t$$:_{Xy}$$\varphi(y) \impli \nao \todo y t$$:_{Xy}$$\varphi(y)))$ (\textit{tautology + axiom necessitation + \textbf{A3}})
+
+\item $[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]$$:_{Xy}$$(\nao t$$:_{Xy}$$\varphi(y) \impli \nao \todo y t$$:_{Xy}$$\varphi(y))$ (\textit{\textbf{B2} + 7,8 + Modus Ponens})
+
+\item $[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]$$:_{Xy}$$(\nao t$$:_{Xy}$$\varphi(y) \impli \nao \todo y t$$:_{Xy}$$\varphi(y)) \impli (?t$$:_{Xy}\nao t$$:_{Xy}$$\varphi(y) \impli [[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]$$:_{Xy}$$\nao \todo y t$$:_{Xy}$$\varphi(y)) $ (\textit{Axiom \textbf{B2}})
+
+
+\item $?t$$:_{Xy}\nao t$$:_{Xy}$$\varphi(y) \impli [[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]$$:_{Xy}$$\nao \todo y t$$:_{Xy}$$\varphi(y)$ (\textit{Modus Ponens})
+
+
+\item $\nao[[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]$$:_{Xy}$$\nao \todo y t$$:_{Xy}$$\varphi(y) \impli \nao  ?t$$:_{Xy}\nao t$$:_{Xy}$$\varphi(y)$ (\textit{classical reasoning})
+
+\item $\nao (?t$$:_{Xy}\nao t$$:_{Xy}$$\varphi(y)) \impli \varphi(y)$ (\textit{JT45 theorem})
+
+
+\item $\nao[[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]$$:_{Xy}$$\nao \todo y t$$:_{Xy}$$\varphi(y)\impli \varphi(y)$ (\textit{classical reasoning})
+
+\item $\nao[[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]$$:_{X}$$\nao \todo y t$$:_{Xy}$$\varphi(y)\impli  \nao[[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]$$:_{Xy}$$\nao \todo y t$$:_{Xy}$$\varphi(y)$ (\textit{\textbf{A2} + classical reasoning})
+
+\item $\nao[[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]$$:_{X}$$\nao \todo y t$$:_{Xy}$$\varphi(y)\impli \varphi(y)$ (\textit{classical reasoning})
+
+\item $\todo y (\nao[[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]$$:_{X}$$\nao \todo y t$$:_{Xy}$$\varphi(y)\impli \varphi(y))$ (\textit{generalization})
+
+
+\item $\nao[[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]$$:_{X}$$\nao \todo y t$$:_{Xy}$$\varphi(y)\impli \todo y \varphi(y)$ (\textit{$y \notin X$ + classical reasoning})
+
+\item $r$$:(\nao[[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]$$:_{X}$$\nao \todo y t$$:_{Xy}$$\varphi(y)\impli \todo y \varphi(y))$ (\textit{Internalization})
+
+\item $r$$:_{X}$$(\nao[[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]$$:_{X}$$\nao \todo y t$$:_{Xy}$$\varphi(y)\impli \todo y \varphi(y))$ (\textit{\textbf{A3} + Modus Ponens})
+
+
+
+\item $?[[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]$$:_{X}$$\nao[[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]$$:_{X}$$\nao \todo y t$$:_{Xy}$$\varphi(y)\impli$\\
+$\impli [r \cdot ?[[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]]$$:_{X}$$\todo y \varphi(y)$
+ (\textit{\textbf{B2} + 20 + Modus Ponens })
+
+
+
+
+\item $\todo y t$$:_{Xy}$$\varphi(y) \impli ?[[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]$$:_{X}$$\nao[[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]$$:_{X}$$\nao \todo y t$$:_{Xy}$$\varphi(y)$ \\ (\textit{JT45 theorem})
+
+\item$\todo y t$$:_{Xy}$$\varphi(y) \impli [r \cdot ?[[c_{3} \cdot [c_{2} \cdot gen_{y}(c_{1})]]\cdot ?t]]$$:_{X}$$\todo y \varphi(y)$ (\textit{classical reasoning})
+\end{enumerate}
+
+
+
+\textbf{Proof of Proposition 18}
+
+\begin{enumerate}[1.]
+	\item $ \ex y \varphi(y) \impli \ex y \varphi(y)$   (\textit{tautology})
+	
+	\item $ \todo y (\varphi(y) \impli \ex y \varphi(y))$   (\textit{classical reasoning})
+	
+	\item $r$$:$$(\todo y (\varphi(y) \impli \ex y \varphi(y)))$   (\textit{Internalization})
+	
+	\item $r$$:_{X}$$(\todo y (\varphi(y) \impli \ex y \varphi(y)))$  (\textit{\textbf{A3} + Modus Ponens})
+	
+	\item $\todo y CB(r)$$:_{Xy}$$ (\varphi(y) \impli \ex y \varphi(y))$  (\textit{Converse Barcan formula + Modus Ponens})
+	
+	\item $CB(r)$$:_{Xy}$$(\varphi(y) \impli \ex y \varphi(y))$  (\textit{classical axioms + Modus Ponens})
+		
+	\item $t$$:_{Xy}$$\varphi(y) \impli [CB(r) \cdot t]$$:_{Xy}$$ \ex y \varphi(y)$  	 (\textit{\textbf{B2} + 6 + Modus Ponens })
+	
+
+	\item $[CB(r) \cdot t]$$:_{Xy}$$ \ex y \varphi(y) \impli [CB(r) \cdot t]$$:_{X}$$ \ex y \varphi(y)$  (\textit{Axiom \textbf{A2}})
+	
+	\item $t$$:_{Xy}$$\varphi(y) \impli [CB(r) \cdot t]$$:_{X}$$ \ex y \varphi(y)$  	 (\textit{classical reasoning})
+	
+	\item $\todo y (t$$:_{Xy}$$\varphi(y) \impli [CB(r) \cdot t]$$:_{X}$$ \ex y \varphi(y))$  	 (\textit{generalization})
+	
+	\item $\ex y t$$:_{Xy}$$\varphi(y) \impli [CB(r) \cdot t]$$:_{X}$$ \ex y \varphi(y)$  	 (\textit{$y \notin X$ + classical reasoning}).
+	
+	
+\end{enumerate}
+
+
+
+
+

@@ -1,0 +1,47 @@
+\section{Modal quantification theory: adding first-order quantifiers to modal logic}
+\qquad The aim of the present thesis is to present a study of some relevant topics concerning first-order modal logic. To make our intentions precise, some restrictions must be made.
+
+\qquad It is ambiguous to write `first-order modal logic', because unlike in classical logic we can use alternative propositional logics to be the background logic, and even when we choose one specific propositional logic, there are different choices that can be made to construct the first-order version of modal logic. Among the variety of propositional logics, in this thesis we are only concerned with S5. This choice is not arbitrary, because among the other propositional modal logics \textit{S5 is more interesting for the researcher in philosophy}. To be more precise, S5 gives us a plausible way to deal with main philosophical concepts such as the concept of metaphysical necessity and the epistemological notions of knowledge and belief.
+
+\qquad Although use of first-order S5 is made mainly by philosophers, from the technical point of view, this logic is a very intriguing one. That is the richness of first-order S5 as a research subject: by studying this logic, \textit{we can study a complex technical subject and at the same time we can stay connected with deep philosophical problems}.
+
+
+\qquad The failure of the Interpolation Theorem is a good example. Also known as \textit{Craig's interpolation theorem}, this theorem was first proved for classical logic. It states that if a formula $\varphi$ implies a formula $\psi$ then there is a formula  $\theta$, referred to as \textit{the interpolant between $\varphi$ and $\psi$}, such that every nonlogical symbol in $\theta$ occurs both in $\varphi$ and $\psi$, $\varphi$ implies $\theta$, and $\theta$ implies $\psi$.   
+
+\qquad Investigating if this theorem holds in other logics (like modal logic) is, from the technical point of view, interesting in itself. The richness that we mentioned is that we can show that this theorem fails for first-order S5 and moreover from this failure we can conclude some philosophical implications.
+
+\qquad In the metaphysical debate on necessity and existence there are two main positions: one claims that necessarily everything is necessarily something, i.e. \textit{existence is necessary}; the other claims that possibly something is possibly nothing, i.e. \textit{existence is contingent}. Following Timothy Williamson \cite{Willi}, we call the first position \textit{Necessitism} and the second \textit{Contingentism}. 
+
+\qquad Suppose we assume the Contigentism thesis. Then, sometimes different possible worlds have different inhabitants. In this setting, it makes sense to define two kinds of quantifiers: the \textit{inner quantifiers} $\ex$ and $\todo$; and the \textit{outer quantifiers} $\Sigma$ and $\Pi$. Without entering into the technicalities, we can say, very informally, that the formula $\ex x \varphi$ is true at the world $w$, if $\varphi$ is true at $w$ for a specific interpretation that interprets $x$ into an inhabitant of $w$. On the other hand, $\Sigma x \varphi$ is true at the world $w$, if $\varphi$ is true at $w$ for a specific interpretation that interprets $x$ into an inhabitant of any possible world $w\p$. As usual, we define $\todo$ as the dual of $\ex$ and $\Pi$ as the dual of $\Sigma$.
+ 
+\qquad Saul Kripke pointed out in \cite{Kripke83} that from the failure of the Interpolation Theorem for first-order S5, it follows that, for this modal logic, the outer quantifiers are not definable in the usual modal language with the inner quantifiers. And so a philosophical result follows: some metaphysical notions that can be expressed using quantification over possible entities cannot be emulated by a restricted language which has only quantification over actual entities. Putting it another way: \textit{if we assume the Contigentism thesis and if we assume that the only meaningful discourse is the one that only speaks about actual entities, then there are some metaphysical notions that we are not going to be able to express}.
+
+\qquad Going beyond this problem of metaphysical modality, the reason for the failure of the Interpolation Theorem is understood as a lack of expressiveness of the quantified version of S5. This lack of expressive power had left a natural question open: if we add more machinery to first-order S5 are we able to restore the Interpolation Theorem? The answer is not an easy one. There are many ways to extend the expressiveness of modal logic. In the literature around `the restoration of the Interpolation Theorem' we find examples where the restoration of this theorem can be obtained (e.g., when we use \textit{hybrid logics} \cite{Areces01}, or when we use propositional quantifiers \cite{Fitting02}), but there is not a general argument to show how to extend the expressive power of modal logic in order to guarantee the Interpolation Theorem.
+
+\qquad That is why, from a theoretical point of view, it is significant to investigate how the Interpolation Theorem behaves in different extensions of modal logic.
+
+\qquad Justification logic is a term used to classify a relatively new kind of modal-like logics. The first justification logic, LP (Logic of Proofs), was originated from a question in provability logic (the logic that arises when we interpret the modal formulas with arithmetical semantics). Nowadays we work with an extensive family of propositional justification logics. And, for the philosophical discussion, the interest in justification logic lies in the connection between this logic and some epistemic notions: as the name indicates, justification logic enables us to introduce the notion of \textit{justification} into the setting of epistemic logic. 
+
+\qquad Although justification logic is now a well-studied subject, the main focus is on the propositional case. There are only a few papers in quantified justification logic, and the majority of those papers investigate the justification counterpart of first-order S4.
+
+
+\qquad In this thesis we present the failure of the Definability and Interpolation Theorems for first-order S5. We establish the basic setting for the justification counterpart of the first-order version of S5. And we indicate how we can relate the failure of the Interpolation Theorem to the research agenda of justification logic.
+
+\qquad In Chapter 2 we give an introduction to the basic subjects that are present when modal operators and quantifiers come to the discussion. In Chapter 3 we present the now classical proofs of the failure of Interpolation and Beth's Definability theorems.  In Chapter 4 we give a brief presentation of justification logic. In Chapter 5 we present the justification counterpart of quantified S5 (called first-order JT45). And in Chapter 6 we comment on how all the topics presented in this thesis can be combined in order to advance the research on modal logic. 
+
+
+
+\section{Notation}
+
+\qquad  In this text we abbreviate `if and only if' with `iff', and we use the following set-theoretical notation:
+
+\begin{itemize}
+\item $\Pa(A)$ denotes the power-set of $A$.
+\item $A \backslash B$ denotes the set $\{x$ $|$ $ x \in A \e x \notin B\}$.
+%\item We use $A\approx B$ to say that there is a function $f$ such that $f$ is an one-one function from $A$ onto $B$. To point out that $f$ is a function with those properties we write $f: A\approx B$.
+\item We write $A \subseteq_{fin} B$ to say that $A \subseteq B$ and $A$ is a finite set.
+\item If $f$ is a function, we write $Dom(f)$, $Rng(f)$ and $Field(f)$ to denote the sets $\{x$ $|$ $ \ex y ((x,y) \in f)\}$, $\{y$ $|$ $ \ex x ((x,y) \in f)\}$  and $Dom(f)\cup Rng(f)$, respectively. We also write $f \upharpoonleft A$ and $f[A]$ to denote the sets $\{(x,y)$ $|$ $ x \in A \e (x,y) \in f\}$
+and $\{f(x)$ $|$ $ x \in Dom(f) \cap A\}$, respectively.
+\item If $f$ and $g$ are functions, $f\circ g$ denotes the composition of functions, i.e., $f\circ g$ denotes the set $\{(x,z)$ $|$ $ \ex y ((x,y) \in g \e (y,z) \in f)\}$. And if $f$ is an injective function, we write $f^{-1}$ to denote the function $\{(y,x)$ $|$ $ (x,y) \in f \}$.
+
+\end{itemize}

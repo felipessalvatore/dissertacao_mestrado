@@ -1,0 +1,230 @@
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {images/} } 
+\usepackage{color}
+\usepackage{enumerate}
+\usepackage{cite}
+\usepackage{qtree}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage[margin=3.3cm]{geometry}
+
+
+\title{
+	{\textbf{Topics in Modal Quantification Theory}}\\
+	{\large University of São Paulo. Faculty of Philosophy, Languages and Literature, and Human Sciences (FFLCH). Department of Philosophy}}
+\author{Felipe de Souza Salvatore}
+\date{03 June 2015}
+ 
+ 
+
+\theoremstyle{definition}
+\newtheorem{teor}{Theorem} 
+\newtheorem{pro}{Proposition} 
+\newtheorem{lema}{Lemma} 
+\newtheorem{coro}{Corollary} 
+\newtheorem{defn}{Definition}
+
+
+
+\newcommand{\A}{\mathfrak{A}}   
+\newcommand{\B}{\mathcal{B}}  
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\Li}{\mathcal{L}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\W}{\mathcal{W}}
+\newcommand{\R}{\mathcal{R}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\J}{\mathcal{J}}
+\newcommand{\Pa}{\mathcal{P}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\up}{\upsilon}
+\newcommand{\barA}{\bar{A}}
+\newcommand{\barD}{\bar{\D}}  
+\newcommand{\bara}{\bar{a}} 
+\newcommand{\barB}{\bar{\B}}
+\newcommand{\barE}{\bar{\E}}
+\newcommand{\barDp}{\barD\p}
+\newcommand{\Frame}{\bl\W,\R, \D, \barD\br}
+\newcommand{\strucA}{\bl\W,\R, \D, \barD,\I\br}
+\newcommand{\strucAS}{\bl\W,\D, \barD,\I\br}
+\newcommand{\strucASB}{\bl\W,\D,\I\br}
+\newcommand{\strucB}{\bl\V,\R\p, \D\p, \barD\p,\I\p\br}
+\newcommand{\strucBS}{\bl\V,\B,\barB,\J\br}
+\newcommand{\strucBSB}{\bl\V,\B,\J\br}
+\newcommand{\p}{^{\prime}} 
+\newcommand{\pp}{^{\prime\prime}}   
+\newcommand{\iso}{\cong}    
+\newcommand{\FLi}{Fml(\Li)}
+\newcommand{\Fj}{Fml_{J}}
+\newcommand{\Fjv}{Fml_{J}(\textbf{V})}
+\newcommand{\FjD}{\D--Fml_{J}}
+\newcommand{\Cv}{\C(\textbf{V})}
+\newcommand{\nmodels}{\not\models}
+\newcommand{\vS}{\models_{FOS5V}}
+\newcommand{\vSB}{\models_{FOS5}}
+\newcommand{\vSL}{\models_{L}}
+\newcommand{\vSs}{\models_{h}}
+\newcommand{\nvSs}{\nmodels_{h}} 
+\newcommand{\vSp}{\models_{h\p}} 
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\nao}{\neg}
+\newcommand{\bige}{\bigwedge}
+\newcommand{\e}{\wedge}
+\newcommand{\see}{\longleftrightarrow}
+\newcommand{\ou}{\vee}
+\newcommand{\impli}{\rightarrow}
+\newcommand{\bigou}{\bigvee}
+\newcommand{\todo}{\forall} 
+\newcommand{\ex}{\exists} 
+\newcommand{\teo}{\vdash}
+\newcommand{\teoc}{\vdash_{\C}}
+\newcommand{\teocv}{\vdash_{\Cv}}
+\newcommand{\tp}{\textbf{p}}
+\newcommand{\tq}{\textbf{q}}
+\newcommand{\tr}{\textbf{r}}
+\newcommand{\tvp}{\vec{\textbf{p}}}
+\newcommand{\vvarphi}{\vec{\varphi}}
+\newcommand{\vazio}{\emptyset}
+\newcommand{\bl}{\langle}
+\newcommand{\br}{\rangle}
+\newcommand{\model}{\bl\W,\R,\D,\I,\E \br}
+
+
+\begin{document}
+
+\onehalfspacing
+
+\chapter*{Acknowledgements}
+
+
+\qquad I would first like to acknowledge the academic and personal support of my supervisor Rodrigo Bacellar (a.k.a. Roderick Batchelor). He introduced me to modal logic, and (more important) his enthusiasm in this area influenced me completely. Also, his comments and suggestions were very significant for the final version of this text. 
+
+\qquad Professor Rodrigo Freire is responsible for a great part of my education in mathematical logic. Not only his classes, but also the conversations that I have had with him and the books that he recommended, all of this has profoundly molded my technical knowledge.
+
+\qquad I would like to thank professor Melvin Fitting for receiving me as a visiting research scholar at the Graduate Center at the City University of New York (CUNY). He not only made me feel very welcome at CUNY, but he also had the patience to hear all my comments on first-order justification logic, answer all my questions on different logic related topics; and sent me material when I needed it. I was very inspired by his writings before I went to New York; after meeting him personally I discovered that he is the model researcher of logic that I myself would one day like to be.
+
+\qquad I am grateful to Sergei Artemov in allowing me to present what is now Chapter 5 of this dissertation in his seminar, and his comments were very important to mature my understanding of justification logic. 
+
+\qquad I would also like to thank all my colleagues and friends from USP, UNICAMP and CUNY; especially: Alfredo Roque, Bruno Ramos, Edgar Almeida, Henrique Meretti, Julio de Rizzo and Konstantinos Pouliasis; thank you for all the discussion on logic and for all the laughs.
+
+\qquad A special thanks also goes to David Gilbert for
+all the advice that he gave me. I would like to thank the remainder of my thesis committee, Ed\'elcio de Souza and Marcelo Finger. 
+
+\qquad I am grateful to Mike Knight for helping me to correct the English in this thesis.
+
+\qquad I owe a heartfelt thanks to Mariana Bardelli for her unconditional support and kindness. Her presence was fundamental to the realization of this project. 
+
+\qquad Eu gostaria de agraceder meus pais e meu irm\~ao por todo o amor, apoio e compreens\~ao na minha trajet\'oria acad\^emica. 
+
+\qquad Finally, I would like to thank the S\~ao Paulo Research Foundation (Funda\c{c}\~ao de Amparo \`a Pesquisa do Estado de S\~ao Paulo, FAPESP) for the financial support both in Brazil and abroad.
+
+
+
+\chapter*{Resumo}
+
+SALVATORE, F. S. T\'opicos em Teoria da Quantifica\c{c}\~ao Modal. 2015. 94 f. Disserta\c{c}\~ao (Mestrado) -- Faculdade de Filosofia, Letras e Ci\^encias Humanas. Departamento de Filosofia, Universidade de S\~ao Paulo, S\~ao Paulo, 2015.  \\
+
+
+A l\'ogica modal S5 nos oferece um ferramental t\'ecnico para analizar algumas no\c{c}\~oes filos\'oficas centrais (por exemplo,  necesidade metaf\'isica e certos conceitos epistemol\'ogicos como conhecimento e cren\c{c}a). Apesar de ser axiomatizada por princ\'ipios simples, esta l\'ogica apresenta algumas propriedades peculiares. Uma das mais not\'orias \'e a seguinte: podemos provar o Teorema da Interpola\c{c}\~ao para a vers\~ao proposicional, mas esse mesmo teorema n\~ao pode ser provado quando adicionamos quantificadores de primeira ordem a essa l\'ogica. Nesta disserta\c{c}\~ao vamos estudar a falha dos Teoremas da Definibilidade e da Interpola\c{c}\~ao para a vers\~ao quantificada de S5. Ao mesmo tempo, vamos combinar os resultados da \textit{l\'ogica da justifica\c{c}\~ao} e investigar a contraparte da vers\~ao quantificada de S5 na l\'ogica da justifica\c{c}\~ao (a l\'ogica chamada JT45 de primeira ordem). Desse modo, vamos explorar a rela\c{c}\~ao entre l\'ogica modal e l\'ogica da justifica\c{c}\~ao para ver se a l\'ogica da justifica\c{c}\~ao pode contribuir para a restaura\c{c}\~ao do Teorema da Interpola\c{c}\~ao.\\
+
+Palavras-chave: l\'ogica, l\'ogica modal de primeira ordem, l\'ogica da justifica\c{c}\~ao, interpola\c{c}\~ao.  
+ 
+
+\chapter*{Abstract}
+
+SALVATORE, F. S. Topics in Modal Quantification Theory. 2015. 94 f. Thesis (Master Degree) -- Faculty of Philosophy, Languages and Literature, and Human Sciences. Department of Philosophy, University of S\~ao Paulo, S\~ao Paulo, 2015.\\
+
+The modal logic S5 gives us a simple technical tool to analyze some main notions from philosophy (e.g. metaphysical necessity and epistemological concepts such as knowledge and belief). Although S5 can be axiomatized by some simple rules, this logic shows some puzzling properties. For example, an interpolation result holds for the propositional version, but this same result fails when we add first-order quantifiers to this logic. In this dissertation, we study the failure of the Definability and Interpolation Theorems for first-order S5. At the same time, we combine the results of justification logic and we investigate the quantified justification counterpart of S5 (first-order JT45). In this way we explore the relationship between justification logic and modal logic to see if justification logic can contribute to the literature concerning `the restoration of the Interpolation Theorem'.\\
+
+Keywords: logic, first-order modal logic, justification logic, interpolation.
+
+
+
+
+\tableofcontents{}
+
+\chapter{Introduction}
+\input{chapters/Introduction}
+
+\chapter{Preliminaries}
+\input{chapters/Preliminaries}
+
+\chapter{Interpolation and Definability}
+\input{chapters/Interpolation}
+
+\chapter{Justification Logic: a very short introduction}
+\input{chapters/J_introduction}
+
+\chapter{First-order JT45}
+\input{chapters/first-order_JT45}
+
+\chapter{Conclusion and future research}
+\input{chapters/conclusion}
+
+\chapter{Appendix}
+\input{chapters/appendix}
+
+
+
+\pagebreak
+\addcontentsline{toc}{chapter}{Bibliography}
+
+\begin{thebibliography}{100} % 100 is a random guess of the total number of
+%	%references
+\bibitem{Areces01} ARECES, Carlos; BLACKBURN, Patrick; MARX, Maarten. Repairing the interpolation theorem in quantified modal logic.
+{\it Annals of Pure and Applied Logic}, v. 124, p. 278-299, 2003.
+
+\bibitem{Artemov08} ARTEMOV, Sergei. Why do we need justification logic? \textit{Technical Report TR-2008014}, CUNY Ph.D. Program in Computer Science, September 2008.
+
+\bibitem{Artemov01} $\rule{1.30cm}{0.15mm}$. Explicit provability and constructive semantics. \textit{The Bulletin of Symbolic Logic}, v. 7, p. 1-36, 2001.
+
+\bibitem{Artemov06} $\rule{1.30cm}{0.15mm}$. Modal logic in mathematics. In: BLACKBURN, Patrick et al. (Ed.) \textit{Handbook of Modal Logic}. New York: Elsevier, 2006. p. 927-970
+
+\bibitem{Artemov11} ARTEMOV, Sergei; YAVORSKAYA (SIDON), Tatiana. First-order logic of proofs. \textit{Technical Report TR-20111005}, CUNY Ph.D. Program in Computer Science, September 2011.
+
+\bibitem{Kuz10} BR\"UNNLER, Kai; GOETSHI, Remo; KUZNETS, Roman. A syntactic realization theorem for justification logics. \textit{Advances in Modal Logic}, v. 8, p. 39-58, 2010.
+
+\bibitem{Fine79} FINE, Kit. Failures of the interpolation lemma in quantified modal logic. \textit{The Journal of Symbolic Logic}, v. 44, p. 201-206, 1979.
+
+\bibitem{Fine78} $\rule{1.30cm}{0.15mm}$. Model theory for modal logic part I. \textit{Journal of Philosophical Logic}, v. 7, p. 125-156, 1978.
+
+\bibitem{Fitting14R} FITTING, Melvin. Justification logics and realization. \textit{Technical Report TR-2014004}, CUNY Ph.D. Program in Computer Science, March 2014.
+
+\bibitem{Fitting13R} $\rule{1.30cm}{0.15mm}$. Realization implemented. \textit{Technical Report TR-2013005}, CUNY Ph.D. Program in Computer Science, May 2013.
+
+\bibitem{Fitting02} $\rule{1.30cm}{0.15mm}$. Interpolation for first-order S5. \textit{The Journal of Symbolic Logic}, v. 67, p. 621-634, 2002.
+
+\bibitem{Fitting13} $\rule{1.30cm}{0.15mm}$. Realization using the model existence theorem. \textit{Journal of Logic and Computation} (online), 2013.
+
+\bibitem{Fitting14}$\rule{1.30cm}{0.15mm}$. Possible world semantics for first order LP. {\it Annals of Pure and Applied Logic}, v. 165, p. 225-240, 2014.
+
+\bibitem{Goedel33}G\"ODEL, Kurt. An interpretation of the intuitionistic propositional calculus. In: FEFERMAN, Solomon et al. (Ed.). \textit{Kurt G\"odel, Collected Works}, v.1. Oxford: Oxford University Press, 1986. p. 296-303.
+
+\bibitem{Goedel38}$\rule{1.30cm}{0.15mm}$. Lecture at Zilsel’s. In: FEFERMAN, Solomon et al. (Ed.). \textit{Kurt G\"odel, Collected Works}, v.3. Oxford: Oxford University Press, 1995. p. 86-113.
+
+
+
+\bibitem{Hughes96} HUGHES, George Edward; CRESSWELL, Max. \textit{A New Introduction to Modal Logic}. London: Routledge, 1996.
+
+\bibitem{Kripke59} KRIPKE, Saul. A completeness theorem in modal logic. \textit{The Journal of Symbolic Logic}, v. 24, p. 1-14, 1959.
+
+\bibitem{Kripke63} $\rule{1.30cm}{0.15mm}$. Semantical considerations on modal logic. \textit{Acta Philosophica Fennica}, v. 16, p. 83-94, 1963.
+
+\bibitem{Kripke83} $\rule{1.30cm}{0.15mm}$. Failures of the interpolation lemma in quantified modal logic by Kit Fine. \textit{The Journal of Symbolic Logic}, v. 48, p. 486-488, 1983.
+
+\bibitem{Willi} WILLIAMSON, Timothy. \textit{Modal logic as metaphysics}. Oxford: Oxford University Press, 2013. 
+\end{thebibliography}
+
+
+
+\end{document}

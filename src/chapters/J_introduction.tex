@@ -1,0 +1,282 @@
+\section{History and motivation}
+
+
+\qquad Justification logic is one of those few subjects in which a historical introduction is more fruitful than a plain exposition of the syntax and the semantics of the logic.
+
+\qquad In the debate around foundations of mathematics one of the philosophical positions that arose was Brouwer's intuitionism. Briefly, intuitionism says that the truth of a mathematical statement should be identified with the proof of that statement. Summarizing the core idea of this position in a slogan: \textit{truth means provability}. Starting from this core idea an informal semantics was created. Now, this semantics is known as Brouwer–Heyting–Kolmogorov (BHK) semantics. It gives an informal meaning to the logical connectives $\bot, \e, \ou, \impli, \nao$ in the following way:
+
+\begin{itemize}
+	\item $\bot$ is a proposition which has no proof (an absurdity, e.g. $0=1$).
+	\item A proof of $\varphi \e \psi$ consist of a proof of $\varphi$ and a proof of $\psi$.
+	\item A proof of $\varphi \ou \psi$ is given by exhibiting either a proof of $\varphi$ or a proof of $\psi$.
+	\item A proof of $\varphi \impli \psi$ is a construction which, given a proof of $\varphi$, returns a proof of $\psi$.
+	\item A proof of $\nao \varphi$ is a construction which transforms any proof of $\varphi$ into a proof of a contradiction. \footnote{By this definition, we can clearly treat $\nao \varphi$ as an abbreviation of $\varphi \impli \bot$.} 
+\end{itemize}
+
+\qquad Using this semantics we can give an informal argument to show that some formulas are intuitionistic validities (formulas like $\varphi \impli \varphi$, $\varphi \impli (\psi \impli \varphi)$ and $\bot \impli \varphi$) and show that some formulas that are classical validities are not validities by this interpretation (formulas like $\varphi \ou \nao \varphi$ and $\nao\nao\varphi \impli \varphi$). More important than to decide whether some formula is a validity or not, this semantics gives us a way to grasp the intended reasoning that \textit{intuitionistic logic} (Int) wants to capture.
+
+\qquad The first step toward a formalization of this semantics was given by Gödel in 1933 \cite{Goedel33}. He added a new unary operator $B$ to classical logic; $B\varphi$ should be read as `$\varphi$ is provable' ($B$ stand for `beweisbar', the German word for `provable'). This new operator was added in order to express the notion of provability in classical mathematics. To describe the behavior of this operator Gödel constructed the following calculus:
+
+\begin{itemize}
+ \item[] All tautologies
+ \item[] $B\varphi \impli \varphi$
+ \item[] $B(\varphi \impli \psi) \impli$ $(B\varphi \impli B\psi)$
+ \item[] $B\varphi \impli BB\varphi$
+ \item[] (\textit{Modus Ponens}) $\teo \varphi$, $\teo \varphi\impli\psi$ $\Rightarrow$ $\teo \psi$
+ \item[] (\textit{Internalization})  $\teo \varphi$ $\Rightarrow$ $\teo B\varphi$
+\end{itemize}
+
+
+
+\qquad Since this axiom system is equivalent to Lewis's S4 when we translate  $B\varphi$ by  $\Box\varphi$, we will refer to this calculus of provability in classical mathematics simply as S4.
+
+
+
+\qquad Based on the intuitionistic notion of truth as provability, it is possible to define the following translation from formulas of intuitionistic logic to formulas of S4:
+\pagebreak
+\begin{itemize}
+	\item $p^{B} = Bp$;
+	\item $\bot^{B} = \bot$;	
+	\item $(\varphi \e \psi)^{B} = (\varphi^{B} \e \psi^{B})$;
+	\item $(\varphi \ou \psi)^{B} = (\varphi^{B} \ou \psi^{B})$;	
+	\item $(\varphi \impli \psi)^{B} = B(\varphi^{B} \impli \psi^{B})$.
+\end{itemize}
+
+\qquad It was shown by Gödel, McKinsey and Tarski (for all the references see \cite{Artemov06}) that this translation `makes sense', i.e., that the following theorem holds:
+
+\begin{center}
+	For every formula $\varphi$, Int $\teo \varphi$ iff S4 $\teo \varphi^{B}$.
+\end{center}
+
+\qquad The next step is to give a formal interpretation of the $B$ operator. One natural interpretation is the following: fix a first-order version of Peano Arithmetic (\textbf{PA}); $B$ should be interpreted as the predicate $\ex y Proof (y,x)$ which asserts that there exits a proof (in \textbf{PA}) with Gödel number $y$ for a formula with Gödel number $x$. This predicate has the following property:
+
+
+\begin{center}
+	For every sentence $\varphi$ in the language of \textbf{PA}, $\textbf{PA} \teo \varphi$ iff $Proof (n,\ulcorner \varphi\urcorner)$ holds for some $n$.
+\end{center} 
+
+\qquad For simplicity, we will use $Prov(x)$ as an abbreviation of $\ex y Proof (y,x)$. Let $*$ be a bijection between the sentences of \textbf{PA} and the propositional variables. We can extend the mapping $*$ to give an arithmetical interpretation of all S4 formulas as follows:
+
+\begin{itemize}
+	\item $\bot^{*} = \bot$;
+	\item $(\varphi \e \psi)^{*} = (\varphi^{*} \e \psi^{*})$;
+	\item $(\varphi \ou \psi)^{*} = (\varphi^{*} \ou \psi^{*})$;	
+	\item $(\varphi \impli \psi)^{*} = (\varphi^{*} \impli \psi^{*})$;
+	\item $(B\varphi)^{*} = Prov(\ulcorner \varphi^{*}\urcorner)$.
+\end{itemize}
+
+\qquad On the one hand, it was straightforward how to interpret the modal formulas in the language of \textbf{PA}; on the other hand it was not clear how to give a formal interpretation of this provability calculus (S4) in \textbf{PA}. In \cite{Goedel33} Gödel pointed out that S4 does not correspond to the calculus of the predicate $Prov(x)$ in \textbf{PA}. Simply because S4 proves the formula $B(B(\bot) \impli \bot)$. Using the above translation this formula correspond to $Prov(\ulcorner Prov(\ulcorner\bot\urcorner) \impli \bot\urcorner)$. And since the following sentences are equivalent in \textbf{PA}:
+
+\begin{center}
+	$Prov(\ulcorner\bot\urcorner) \impli \bot$\\
+	$\nao Prov(\ulcorner\bot\urcorner)$\\
+	$Consist(\textbf{PA})$,
+\end{center}
+$Prov(\ulcorner Prov(\ulcorner\bot\urcorner) \impli \bot\urcorner)$ means that the consistency of \textbf{PA} is internally provable in \textbf{PA}, which contradicts Gödel's Second Incompleteness Theorem.
+
+\qquad In a lecture in 1938 \cite{Goedel38} Gödel suggested a way to remedy this problem. Instead of using the implicit representation of proofs by the existential quantifier in the formula $\ex y Proof (y,x)$ one can use explicit variables for proofs (like $t$) in the formula $Proof (t,x)$. In these lines, Gödel proposed expanding the language of classical propositional logic with variables for proofs and adding the following ternary operator $tB(\varphi,\psi)$ which should be read as `$t$ is a derivation of $\psi$ from $\varphi$'. Using $tB(\varphi)$ as an abbreviation of $tB(\top,\varphi)$, Gödel formulated the following axiom system:
+
+\begin{itemize}
+	\item[] All tautologies
+	\item[] $tB(\varphi)\impli \varphi$
+	\item[] $tB(\varphi,\psi) \impli (sB(\psi,\theta) \impli f(t,s)B(\varphi,\theta))$\footnote{To understand the motivation behind this function $f$ consider the following. Suppose $t$ is a derivation of $\psi$ from $\varphi$ and $s$ is a derivation of $\theta$ from $\psi$. Then it can be easily seen that the concatenation of $t$ and $s$, $t^{\smallfrown}s$, is a derivation of $\theta$ from $\varphi$. So, if $t$ is a derivation of $\psi$ from $\varphi$ and $s$ is a derivation of $\theta$ from $\psi$, then $f(t,s)= t^{\smallfrown}s$.  }
+	\item[] $tB(\varphi) \impli t\p B(tB(\varphi))$
+	\item[] (\textit{Modus Ponens}) $\teo \varphi$, $\teo \varphi\impli\psi$ $\Rightarrow$ $\teo \psi$
+	\item[] (\textit{Internalization})  $\teo \varphi$ $\Rightarrow$ $\teo tB(\varphi)$ (where $t$ is an derivation of $\varphi$).
+\end{itemize}
+
+
+\qquad Gödel just formulated this system but he did not give a proof of how this system could be used to be a bridge between Int and \textbf{PA}. Independently of Gödel's system presented in \cite{Goedel38} (the lecture was published only in 1998), Sergei Artemov (in \cite{Artemov01}) proposed the use of explicit variables and constants for proofs and some basic operations between proofs (Application `$\cdot$', Sum `$+$' and Verifier `$!$'). Instead of having $B\varphi$ (or the more modern notation of provability logic $\Box \varphi$), the non-classical formulas are of the form $t$$:$$\varphi$ (which should be read as `$t$ is a proof of $\varphi$'); where $t$ is a simple or complex term composed of proof variables or constants. With this new language Artemov stipulated the following axiom system to capture the behavior of this explicit provability:     
+
+\begin{itemize}
+	\item[] All tautologies
+	\item[] $t$$:$$\varphi \impli \varphi$
+	\item[] $t$$:$$(\varphi \impli \psi) \impli$ $(s$$:$$\varphi \impli$ $[t\cdot s]$$:$$\psi)$
+	\item[] $t$$:$$\varphi \impli$ $!t$$:$$t$$:$$\varphi$
+	\item[] $t$$:$$\varphi \impli$ $[t+s]$$:$$\varphi$ 
+	\item[] $s$$:$$\varphi \impli$ $[t+s]$$:$$\varphi$
+	\item[] (\textit{Modus Ponens}) $\teo \varphi$, $\teo \varphi\impli\psi$ $\Rightarrow$ $\teo \psi$
+	\item[] (\textit{axiom necessitation})  $\teo c$$:$$\varphi$, where $\varphi$ is an axiom and $c$ is a justification constant.
+\end{itemize}
+
+\qquad This logic was called \textit{Logic of Proofs} (LP) and it was the first example of justification logic.
+
+
+\qquad If $\varphi$ is a S4 formula, there is a mapping $r$ (called a \textit{realization}) from the occurrences of $B$'s (or boxes) into terms. The result of this mapping on $\varphi$ is denoted $\varphi^{r}$. The following theorem express the connection between S4 and LP:
+
+\textbf{(Realization Theorem between S4 and LP)} For every $\varphi$ in the language of S4, there is a realization $r$ such that
+
+\begin{center}
+S4 $\teo \varphi$ iff LP $\teo \varphi^{r}$ 
+\end{center}
+
+\qquad There is a way to define an interpretation $*$ of the LP formulas into the sentences of \textbf{PA} (for details see \cite{Artemov01}). And with all this machinery Artemov was able to prove the following result:
+
+\textbf{(Provability Completeness of Intuitionistic Logic)} For every $\varphi$, for every interpretation $*$, there is a realization $r$ such that
+
+\begin{center}
+Int $\teo \varphi$ iff S4 $\teo \varphi^{B}$ iff LP $\teo (\varphi^{B})^{r}$ iff \textbf{PA} $\teo ((\varphi^{B})^{r})^{*}$
+\end{center}
+
+
+\qquad This result shows that instead of the philosophical attitude of understanding intuitionistic logic as a reasoning different from the reasoning that classical logic wants to capture, we can interpret intuitionistic logic as provability in \textit{classical mathematics}. Thus, the primitive notions that appear in the BHK semantics (`proof' and `construction') can have a formal meaning in a classical setting.
+
+
+\qquad Going beyond the specific problem of the formalization of BHK semantics, justification logic can be seen as a new tool to introduce the notion of \textit{justifications} in the well-established discussion of epistemic logic (for a more detailed discussion see \cite{Artemov08}). Instead of using modal formulas like $\Box \varphi$ to express:
+
+\begin{center}
+For a given agent, $\varphi$ is known,	
+\end{center}  
+we use justification formulas like $t$$:$$\varphi$ to express:
+
+\begin{center}
+For a given agent, $\varphi$ is known for the reason $t$.	
+\end{center}  
+
+\qquad Informally, we can see the terms $t, s, \dots$ as justifications and the operators $+, \cdot, !$ can be seen as means of epistemic action. In fact, this point of view enables us to see justification logic as something bigger than the logic of the explicit provability; justification logic can be seen as a logic of \textit{explicit knowledge}.
+
+\qquad Our main interest in justification logic lies in this connection with epistemic logic. We are not going to focus on the arithmetical interpretation of this logic, instead we are going to work only with the Kripke-style semantics introduced by Melvin Fitting for this logic. But it is important to have the provability interpretation in mind because some of the choices made to formulate specific aspects of justification logic are directly motivated by the relationship with provability logic and the arithmetical interpretation. 
+
+\section{The propositional case: language and axiom system}
+
+\begin{defn} (Basic vocabulary)	
+	\begin{itemize} 
+		\item $p, q, p\p, q\p, \dots$ (\textit{propositional variables});
+		\item $\impli, \bot$ (\textit{boolean connectives});
+		\item $x,y,z, \dots \dots$(\textit{justification variables});
+		\item $a, b, \dots$, with indices, $1, 2, \dots$ (\textit{justification constants});
+		\item $+$, $\cdot$ (\textit{justification operators});
+		\item $),($ (\textit{parentheses}).
+	\end{itemize}
+\end{defn}
+
+\begin{defn} (Justification terms)
+	\begin{center}
+		$ t :: = x$   $|$ $c$ $|$  $(t \cdot t)$ $|$ $(t + t)$ 
+	\end{center}
+\end{defn}
+
+
+
+\begin{defn} (Justification formulas)
+	\begin{center}
+		$ \varphi :: = p$   $|$ $\bot$ $|$  $(\varphi \impli \varphi)$ $|$ $t$$:$$\varphi$
+	\end{center}
+\end{defn}
+
+\qquad We define $\nao, \e, \see$ and $\ou$ as usual. Sometimes, to help readability, we use the brackets `$],[$' together with `$),($'.
+
+\qquad The minimal justification logic J$_{0}$ is axiomatized by the following axiom schemes and inference rules:\\
+
+All tautologies\\
+
+(\textit{Application Axiom}) $t$$:$$(\varphi \impli \psi) \impli$ $(s$$:$$\varphi \impli$ $[t\cdot s]$$:$$\psi)$\\
+
+(\textit{Sum Axioms}) $t$$:$$\varphi \impli$ $[t+s]$$:$$\varphi$, $s$$:$$\varphi \impli$ $[t+s]$$:$$\varphi$\\
+
+(\textit{Modus Ponens}) $\teo \varphi$, $\teo \varphi\impli\psi$ $\Rightarrow$ $\teo \psi$ \\
+
+(\textit{axiom necessitation})  $\teo c$$:$$\varphi$, where $\varphi$ is an axiom and $c$ is a justification constant.\\
+
+\qquad The notion of derivation in this system, J$_{0}$ $\teo \varphi$, is defined as usual. 
+
+\begin{defn}
+Let $\C$ be a non-empty set of formulas. We say that $\C$ is a \textit{constant specification}, if for every $\varphi \in \C$, $\varphi = c$$:$$\psi$ where $c$ is a justification constant and $\psi$ is an axiom. A proof meets constant specification $\C$ provided that whenever the inference rule `axiom necessitation' is used to introduce $c$$:$$\psi$, then $c$$:$$\psi \in \C$.
+
+\qquad We say that a constant specification $\C$ is \textit{axiomatically appropriate} if i) for every axiom $\varphi$ there is a justification constant $c_{1}$ such that $c_{1}$$:$$\varphi\in \C$; and ii) if $c_n, c_{n-1}, \dots , c_{1}$$:$$\varphi\in \C$, then $c_{n+1}, c_{n}, \dots , c_{1}$$:$$\varphi\in \C$, for each $n \geq 1$. 	
+\end{defn}
+
+
+\qquad For a constant specification $\C$, by J$_{\C}$ we mean J$_{0}$ plus formulas from $\C$ as additional axioms.
+
+\begin{teor}
+(Internalization) Suppose $\C$ is an axiomatically appropriate constant specification. In these conditions, J$_{\C}$ satisfies internalization. That is, if J$_{\C}$ $\teo \varphi$ then J$_{\C}$ $\teo  t$$:$$\varphi$, for some justification term $t$.
+\end{teor}
+
+\qquad There are some well-know examples of justification logic other than J$_{0}$; in this thesis we are going to mention only two of them. The first one is the already mentioned Logic of Proofs (LP): it extends the language of J$_{0}$ with the unary justification operator $!$ and has the following additional axiom schemes:\\
+
+(\textit{Factivity Axiom}) $t$$:$$\varphi \impli \varphi$\\
+
+(\textit{Positive Introspection Axiom}) $t$$:$$\varphi \impli$ $!t$$:$$t$$:$$\varphi$\\
+
+\qquad The second one is called JT45, it extends the language of LP with the unary justification operator $?$ and has the following additional axiom scheme:\\
+
+(\textit{Negative Introspection Axiom}) $\nao t$$:$$\varphi \impli$ $?t$$:$$\nao t$$:$$\varphi$\\
+
+\qquad We have stated the Internalization Theorem above for J$_{0}$, but this theorem also holds for LP and JT45. Because of the Positive Introspection Axiom we can prove this result for LP and JT45 with a weaker notion of axiomatically appropriate constant specification $\C$. In both of these logics we just say that a constant specification $\C$ is axiomatically appropriate if for every axiom $\varphi$ there is a justification constant $c$ such that $c$$:$$\varphi\in \C$. It should be noted that the Internalization Theorem is just an explicit form of the necessitation rule.
+
+\qquad Informally speaking, the \textit{forgetful projection} of a justification formula $\varphi$, denoted $\varphi^{\circ}$, is the result of replacing every subformula $t$$:$$\psi$ with $\Box\psi$. We also commented on the notion of \textit{realization}. With these two notions we can state more clearly the relationship between modal logic and justification logic.
+
+
+
+\begin{defn}
+Suppose KL is a normal modal logic and let JL be a justification logic mentioned above. We say that JL is a \textit{counterpart} of KL if the following holds:
+
+\begin{itemize}
+\item  If JL $\teo \varphi$, then KL $\teo \varphi^{\circ}$.
+\item  If KL $\teo \varphi$, then there is a realization $r$ such that JL $\teo \varphi^{r}$.
+\end{itemize}
+\end{defn}
+
+
+\qquad It can be proved that for an axiomatically appropriate constant specification $\C$:
+
+\begin{center}
+J$_{\C}$ is a counterpart of K\\
+
+LP is a counterpart of S4\\
+
+JT45 is a counterpart of S5
+\end{center}
+
+ 
+
+
+\section{From propositional logic to first-order}
+
+\qquad Before we start presenting the first-order version of JT45 we need to remember some properties of derivations in classical first-order logic. It is useful to remember these details, because first-order justification logic tries to mirror some aspects of the individual variables in classical first-order derivations.     
+
+\qquad Let $\varphi(x)$ be any tautology, and let $t$ be the following derivation:
+
+\begin{enumerate}[1.]
+	\item $\varphi(x)$ 
+	\item $\todo x \varphi(x)$                 (generalization)
+	\item $\todo x\varphi(x) \impli (Px \impli \todo x\varphi(x))$ (tautology)
+	\item $Px \impli \todo x\varphi(x)$ (Modus Ponens)
+\end{enumerate}
+
+\qquad Although $x$ is free in the formula $Px \impli \todo x\varphi(x)$, if $c$ is an individual term we cannot substitute $c$ for $x$ in $t$ in order to obtain a derivation $t(c / x)$ of $Pc \impli \todo x\varphi(x)$ (if we do that we ruin the derivation at 2).
+	
+\qquad Now, let $s$ be the following derivation:
+	
+\begin{enumerate}[1.]
+\item $\varphi(x)$ 
+\item $\todo x \varphi(x)$                 (generalization)
+\item $\todo x\varphi(x) \impli (Py \impli \todo x\varphi(x))$ (tautology)
+\item $Py \impli \todo x\varphi(x)$ (Modus Ponens)
+\end{enumerate}
+	
+\qquad $y$ is free in the formula $Py \impli \todo x\varphi(x)$ and moreover for every individual term $c$ the result of substituting $c$ for $y$ in $s$, $s(c/y)$, is a  derivation of $Pc \impli \todo x\varphi(x)$.
+
+
+\qquad These examples show us that there are two different roles of variables in a derivation: a variable can be a \textit{formal symbol} that can be subjected to generalization or a \textit{place-holder} that can be substituted for. In $t$, $x$ is both a formal symbol and a place-holder. And in $s$, $x$ is a formal symbol and $y$ is a place-holder.
+	
+\qquad This consideration motivates the following definition:
+	
+\begin{center}
+$x$ \textit{is free in the derivation} $t$ of the formula $\varphi$ iff for every individual term $c$, $t(c/x)$ is a derivation of $\varphi(c/x)$.
+\end{center}
+
+	
+\qquad In propositional justification logic we write $t$$: $$\varphi$ to express that $t$ is a derivation of $\varphi$. In order to represent the distinct roles of variables in first-order justification logic, we are going to write formulas of the form:
+
+\begin{center}
+$t$$:$$Px \impli \todo x\varphi(x)$\\
+$s$$:_{\{y\}}$$Py \impli \todo x\varphi(x)$
+\end{center}
+	
+	
+\qquad The role of $\{y\}$ in $s$$:_{\{y\}}$$Py \impli \todo x\varphi(x)$ is to point out that $y$ is free in the derivation $s$ of $Py \impli \todo x\varphi(x)$. 
+
+
+
